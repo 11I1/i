@@ -30,20 +30,21 @@ insertCommand("skill", function(getPlayer)
             end
         end
 
-        if not plr.Character and not plr.Character.Humanoid and not plr.Character.Humanoid.Health > 0 and getPlayer.Character and not getPlayer.Character.Humanoid and not getPlayer.Character.Humanoid.Health > 0 then
+        if not plr.Character and not plr.Character.Humanoid and not plr.Character.Humanoid.Health > 0 and not getPlayer.Character and not getPlayer.Character.Humanoid and not getPlayer.Character.Humanoid.Health > 0 then
             return
         end
 
         local tool, part = plr.Backpack["Stroller"] or plr.Character["Stroller"]
-        for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("Part") and v["TouchInterest"] then part = v; break end
+        for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("Part") and v["TouchInterest"] then part = v; break end end
 
         function method()
             plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 0, -2)); wait(3/4)
             plr.Character.Humanoid:EquipTool(tool)
-        end
+        end; method()
     end
 end)
 
+--[[
 insertCommand("svoid", function(getPlayer)
     if ((tonumber(game["PlaceId"])) == (1662219031)) then
         for _, v in next, (plrs:GetPlayers()) do
