@@ -35,7 +35,12 @@ insertCommand("skill", function(getPlayer)
         end
 
         local tool, part = plr.Backpack["Stroller"] or plr.Character["Stroller"]
-        for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("Part") and v["TouchInterest"] then part = v; break end end
+        for i, v in next, workspace["Police Station"]:GetChildren() do
+            if v:IsA("Part") and v["TouchInterest"] then
+                part = v
+                break
+            end
+        end
 
         function method()
             plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 0, -2)); wait(3/4)
