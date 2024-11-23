@@ -30,19 +30,16 @@ insertCommand("skill", function(getPlayer)
             end
         end
 
-        if not plr.Character and not plr.Character.Humanoid and not plr.Character.Humanoid.Health > 0 and not getPlayer.Character and not getPlayer.Character.Humanoid and not getPlayer.Character.Humanoid.Health > 0 then
+        if not plr.Character and not plr.Character.Humanoid and plr.Character.Humanoid.Health <= 0 and not getPlayer.Character and not getPlayer.Character.Humanoid and getPlayer.Character.Humanoid.Health <= 0 then
             return
         end
 
-        local tool, part = plr.Backpack["Stroller"] or plr.Character["Stroller"]
-        for i, v in next, workspace["Police Station"]:GetChildren() do
-            if v:IsA("Part") and v["TouchInterest"] then
-                part = v
-                break
-            end
-        end
+        if plr.Character["Sitting"] then return end
 
-        function method()
+        local tool, part = plr.Backpack["Stroller"] or plr.Character["Stroller"]
+        for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("Part") and v["TouchInterest"] then part = v; break end end
+
+        local function method()
             plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 0, -2)); wait(3/4)
             plr.Character.Humanoid:EquipTool(tool)
         end; method()
@@ -73,3 +70,4 @@ insertCommand("sbring", function(getPlayer)
         end
     end
 end)
+]]
