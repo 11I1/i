@@ -36,6 +36,8 @@ insertCommand("skill", function(getPlayer)
 
         if plr.Character["Sitting"] or getPlayer.Character["Sitting"] then return end
 
+        warn("Done!")
+
         local tool, part = plr.Backpack["Stroller"] or plr.Character["Stroller"]
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("Part") and v["TouchInterest"] then part = v; break end end
 
