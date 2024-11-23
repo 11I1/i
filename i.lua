@@ -21,7 +21,6 @@ function property()
 end
 
 insertCommand("skill", function(getPlayer)
-        warn("works")
     if ((tonumber(game["PlaceId"])) == (1662219031)) then
         for _, v in next, (plrs:GetPlayers()) do
             if v:IsA("Player") then
@@ -35,7 +34,7 @@ insertCommand("skill", function(getPlayer)
             return
         end
 
-        if plr.Character["Sitting"] then return end
+        if plr.Character["Sitting"] or getPlayer.Character["Sitting"] then return end
 
         local tool, part = plr.Backpack["Stroller"] or plr.Character["Stroller"]
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("Part") and v["TouchInterest"] then part = v; break end end
