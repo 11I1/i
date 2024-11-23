@@ -37,8 +37,9 @@ insertCommand("skill", function(getPlayer)
         if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") then return end
 
         plr.Character:UnequipTools()
-        local tool, part = plr.Backpack["Stroller"] or plr.Character["Stroller"]
-        for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("Part") and v:FindFirstChild("TouchInterest") then part = v; break end end
+        local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
+        for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
+        for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function teleport()
             plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 0, 2))
@@ -48,7 +49,7 @@ insertCommand("skill", function(getPlayer)
                 if not getPlayer.Character and not getPlayer.Character.Humanoid and getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
-                    firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)
+                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
                 end
             until plr.Character.Humanod.Health <= 0
         end)
