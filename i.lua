@@ -36,13 +36,26 @@ insertCommand("skill", function(getPlayer)
 
         if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") then return end
 
+        plr.Character:UnequipTools()
         local tool, part = plr.Backpack["Stroller"] or plr.Character["Stroller"]
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("Part") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
-        local function method()
-            plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 0, -2)); wait(3/4)
+        local function teleport()
+            plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 0, 2))
             plr.Character.Humanoid:EquipTool(tool)
-        end; method()
+        end; pcall(function()
+            repeat teleport()
+                if not getPlayer.Character and not getPlayer.Character.Humanoid and getPlayer.Character.Humanoid.Health <= 0 then
+                    break
+                else
+                    firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)
+                end
+            until plr.Character.Humanod.Health <= 0
+        end)
+
+        repeat task.wait() until not getPlayer.Character or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting")
+
+        wait(); plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
