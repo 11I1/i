@@ -49,7 +49,7 @@ insertCommand("skill", function(getPlayer)
                 if not getPlayer.Character and not getPlayer.Character.Humanoid and getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
-                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
+                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
                 end
             until plr.Character.Humanod.Health <= 0
         end)
