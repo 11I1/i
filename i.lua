@@ -30,9 +30,13 @@ insertCommand("skill", function(getPlayer)
             end
         end
 
+        warn("start")
+
         if not plr.Character and not plr.Character.Humanoid and plr.Character.Humanoid.Health <= 0 and not getPlayer.Character and not getPlayer.Character.Humanoid and getPlayer.Character.Humanoid.Health <= 0 then
             return
         end
+
+        warn("ok")
 
         if plr.Character["Sitting"] or getPlayer.Character["Sitting"] then return end
 
