@@ -21,6 +21,7 @@ function property()
 end
 
 insertCommand("skill", function(getPlayer)
+        warn("works")
     if ((tonumber(game["PlaceId"])) == (1662219031)) then
         for _, v in next, (plrs:GetPlayers()) do
             if v:IsA("Player") then
