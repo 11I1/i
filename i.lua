@@ -22,7 +22,7 @@ workspace.ChildAdded:Connect(function(object)
         ranking[object] = 1
     else
         ranking[object] = 1
-        for i, v in next, ranking do if i ~= object then ranking[i] += 1 end end
+        for i, v in next, ranking do if i ~= object then ranking[i] = v + 1 end end
     end
 
     table.foreach(ranking, print)
