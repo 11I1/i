@@ -22,11 +22,8 @@ end
 
 insertCommand("skill", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        for _, v in next, (plrs:GetPlayers()) do
-            if v:IsA("Player") and v.Name:lower():sub(1, string.len(tostring(getPlayer))) == tostring(getPlayer):lower() or v.DisplayName:lower():sub(1, string.len(tostring(getPlayer))) == tostring(getPlayer):lower() then
-                getPlayer = v
-            end
-        end
+        local name = tostring(getPlayer):lower()
+        for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
             return
@@ -46,25 +43,22 @@ insertCommand("skill", function(getPlayer)
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
-                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(-1, 1, 2))
+                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 1/2, 2))
                     for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
                 end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
         local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
+        repeat wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
         plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
 insertCommand("as", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        for _, v in next, (plrs:GetPlayers()) do
-            if v:IsA("Player") and v.Name:lower():sub(1, string.len(tostring(getPlayer))) == tostring(getPlayer):lower() or v.DisplayName:lower():sub(1, string.len(tostring(getPlayer))) == tostring(getPlayer):lower() then
-                getPlayer = v
-            end
-        end
+        local name = tostring(getPlayer):lower()
+        for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
             return
@@ -90,18 +84,15 @@ insertCommand("as", function(getPlayer)
         end task.spawn(function() pcall(run) end)
 
         local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character:FindFirstChild("Sitting")
+        repeat wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character:FindFirstChild("Sitting")
         plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
 insertCommand("skill2", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        for _, v in next, (plrs:GetPlayers()) do
-            if v:IsA("Player") and v.Name:lower():sub(1, string.len(tostring(getPlayer))) == tostring(getPlayer):lower() or v.DisplayName:lower():sub(1, string.len(tostring(getPlayer))) == tostring(getPlayer):lower() then
-                getPlayer = v
-            end
-        end
+        local name = tostring(getPlayer):lower()
+        for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
             return
@@ -115,21 +106,21 @@ insertCommand("skill2", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            tool.Parent = plr.Character
+            tool.Parent = plr.Character; wait(1/2)
             tool.Parent = workspace
 
             repeat
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
-                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(-1, 1, 2))
+                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 1/2, 2))
                     for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
                 end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
         local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
+        repeat wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
         plr.Character.Humanoid:ChangeState(15)
     end
 end)
