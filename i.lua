@@ -7,8 +7,16 @@ local rs
 local loop = (false)
 local loops = {}; table.clear(loops)
 local utilities = {}; table.clear(utilities)
+local ranking = {}; table.clear(ranking)
 
-repeat task.wait() until (loop ~= true) and ((tonumber(#loops)) <= (0)) and ((tonumber(#utilities)) <= (0))
+repeat task.wait() until loop == false and #loop == 0 and #utilities == 0 and #ranking == 0
+
+workspace.ChildAdded:Connect(function(object)
+    if plrs:FindFirstChild(object.Name) then
+        table.insert(ranking, object.Name)
+        table.foreach(ranking, print)
+    end
+end)
 
 function property()
     if not plr.Character then return end
@@ -121,13 +129,6 @@ insertCommand("skill2", function(getPlayer)
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
         plr.Character.Humanoid:ChangeState(15)
-    end
-end)
-
-insertCommand("lskill", function(getPlayer)
-    if game.PlaceId == 1662219031 then
-        loops["lskill"] = true
-        while loops["lskill"] do task.spawn(function() api.cmds[api["prefix"]["new"].."skill"](getPlayer) end); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
     end
 end)
 
