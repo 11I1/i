@@ -49,7 +49,7 @@ insertCommand("skill", function(getPlayer)
                     break
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(1/2, 1, 2))
-                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
+                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait()) end
                 end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
