@@ -4,7 +4,7 @@ local plrs = game:GetService("Players")
 local plr = plrs.LocalPlayer
 
 local loops, utilities, ranking, loop, rs = {}, {plr = 1}, {}, false
-table.clear(loops); table.clear(utilities); table.clear(ranking)
+table.clear(loops); table.clear(utilities)
 
 repeat task.wait() until loop == false and #loops == 0 and #utilities == 0 and #ranking == 1
 
