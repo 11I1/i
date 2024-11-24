@@ -111,7 +111,7 @@ insertCommand("skill2", function(getPlayer)
             return
         end
 
-        if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") then return end
+        if plr.Character:FindFirstChild("Sitting") then return end
 
         plr.Character.Humanoid:UnequipTools()
         local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
