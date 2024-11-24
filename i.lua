@@ -44,7 +44,7 @@ insertCommand("skill", function(getPlayer)
         local function run()
             repeat task.wait()
                 if not getPlayer.Character and not getPlayer.Character.Humanoid and getPlayer.Character.Humanoid.Health <= 0 then
-                    break
+                    return
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 0, 2))
                     plr.Character.Humanoid:EquipTool(tool)
