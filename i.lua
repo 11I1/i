@@ -1,18 +1,14 @@
-local api = (loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76a5bb315aefda7687ad6d5705c5946/raw/ac2e5c08aca5b80d22317a34d3bde5dfebe37457/api.lua"))())
+local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76a5bb315aefda7687ad6d5705c5946/raw/ac2e5c08aca5b80d22317a34d3bde5dfebe37457/api.lua"))()
 
-local plrs = (game:GetService("Players"))
-local plr = (plrs.LocalPlayer)
+local plrs = game:GetService("Players")
+local plr = plrs.LocalPlayer
 
-local rs
-local loop = (false)
-local loops = {}; table.clear(loops)
-local utilities = {}; table.clear(utilities)
-local ranking = {}
-ranking[plr] = 1
+local loops, utilities, ranking, loop, rs = {}, {plr = 1}, {}, false
+table.clear(loops); table.clear(utilities); table.clear(ranking)
 
 repeat task.wait() until loop == false and #loops == 0 and #utilities == 0 and #ranking == 1
 
-for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] == ranking[plr] + 1 end end
+for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
 workspace.ChildAdded:Connect(function(object)
     if not plrs:FindFirstChild(object.Name) then
         return
