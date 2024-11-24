@@ -7,10 +7,11 @@ local rs
 local loop = (false)
 local loops = {}; table.clear(loops)
 local utilities = {}; table.clear(utilities)
-local ranking = {}; table.clear(ranking)
+local ranking = {}; ranking[plr] = 1
 
-repeat task.wait() until loop == false and #loops == 0 and #utilities == 0 and #ranking == 0
+repeat task.wait() until loop == false and #loops == 0 and #utilities == 0 and #ranking == 1
 
+for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] == ranking[plr] + 1 end end
 workspace.ChildAdded:Connect(function(object)
     if not plrs:FindFirstChild(object.Name) then
         return
@@ -22,12 +23,12 @@ workspace.ChildAdded:Connect(function(object)
     for i, v in next, ranking do if i ~= object then ranking[i] = v + 1 end end
 end)
 
-local function getRank(getPlayer)
+function getRank(getPlayer)
     if not getPlayer then return end
     if ranking[plr] > ranking[getPlayer] then return true else return false end
 end
 
-local function property()
+function property()
     if not plr.Character then return end
     for i, v in next, plr.Character:GetChildren() do if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.new(0, 0, 0), Vector3.new(0, 0, 0) end end
 end
@@ -41,7 +42,7 @@ insertCommand("skill", function(getPlayer)
             return
         end
 
-        print(getRank(getPlayer))
+        if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
 
         if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
@@ -112,7 +113,7 @@ insertCommand("skill2", function(getPlayer)
             return
         end
 
-            print(getRank(getPlayer))
+        if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
 
         if plr.Character:FindFirstChild("Sitting") then return end
 
