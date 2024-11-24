@@ -12,10 +12,19 @@ local ranking = {}; table.clear(ranking)
 repeat task.wait() until loop == false and #loops == 0 and #utilities == 0 and #ranking == 0
 
 workspace.ChildAdded:Connect(function(object)
-    if plrs:FindFirstChild(object.Name) then
-        table.insert(ranking, object.Name)
-        table.foreach(ranking, print)
+    if not plrs:FindFirstChild(object.Name) then
+        return
+    else
+        object = plrs:FindFirstChild(object.Name)
     end
+
+    if not table.find(ranking, object) then
+        ranking[object] = 1
+    else
+        ranking[object] = #ranking[object] + 1
+    end
+
+    table.foreach(ranking, print)
 end)
 
 function property()
