@@ -24,7 +24,7 @@ insertCommand("skill", function(getPlayer)
     if game.PlaceId == 1662219031 then
         getPlayer = tostring(getPlayer):lower()
         for i, v in next, plrs:GetPlayers() do
-            if v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then
+            if v:IsA("Player") and v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then
                 getPlayer = v
             end
         end
@@ -33,7 +33,7 @@ insertCommand("skill", function(getPlayer)
             return
         end
 
-        if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") then return end
+        if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
         plr.Character.Humanoid:UnequipTools()
         local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
@@ -44,7 +44,7 @@ insertCommand("skill", function(getPlayer)
             tool.Parent = plr.Character
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting") then
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(-1, 1, 2))
@@ -63,7 +63,7 @@ insertCommand("as", function(getPlayer)
     if game.PlaceId == 1662219031 then
         getPlayer = tostring(getPlayer):lower()
         for i, v in next, plrs:GetPlayers() do
-            if v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then
+            if v:IsA("Player") and v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then
                 getPlayer = v
             end
         end
@@ -72,7 +72,7 @@ insertCommand("as", function(getPlayer)
             return
         end
 
-        if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") then return end
+        if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
         plr.Character.Humanoid:UnequipTools()
         local tool, parts = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
@@ -82,7 +82,7 @@ insertCommand("as", function(getPlayer)
             tool.Parent = plr.Character
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting") then
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
                     plr.Character:SetPrimaryPartCFrame(getPlayer.Character:GetModelCFrame() * CFrame.new(0, 0, 10))
@@ -102,7 +102,7 @@ insertCommand("skill2", function(getPlayer)
     if game.PlaceId == 1662219031 then
         getPlayer = tostring(getPlayer):lower()
         for i, v in next, plrs:GetPlayers() do
-            if v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then
+            if v:IsA("Player") and v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then
                 getPlayer = v
             end
         end
@@ -123,7 +123,7 @@ insertCommand("skill2", function(getPlayer)
             tool.Parent = workspace
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit then
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(-1, 1, 2))
