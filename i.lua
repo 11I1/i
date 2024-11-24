@@ -42,8 +42,6 @@ insertCommand("skill", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            plr.Character.Humanoid:EquipTool(tool)
-
             repeat
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting") then
                     break
@@ -52,7 +50,7 @@ insertCommand("skill", function(getPlayer)
                     for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
                 end
             until plr.Character.Humanoid.Health <= 0
-        end task.spawn(function() pcall(run) end)
+        end spawn(function() pcall(run) end); plr.Character.Humanoid:EquipTool(tool)
 
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
@@ -95,8 +93,6 @@ insertCommand("as", function(getPlayer)
         for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
 
         local function run()
-            plr.Character.Humanoid:EquipTool(tool)
-
             repeat
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting") then
                     break
@@ -106,7 +102,7 @@ insertCommand("as", function(getPlayer)
                     task.wait()
                 end
             until plr.Character.Humanoid.Health <= 0
-        end task.spawn(function() pcall(run) end)
+        end spawn(function() pcall(run) end); plr.Character.Humanoid:EquipTool(tool)
 
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character:FindFirstChild("Sitting")
@@ -136,10 +132,6 @@ insertCommand("skill2", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            plr.Character.Humanoid:EquipTool(tool)
-            repeat task.wait() until plr.Character:FindFirstChild(tool)
-            tool.Parent = workspace
-
             repeat
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit then
                     break
@@ -148,7 +140,10 @@ insertCommand("skill2", function(getPlayer)
                     for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
                 end
             until plr.Character.Humanoid.Health <= 0
-        end task.spawn(function() pcall(run) end)
+        end spawn(function() pcall(run) end)
+
+        plr.Character.Humanoid:EquipTool(tool); wait(1/4)
+        tool.Parent = workspace
 
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
