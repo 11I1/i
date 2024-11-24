@@ -124,6 +124,18 @@ insertCommand("skill2", function(getPlayer)
     end
 end)
 
+insertCommand("lskill", function(getPlayer)
+    api.cmds["/stop"]()
+
+    loops["lskill"] = true
+    while loops["lskill"] do
+        task.spawn(function()
+            pcall(api.cmds["/skill"](getPlayer))
+        end)
+        plr.CharacterAdded:Wait():WaitForChild("Humanoid")
+    end
+end)
+
 --[[
 insertCommand("svoid", function(getPlayer)
     if ((tonumber(game["PlaceId"])) == (1662219031)) then
