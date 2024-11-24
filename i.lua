@@ -41,7 +41,7 @@ insertCommand("skill", function(getPlayer)
         for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
-        local function teleport()
+        local function run()
             repeat
                 if not getPlayer.Character and not getPlayer.Character.Humanoid and getPlayer.Character.Humanoid.Health <= 0 then
                     break
@@ -51,7 +51,7 @@ insertCommand("skill", function(getPlayer)
                     for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
                 end
             until plr.Character.Humanoid.Health <= 0
-        end task.spawn(function() pcall(teleport) end)
+        end task.spawn(function() pcall(run) end)
 
         repeat task.wait() until not getPlayer.Character or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting")
 
