@@ -21,7 +21,7 @@ function property()
 end
 
 insertCommand("skill", function(getPlayer)
-    if ((tonumber(game["PlaceId"])) == (1662219031)) then
+    if game.PlaceId == 1662219031 then
         for _, v in next, (plrs:GetPlayers()) do
             if v:IsA("Player") then
                 if ((tostring(v["Name"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower()) or (tostring(v["DisplayName"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower())) then
@@ -61,13 +61,13 @@ insertCommand("skill", function(getPlayer)
 end)
 
 insertCommand("lskill", function(getPlayer)
-    if tonumber(game.PlaceId) == 1662219031 then
+    if game.PlaceId == 1662219031 then
         api.cmds["/stop"]()
 
         loops["lskill"] = true
         while loops["lskill"] do
             task.spawn(function()
-                pcall(api.cmds[api["prefix"]["new"].."skill"](getPlayer))
+                pcall(api.cmds["/skill"](getPlayer))
             end)
             plr.CharacterAdded:Wait():WaitForChild("Humanoid")
         end
@@ -75,45 +75,47 @@ insertCommand("lskill", function(getPlayer)
 end)
 
 insertCommand("as", function(getPlayer)
-    for _, v in next, (plrs:GetPlayers()) do
-        if v:IsA("Player") then
-            if ((tostring(v["Name"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower()) or (tostring(v["DisplayName"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower())) then
-                getPlayer = (v)
+    if game.PlaceId == 1662219031 then
+        for _, v in next, (plrs:GetPlayers()) do
+            if v:IsA("Player") then
+                if ((tostring(v["Name"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower()) or (tostring(v["DisplayName"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower())) then
+                    getPlayer = (v)
+                end
             end
         end
+
+        if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
+            return
+        end
+
+        if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
+
+        plr.Character.Humanoid:UnequipTools()
+        local tool, parts = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
+        for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
+
+        local function run()
+            plr.Character.Humanoid:EquipTool(tool)
+
+            repeat
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting") then
+                    break
+                else
+                    plr.Character:SetPrimaryPartCFrame(getPlayer.Character:GetModelCFrame() * CFrame.new(0, 0, 10))
+                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
+                    task.wait()
+                end
+            until plr.Character.Humanoid.Health <= 0
+        end task.spawn(function() pcall(run) end)
+
+        local clock = os.time()
+        repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character:FindFirstChild("Sitting")
+        plr.Character.Humanoid:ChangeState(15)
     end
-
-    if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
-        return
-    end
-
-    if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
-
-    plr.Character.Humanoid:UnequipTools()
-    local tool, parts = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
-    for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
-
-    local function run()
-        plr.Character.Humanoid:EquipTool(tool)
-
-        repeat
-            if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting") then
-                break
-            else
-                plr.Character:SetPrimaryPartCFrame(getPlayer.Character:GetModelCFrame() * CFrame.new(0, 0, 10))
-                for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
-                task.wait()
-            end
-        until plr.Character.Humanoid.Health <= 0
-    end task.spawn(function() pcall(run) end)
-
-    local clock = os.time()
-    repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character:FindFirstChild("Sitting")
-    plr.Character.Humanoid:ChangeState(15)
 end)
 
 insertCommand("skill2", function(getPlayer)
-    if ((tonumber(game["PlaceId"])) == (1662219031)) then
+    if game.PlaceId == 1662219031 then
         for _, v in next, (plrs:GetPlayers()) do
             if v:IsA("Player") then
                 if ((tostring(v["Name"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower()) or (tostring(v["DisplayName"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower())) then
@@ -134,7 +136,8 @@ insertCommand("skill2", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            plr.Character.Humanoid:EquipTool(tool); wait()
+            plr.Character.Humanoid:EquipTool(tool)
+            repeat task.wait() until plr.Character:FindFirstChild(tool)
             tool.Parent = workspace
 
             repeat
@@ -154,13 +157,13 @@ insertCommand("skill2", function(getPlayer)
 end)
 
 insertCommand("lskill2", function(getPlayer)
-    if tonumber(game.PlaceId) == 1662219031 then
+    if game.PlaceId == 1662219031 then
         api.cmds["/stop"]()
 
         loops["lskill2"] = true
         while loops["lskill2"] do
             task.spawn(function()
-                pcall(api.cmds[api["prefix"]["new"].."skill2"](getPlayer))
+                pcall(api.cmds["/skill2"](getPlayer))
             end)
             plr.CharacterAdded:Wait():WaitForChild("Humanoid")
         end
