@@ -113,6 +113,7 @@ insertCommand("skill2", function(getPlayer)
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame); getPlayer.Character:SetPrimaryPartCFrame(tool.Handle.CFrame)
                     firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
+                    if tool.Parent ~= workspace then tool.Parent = workspace end
                 end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
