@@ -30,7 +30,7 @@ insertCommand("skill", function(getPlayer)
             end
         end
 
-        if not plr.Character and not plr.Character.Humanoid and plr.Character.Humanoid.Health <= 0 and not getPlayer.Character and not getPlayer.Character.Humanoid and getPlayer.Character.Humanoid.Health <= 0 then
+        if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
             return
         end
 
@@ -42,15 +42,21 @@ insertCommand("skill", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
+            plr.Character.Humanoid:EquipTool(tool)
+
             repeat
-                if not getPlayer.Character and not getPlayer.Character.Humanoid and getPlayer.Character.Humanoid.Health <= 0 then
-                    plr.Character.Humanoid:ChangeState(15)
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting") then
+                    break
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 0, 2))
-                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(v, part, 0)) end
+                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
                 end
             until plr.Character.Humanoid.Health <= 0
-        end task.spawn(function() plr.Character.Humanoid:EquipTool(tool); pcall(run) end)
+        end task.spawn(function() pcall(run) end)
+
+        local clock = os.time()
+        repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
+        plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
