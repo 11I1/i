@@ -6,6 +6,7 @@ local plr = plrs.LocalPlayer
 local loops, utilities, ranking, loop, rs = {}, {}, {[plr] = 1}, false
 
 for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
+table.foreach(ranking, warn)
 workspace.ChildAdded:Connect(function(object)
     if not plrs:FindFirstChild(object.Name) then
         return
@@ -15,6 +16,7 @@ workspace.ChildAdded:Connect(function(object)
 
     ranking[object] = 1
     for i, v in next, ranking do if i ~= object then ranking[i] = v + 1 end end
+    table.foreach(ranking, warn)
 end)
 
 local function getRank(getPlayer)
