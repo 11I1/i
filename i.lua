@@ -49,7 +49,7 @@ insertCommand("skill", function(getPlayer)
                 plr.Character.Humanoid:EquipTool(tool)
                 for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
             end
-        end task.spawn(function() repeat pcall(teleport()) until plr.Character.Humanoid.Health <= 0)
+        end task.spawn(function() repeat pcall(teleport()) until plr.Character.Humanoid.Health <= 0 end)
 
         repeat task.wait() until not getPlayer.Character or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting")
 
