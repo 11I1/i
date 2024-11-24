@@ -44,18 +44,13 @@ insertCommand("skill", function(getPlayer)
         local function run()
             repeat
                 if not getPlayer.Character and not getPlayer.Character.Humanoid and getPlayer.Character.Humanoid.Health <= 0 then
-                    break
+                    plr.Character.Humanoid:ChangeState(15)
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 0, 2))
-                    plr.Character.Humanoid:EquipTool(tool)
-                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
+                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, firetouchinterest(v, part, 0)) end
                 end
             until plr.Character.Humanoid.Health <= 0
-        end task.spawn(function() pcall(run) end)
-
-        repeat task.wait() until getPlayer.Character.Humanoid.Health <= 0
-
-        wait(); plr.Character.Humanoid:ChangeState(15)
+        end task.spawn(function() plr.Character.Humanoid:EquipTool(tool); pcall(run) end)
     end
 end)
 
