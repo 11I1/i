@@ -9,7 +9,7 @@ local loops = {}; table.clear(loops)
 local utilities = {}; table.clear(utilities)
 local ranking = {}; table.clear(ranking)
 
-repeat task.wait() until loop == false and #loop == 0 and #utilities == 0 and #ranking == 0
+repeat task.wait() until loop == false and #loops == 0 and #utilities == 0 and #ranking == 0
 
 workspace.ChildAdded:Connect(function(object)
     if plrs:FindFirstChild(object.Name) then
@@ -20,12 +20,7 @@ end)
 
 function property()
     if not plr.Character then return end
-    for i, v in next, plr.Character:GetChildren() do
-        if v:IsA("BasePart") then
-            v.Velocity = Vector3.new(0, 0, 0)
-            v.RotVelocity = Vector3.new(0, 0, 0)
-        end
-    end
+    for i, v in next, plr.Character:GetChildren() do if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.new(0, 0, 0), Vector3.new(0, 0, 0) end end
 end
 
 insertCommand("skill", function(getPlayer)
