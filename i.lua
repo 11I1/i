@@ -67,7 +67,7 @@ insertCommand("lkill", function(getPlayer)
         loops["lkill"] = true
         while loops["lkill"] do
             spawn(function()
-                pcall(api.cmds["/skill"](getPlayer))
+                pcall(api.cmds[api["prefix"]["new"].."skill"](getPlayer))
             end)
             plr.CharacterAdded:Wait():WaitForChild("Humanoid")
         end
@@ -110,6 +110,47 @@ insertCommand("as", function(getPlayer)
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character:FindFirstChild("Sitting")
     plr.Character.Humanoid:ChangeState(15)
+end)
+
+insertCommand("skill2", function(getPlayer)
+    if ((tonumber(game["PlaceId"])) == (1662219031)) then
+        for _, v in next, (plrs:GetPlayers()) do
+            if v:IsA("Player") then
+                if ((tostring(v["Name"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower()) or (tostring(v["DisplayName"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower())) then
+                    getPlayer = (v)
+                end
+            end
+        end
+
+        if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
+            return
+        end
+
+        if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") then return end
+
+        plr.Character.Humanoid:UnequipTools()
+        local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
+        for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
+        for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
+
+        local function run()
+            plr.Character.Humanoid:EquipTool(tool)
+            tool.Parent = worksapce
+
+            repeat
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting") then
+                    break
+                else
+                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 1, 2))
+                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
+                end
+            until plr.Character.Humanoid.Health <= 0
+        end task.spawn(function() pcall(run) end)
+
+        local clock = os.time()
+        repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
+        plr.Character.Humanoid:ChangeState(15)
+    end
 end)
 
 --[[
