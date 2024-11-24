@@ -60,12 +60,12 @@ insertCommand("skill", function(getPlayer)
     end
 end)
 
-insertCommand("lkill", function(getPlayer)
+insertCommand("lskill", function(getPlayer)
     if game.PlaceId == 1662219031 then
         api.cmds["/stop"]()
 
-        loops["lkill"] = true
-        while loops["lkill"] do
+        loops["lskill"] = true
+        while loops["lskill"] do
             spawn(function()
                 pcall(api.cmds[api["prefix"]["new"].."skill"](getPlayer))
             end)
@@ -134,7 +134,8 @@ insertCommand("skill2", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            plr.Character.Humanoid:EquipTool(tool); wait(1/2)
+            plr.Character.Humanoid:EquipTool(tool)
+            repeat task.wait() until plr.Character:FindFirstChild(tool)
             tool.Parent = workspace
 
             repeat
@@ -150,6 +151,20 @@ insertCommand("skill2", function(getPlayer)
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
         plr.Character.Humanoid:ChangeState(15)
+    end
+end)
+
+insertCommand("lskill2", function(getPlayer)
+    if game.PlaceId == 1662219031 then
+        api.cmds["/stop"]()
+
+        loops["lskill2"] = true
+        while loops["lskill2"] do
+            spawn(function()
+                pcall(api.cmds[api["prefix"]["new"].."skill2"](getPlayer))
+            end)
+            plr.CharacterAdded:Wait():WaitForChild("Humanoid")
+        end
     end
 end)
 
