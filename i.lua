@@ -46,6 +46,7 @@ insertCommand("skill", function(getPlayer)
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting") then
                     break
                 else
+                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 1, 2))
                     plr.Character.Humanoid:EquipTool(tool)
                     for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
                 end
