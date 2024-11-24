@@ -101,20 +101,18 @@ insertCommand("skill2", function(getPlayer)
         if plr.Character:FindFirstChild("Sitting") then return end
 
         plr.Character.Humanoid:UnequipTools()
-        local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
-        for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
+        local tool, part = plr.Backpack["Stroller"] or plr.Character["Stroller"]
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            tool.Parent = plr.Character; wait(1/2)
-            tool.Parent = workspace
+            plr.Character.Humanoid:EquipTool(tool)
 
             repeat
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
-                    for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
-                    plr.Character:SetPrimaryPartCFrame(part.CFrame)
+                    plr.Character:SetPrimaryPartCFrame(part.CFrame); getPlayer.Character:SetPrimaryPartCFrame(v.CFrame)
+                    firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
                 end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
