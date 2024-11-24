@@ -7,7 +7,8 @@ local rs
 local loop = (false)
 local loops = {}; table.clear(loops)
 local utilities = {}; table.clear(utilities)
-local ranking = {}; ranking[plr] = 1
+local ranking = {}
+ranking[plr] = 1
 
 repeat task.wait() until loop == false and #loops == 0 and #utilities == 0 and #ranking == 1
 
