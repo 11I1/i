@@ -20,12 +20,12 @@ workspace.ChildAdded:Connect(function(object)
 
     ranking[object] = 1
     for i, v in next, ranking do if i ~= object then ranking[i] = v + 1 end end
-
-    table.foreach(ranking, print)
-
-    for i, v in next, ranking do if i ~= object then ranking[i] = ranking[i] + 1 end end
-    table.foreach(ranking, print)
 end)
+
+function getRank(getPlayer)
+    if not getPlayer then return end
+    if ranking[plr] > ranking[getPlayer] then return true else return false end
+end
 
 function property()
     if not plr.Character then return end
@@ -40,6 +40,8 @@ insertCommand("skill", function(getPlayer)
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
             return
         end
+
+        if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
 
         if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
@@ -109,6 +111,8 @@ insertCommand("skill2", function(getPlayer)
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
             return
         end
+
+        if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
 
         if plr.Character:FindFirstChild("Sitting") then return end
 
