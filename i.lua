@@ -105,14 +105,14 @@ insertCommand("skill2", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            plr.Character.Humanoid:EquipTool(tool); wait(1/2)
+            plr.Character.Humanoid:EquipTool(tool)
 
             repeat
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
-                    getPlayer.Character:SetPrimaryPartCFrame(tool.Handle.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
-                    if tool.Parent ~= workspace then tool.Parent = workspace end
+                    plr.Character:SetPrimaryPartCFrame(part.CFrame); getPlayer.Character:SetPrimaryPartCFrame(tool.Handle.CFrame)
+                    firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
                 end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
