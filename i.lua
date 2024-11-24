@@ -22,12 +22,12 @@ workspace.ChildAdded:Connect(function(object)
     for i, v in next, ranking do if i ~= object then ranking[i] = v + 1 end end
 end)
 
-function getRank(getPlayer)
+local function getRank(getPlayer)
     if not getPlayer then return end
     if ranking[plr] > ranking[getPlayer] then return true else return false end
 end
 
-function property()
+local function property()
     if not plr.Character then return end
     for i, v in next, plr.Character:GetChildren() do if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.new(0, 0, 0), Vector3.new(0, 0, 0) end end
 end
@@ -41,7 +41,7 @@ insertCommand("skill", function(getPlayer)
             return
         end
 
-            print(getRank(getPlayer))
+        print(getRank(getPlayer))
 
         if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
@@ -77,8 +77,6 @@ insertCommand("as", function(getPlayer)
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
             return
         end
-
-            print(getRank(getPlayer))
 
         if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
@@ -116,11 +114,6 @@ insertCommand("skill2", function(getPlayer)
 
             print(getRank(getPlayer))
 
-        if not getRank(getPlayer) then
-            plr.Character.Humanoid:ChangeState(15)
-            return
-        end
-        
         if plr.Character:FindFirstChild("Sitting") then return end
 
         plr.Character.Humanoid:UnequipTools()
