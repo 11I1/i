@@ -11,7 +11,7 @@ local ranking = {}; table.clear(ranking)
 
 repeat task.wait() until loop == false and #loops == 0 and #utilities == 0 and #ranking == 0
 
-workspace.ChildAdded:Connect(function(object)
+task.spawn(workspace.ChildAdded:Connect(function(object)
     if not plrs:FindFirstChild(object.Name) then
         return
     else
@@ -20,7 +20,7 @@ workspace.ChildAdded:Connect(function(object)
 
     ranking[object] = 1
     for i, v in next, ranking do if i ~= object then ranking[i] = v + 1 end end
-end)
+end))
 
 function getRank(getPlayer)
     if not getPlayer then return end
@@ -41,7 +41,7 @@ insertCommand("skill", function(getPlayer)
             return
         end
 
-        if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
+        if getRank(getPlayer) == false then plr.Character.Humanoid:ChangeState(15); return end
 
         if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
