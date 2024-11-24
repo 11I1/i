@@ -6,8 +6,6 @@ local plr = plrs.LocalPlayer
 local loops, utilities, ranking, loop, rs = {}, {}, {plr = 1}, false
 table.clear(loops); table.clear(utilities)
 
-repeat task.wait() until loop == false and #loops == 0 and #utilities == 0 and #ranking == 1
-
 for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
 workspace.ChildAdded:Connect(function(object)
     if not plrs:FindFirstChild(object.Name) then
