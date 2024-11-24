@@ -41,10 +41,7 @@ insertCommand("skill", function(getPlayer)
             return
         end
 
-        if not getRank(getPlayer) then
-            plr.Character.Humanoid:ChangeState(15)
-            return
-        end
+            print(getRank(getPlayer))
 
         if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
@@ -81,6 +78,8 @@ insertCommand("as", function(getPlayer)
             return
         end
 
+            print(getRank(getPlayer))
+
         if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
         plr.Character.Humanoid:UnequipTools()
@@ -114,6 +113,8 @@ insertCommand("skill2", function(getPlayer)
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
             return
         end
+
+            print(getRank(getPlayer))
 
         if not getRank(getPlayer) then
             plr.Character.Humanoid:ChangeState(15)
