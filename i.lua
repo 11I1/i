@@ -44,14 +44,13 @@ insertCommand("skill", function(getPlayer)
                     break
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 2, 3))
-                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
-                    task.wait()
+                    for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
                 end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
         local clock = os.time()
-        repeat wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
+        repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
         plr.Character.Humanoid:ChangeState(15)
     end
 end)
@@ -78,7 +77,7 @@ insertCommand("as", function(getPlayer)
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
-                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
+                    for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
                     task.wait()
                 end
             until plr.Character.Humanoid.Health <= 0
@@ -114,15 +113,14 @@ insertCommand("skill2", function(getPlayer)
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
+                    for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
                     plr.Character:SetPrimaryPartCFrame(part.CFrame)
-                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
-                    task.wait()
                 end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
         local clock = os.time()
-        repeat wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
+        repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
         plr.Character.Humanoid:ChangeState(15)
     end
 end)
