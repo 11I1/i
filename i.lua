@@ -22,8 +22,11 @@ end
 
 insertCommand("skill", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        local name = tostring(getPlayer):lower()
-        for i, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
+        for i, v in next, plrs:GetPlayers() do
+            if v:IsA("Player") and v.Name:lower():sub(1, string.len(getPlayer)) == tostring(getPlayer):lower() or v.DisplayName:lower():sub(1, string.len(getPlayer)) == tostring(getPlayer):lower() then
+                getPlayer = v
+            end
+        end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
             return
@@ -57,8 +60,11 @@ end)
 
 insertCommand("as", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        local name = tostring(getPlayer):lower()
-        for i, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
+        for i, v in next, plrs:GetPlayers() do
+            if v:IsA("Player") and v.Name:lower():sub(1, string.len(getPlayer)) == tostring(getPlayer):lower() or v.DisplayName:lower():sub(1, string.len(getPlayer)) == tostring(getPlayer):lower() then
+                getPlayer = v
+            end
+        end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
             return
@@ -91,8 +97,11 @@ end)
 
 insertCommand("skill2", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        local name = tostring(getPlayer):lower()
-        for i, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
+        for i, v in next, plrs:GetPlayers() do
+            if v:IsA("Player") and v.Name:lower():sub(1, string.len(getPlayer)) == tostring(getPlayer):lower() or v.DisplayName:lower():sub(1, string.len(getPlayer)) == tostring(getPlayer):lower() then
+                getPlayer = v
+            end
+        end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
             return
