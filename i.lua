@@ -22,9 +22,9 @@ end
 
 insertCommand("skill", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        getPlayer = tostring(getPlayer)
+        getPlayer = tostring(getPlayer):lower()
         for i, v in next, plrs:GetPlayers() do
-            if v.Name:lower():sub(1, string.len(getPlayer)) == getPlayer:lower() or v.DisplayName:lower():sub(1, string.len(getPlayer)) == getPlayer:lower() then
+            if v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then
                 getPlayer = v
             end
         end
@@ -61,9 +61,9 @@ end)
 
 insertCommand("as", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        getPlayer = tostring(getPlayer)
+        getPlayer = tostring(getPlayer):lower()
         for i, v in next, plrs:GetPlayers() do
-            if v.Name:lower():sub(1, string.len(getPlayer)) == getPlayer:lower() or v.DisplayName:lower():sub(1, string.len(getPlayer)) == getPlayer:lower() then
+            if v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then
                 getPlayer = v
             end
         end
@@ -100,9 +100,9 @@ end)
 
 insertCommand("skill2", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        getPlayer = tostring(getPlayer)
+        getPlayer = tostring(getPlayer):lower()
         for i, v in next, plrs:GetPlayers() do
-            if v.Name:lower():sub(1, string.len(getPlayer)) == getPlayer:lower() or v.DisplayName:lower():sub(1, string.len(getPlayer)) == getPlayer:lower() then
+            if v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then
                 getPlayer = v
             end
         end
