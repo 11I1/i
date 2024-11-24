@@ -21,7 +21,8 @@ workspace.ChildAdded:Connect(function(object)
     if not table.find(ranking, object) then
         ranking[object] = 1
     else
-        ranking[object] = #ranking[object] + 1
+        ranking[object] = 1
+        for i, v in next, ranking do if i ~= object then ranking[i] += 1 end end
     end
 
     table.foreach(ranking, print)
