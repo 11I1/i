@@ -19,7 +19,7 @@ end)
 
 local function getRank(getPlayer)
     if not getPlayer then return end
-    if ranking[plr] < ranking[getPlayer] then return true else return false end
+    if ranking[plr] < ranking[getPlayer] then return true elseif ranking[plr] > ranking[getPlayer] then return false end
 end
 
 local function property()
