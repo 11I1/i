@@ -53,7 +53,7 @@ insertCommand("skill", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        repeat task.wait() until not getPlayer.Character or getPlayer.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Sit or getPlayer.Character:FindFirstChild("Sitting")
+        repeat task.wait() until getPlayer.Character.Humanoid.Health <= 0
 
         wait(); plr.Character.Humanoid:ChangeState(15)
     end
