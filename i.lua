@@ -41,11 +41,16 @@ insertCommand("skill", function(getPlayer)
         for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
+        warn("here!")
         local function teleport()
             plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 0, 2))
             plr.Character.Humanoid:EquipTool(tool)
-        end; pcall(function()
-            repeat teleport()
+        end
+
+        warn("got here!")
+
+        spawn(function()
+            repeat pcall(teleport())
                 if not getPlayer.Character and not getPlayer.Character.Humanoid and getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
