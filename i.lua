@@ -3,8 +3,7 @@ local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76
 local plrs = game:GetService("Players")
 local plr = plrs.LocalPlayer
 
-local loops, utilities, ranking, loop, rs = {}, {}, {plr = 1}, false
-table.clear(loops); table.clear(utilities)
+local loops, utilities, ranking, loop, rs = {}, {}, {[plr] = 1}, false
 
 for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
 workspace.ChildAdded:Connect(function(object)
