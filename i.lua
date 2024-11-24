@@ -18,13 +18,12 @@ workspace.ChildAdded:Connect(function(object)
         object = plrs:FindFirstChild(object.Name)
     end
 
-    if not table.find(ranking, object) then
-        ranking[object] = 1
-    else
-        ranking[object] = 1
-        for i, v in next, ranking do if i ~= object then ranking[i] = v + 1 end end
-    end
+    ranking[object] = 1
+    for i, v in next, ranking do if i ~= object then ranking[i] = v + 1 end end
 
+    table.foreach(ranking, print)
+
+    for i, v in next, ranking do if i ~= object then ranking[i] = ranking[i] + 1 end end
     table.foreach(ranking, print)
 end)
 
