@@ -23,10 +23,8 @@ end
 insertCommand("skill", function(getPlayer)
     if game.PlaceId == 1662219031 then
         getPlayer = tostring(getPlayer):lower()
-        for i, v in next, plrs:GetPlayers() do
-            if v:IsA("Player") and v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then
-                getPlayer = v
-            end
+        if getPlayer ~= "me" then
+            for i, v in next, plrs:GetPlayers() do if v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then getPlayer = v end end
         end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
@@ -62,10 +60,8 @@ end)
 insertCommand("as", function(getPlayer)
     if game.PlaceId == 1662219031 then
         getPlayer = tostring(getPlayer):lower()
-        for i, v in next, plrs:GetPlayers() do
-            if v:IsA("Player") and v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then
-                getPlayer = v
-            end
+        if getPlayer ~= "me" then
+            for i, v in next, plrs:GetPlayers() do if v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then getPlayer = v end end
         end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
@@ -85,7 +81,6 @@ insertCommand("as", function(getPlayer)
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
-                    plr.Character:SetPrimaryPartCFrame(getPlayer.Character:GetModelCFrame() * CFrame.new(0, 0, 10))
                     for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
                     task.wait()
                 end
@@ -101,10 +96,8 @@ end)
 insertCommand("skill2", function(getPlayer)
     if game.PlaceId == 1662219031 then
         getPlayer = tostring(getPlayer):lower()
-        for i, v in next, plrs:GetPlayers() do
-            if v:IsA("Player") and v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then
-                getPlayer = v
-            end
+        if getPlayer ~= "me" then
+            for i, v in next, plrs:GetPlayers() do if v.Name:lower():sub(1, #getPlayer) == getPlayer or v.DisplayName:lower():sub(1, #getPlayer) == getPlayer then getPlayer = v end end
         end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
