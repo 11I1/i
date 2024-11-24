@@ -127,7 +127,7 @@ end)
 insertCommand("lskill", function(getPlayer)
     if game.PlaceId == 1662219031 then
         loops["lskill"] = true
-        while loops["lskill"] do api.cmds[api["prefix"]["new"].."skill"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
+        while loops["lskill"] do task.spawn(function() api.cmds[api["prefix"]["new"].."skill"](getPlayer) end); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
     end
 end)
 
