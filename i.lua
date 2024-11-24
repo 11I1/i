@@ -6,7 +6,6 @@ local plr = plrs.LocalPlayer
 local loops, utilities, ranking, loop, rs = {}, {}, {[plr] = 1}, false
 
 for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
-table.foreach(ranking, warn)
 workspace.ChildAdded:Connect(function(object)
     if not plrs:FindFirstChild(object.Name) then
         return
@@ -16,7 +15,6 @@ workspace.ChildAdded:Connect(function(object)
 
     ranking[object] = 1
     for i, v in next, ranking do if i ~= object then ranking[i] = v + 1 end end
-    table.foreach(ranking, warn)
 end)
 
 local function getRank(getPlayer)
@@ -38,7 +36,7 @@ insertCommand("skill", function(getPlayer)
             return
         end
 
-        if getRank(getPlayer) == false then plr.Character.Humanoid:ChangeState(15); return end
+        if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
 
         if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
@@ -109,7 +107,7 @@ insertCommand("skill2", function(getPlayer)
             return
         end
 
-        if getRank(getPlayer) == false then plr.Character.Humanoid:ChangeState(15); return end
+        if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
 
         if plr.Character:FindFirstChild("Sitting") then return end
 
@@ -135,6 +133,16 @@ insertCommand("skill2", function(getPlayer)
         repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
         plr.Character.Humanoid:ChangeState(15)
     end
+end)
+
+insertCommand("lskill", function(getPlayer)
+    loops["lskill"] = true
+    while loops["lskill"] do task.spawn(function() api.cmds[api["prefix"]["new"].."skill"](getPlayer) end) end
+end)
+
+insertCommand("lskill2", function(getPlayer)
+    loops["lskill2"] = true
+    while loops["lskill2"] do task.spawn(function() api.cmds[api["prefix"]["new"].."skill2"](getPlayer) end) end
 end)
 
 --[[
