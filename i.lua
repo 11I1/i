@@ -34,7 +34,7 @@ insertCommand("skill", function(getPlayer)
             return
         end
 
-        if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") then return end
+        if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
         plr.Character.Humanoid:UnequipTools()
         local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
@@ -66,7 +66,7 @@ insertCommand("lskill", function(getPlayer)
 
         loops["lskill"] = true
         while loops["lskill"] do
-            spawn(function()
+            task.spawn(function()
                 pcall(api.cmds[api["prefix"]["new"].."skill"](getPlayer))
             end)
             plr.CharacterAdded:Wait():WaitForChild("Humanoid")
@@ -87,7 +87,7 @@ insertCommand("as", function(getPlayer)
         return
     end
 
-    if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") then return end
+    if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
     plr.Character.Humanoid:UnequipTools()
     local tool, parts = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
@@ -126,7 +126,7 @@ insertCommand("skill2", function(getPlayer)
             return
         end
 
-        if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") then return end
+        if plr.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return end
 
         plr.Character.Humanoid:UnequipTools()
         local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
@@ -160,7 +160,7 @@ insertCommand("lskill2", function(getPlayer)
 
         loops["lskill2"] = true
         while loops["lskill2"] do
-            spawn(function()
+            task.spawn(function()
                 pcall(api.cmds[api["prefix"]["new"].."skill2"](getPlayer))
             end)
             plr.CharacterAdded:Wait():WaitForChild("Humanoid")
