@@ -37,14 +37,14 @@ insertCommand("skill", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            tool.Parent = plr.Character
+            plr.Character.Humanoid:EquipTool(tool)
 
             repeat
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
-                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 1/2, 2))
-                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
+                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 2, 2))
+                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
                 end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
@@ -71,7 +71,7 @@ insertCommand("as", function(getPlayer)
         for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
 
         local function run()
-            tool.Parent = plr.Character
+            plr.Character.Humanoid:EquipTool(tool)
 
             repeat
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
@@ -84,7 +84,7 @@ insertCommand("as", function(getPlayer)
         end task.spawn(function() pcall(run) end)
 
         local clock = os.time()
-        repeat wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character:FindFirstChild("Sitting")
+        repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character:FindFirstChild("Sitting")
         plr.Character.Humanoid:ChangeState(15)
     end
 end)
@@ -113,8 +113,8 @@ insertCommand("skill2", function(getPlayer)
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
-                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 1/2, 2))
-                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
+                    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait()) end
+                    plr.Character:SetPrimaryPartCFrame(part.CFrame)
                 end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
