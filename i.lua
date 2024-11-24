@@ -111,7 +111,7 @@ insertCommand("skill2", function(getPlayer)
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
-                    getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0), plr.Character:SetPrimaryPartCFrame(part.CFrame))
+                    getPlayer.Character:SetPrimaryPartCFrame(tool.Handle.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0), plr.Character:SetPrimaryPartCFrame(part.CFrame))
                 end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
