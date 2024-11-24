@@ -43,7 +43,7 @@ insertCommand("skill", function(getPlayer)
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
-                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 2, 3))
+                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0))
                     for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
                 end
             until plr.Character.Humanoid.Health <= 0
