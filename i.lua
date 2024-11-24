@@ -22,8 +22,8 @@ end
 
 insertCommand("skill", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        for i, v in next, plrs:GetPlayers() do
-            if v:IsA("Player") and v.Name:lower():sub(1, string.len(getPlayer)) == tostring(getPlayer):lower() or v.DisplayName:lower():sub(1, string.len(getPlayer)) == tostring(getPlayer):lower() then
+        for _, v in next, (plrs:GetPlayers()) do
+            if v:IsA("Player") and v.Name:lower():sub(1, string.len(tostring(getPlayer))) == tostring(getPlayer):lower() or v.DisplayName:lower():sub(1, string.len(tostring(getPlayer))) == tostring(getPlayer):lower() then
                 getPlayer = v
             end
         end
@@ -60,8 +60,8 @@ end)
 
 insertCommand("as", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        for i, v in next, plrs:GetPlayers() do
-            if v:IsA("Player") and v.Name:lower():sub(1, string.len(getPlayer)) == tostring(getPlayer):lower() or v.DisplayName:lower():sub(1, string.len(getPlayer)) == tostring(getPlayer):lower() then
+        for _, v in next, (plrs:GetPlayers()) do
+            if v:IsA("Player") and v.Name:lower():sub(1, string.len(tostring(getPlayer))) == tostring(getPlayer):lower() or v.DisplayName:lower():sub(1, string.len(tostring(getPlayer))) == tostring(getPlayer):lower() then
                 getPlayer = v
             end
         end
@@ -97,8 +97,8 @@ end)
 
 insertCommand("skill2", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        for i, v in next, plrs:GetPlayers() do
-            if v:IsA("Player") and v.Name:lower():sub(1, string.len(getPlayer)) == tostring(getPlayer):lower() or v.DisplayName:lower():sub(1, string.len(getPlayer)) == tostring(getPlayer):lower() then
+        for _, v in next, (plrs:GetPlayers()) do
+            if v:IsA("Player") and v.Name:lower():sub(1, string.len(tostring(getPlayer))) == tostring(getPlayer):lower() or v.DisplayName:lower():sub(1, string.len(tostring(getPlayer))) == tostring(getPlayer):lower() then
                 getPlayer = v
             end
         end
