@@ -59,7 +59,7 @@ insertCommand("skill", function(getPlayer)
         end task.spawn(function() pcall(run) end)
 
         local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 3 then plr.Character.Humanoid:ChangeState(15) end until getPlayer.Character.Humanoid.Health <= 0
+        repeat task.wait(); if (os.time() - clock) >= 3 then return end until getPlayer.Character.Humanoid.Health <= 0
         plr.Character.Humanoid:ChangeState(15)
     end
 end)
@@ -93,7 +93,7 @@ insertCommand("as", function(getPlayer)
         end task.spawn(function() pcall(run) end)
 
         local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 3 then plr.Character.Humanoid:ChangeState(15) end until getPlayer.Character:FindFirstChild("Sitting")
+        repeat task.wait(); if (os.time() - clock) >= 3 then return end until getPlayer.Character:FindFirstChild("Sitting")
         plr.Character.Humanoid:ChangeState(15)
     end
 end)
@@ -130,7 +130,7 @@ insertCommand("skill2", function(getPlayer)
         end task.spawn(function() pcall(run) end)
 
         local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 3 then plr.Character.Humanoid:ChangeState(15) end until getPlayer.Character.Humanoid.Health <= 0
+        repeat task.wait(); if (os.time() - clock) >= 3 then return end until getPlayer.Character.Humanoid.Health <= 0
         plr.Character.Humanoid:ChangeState(15)
     end
 end)
