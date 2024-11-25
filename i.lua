@@ -50,8 +50,8 @@ insertCommand("skill", function(getPlayer)
 
             repeat
                 if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-                for i, v in next, plr.Character.HumanoidRootPart:GetChildren() do if v:IsA("Weld") then v.Enabled = false end end
-                plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0))
+                for i, v in next, plr.Character.HumanoidRootPart:GetChildren() do if v:IsA("Weld") and v.Enabled then v.Enabled = false end end
+                plr.Character:PivotTo(part.CFrame * CFrame.new(0, 4, 0) * CFrame.Angles(-1.5, 0, 0))
                 for i, v in next, parts do getPlayer.Character:PivotTo(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run, os.time()) end)
@@ -110,8 +110,8 @@ insertCommand("skill2", function(getPlayer)
 
             repeat
                 if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-                for i, v in next, plr.Character.HumanoidRootPart:GetChildren() do if v:IsA("Weld") then v.Enabled = false end end
-                plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:PivotTo(tool.Handle.CFrame)
+                for i, v in next, plr.Character.HumanoidRootPart:GetChildren() do if v:IsA("Weld") and v.Enabled then v.Enabled = false end end
+                plr.Character:PivotTo(part.CFrame * CFrame.new(0, 4, 0) * CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:PivotTo(tool.Handle.CFrame)
                 if tool.Parent ~= workspace then tool.Parent = workspace end
                 firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
             until plr.Character.Humanoid.Health <= 0
@@ -143,8 +143,8 @@ insertCommand("svoid", function(getPlayer)
             repeat
                 if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
                 if tool.Parent == getPlayer.Character then plr.Character.Humanoid:ChangeState(15) end
-                for i, v in next, plr.Character.HumanoidRootPart:GetChildren() do if v:IsA("Weld") then v.Enabled = false end end
-                plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 5, 0) * CFrame.Angles(2, 0, 0))
+                for i, v in next, plr.Character.HumanoidRootPart:GetChildren() do if v:IsA("Weld") and v.Enabled then v.Enabled = false end end
+                plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 10, 0))
                 if tool.Parent ~= workspace then tool.Parent = workspace end
                 firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
                 rs.RenderStepped:Wait()
