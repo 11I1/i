@@ -3,7 +3,7 @@ local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76
 local plrs = game:GetService("Players")
 local plr = plrs.LocalPlayer
 
-local loops, utilities, ranking, rs = {}, {}, {[plr] = 1}
+local utilities, loops, ranking = {}, {}, {[plr] = 1}
 
 for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
 workspace.ChildAdded:Connect(function(object)
@@ -136,15 +136,17 @@ insertCommand("skill2", function(getPlayer)
 end)
 
 insertCommand("lskill", function(getPlayer)
+    api.cmds[api["prefix"]["new"].."stop"]()
     loops["lskill"] = true
     while loops["lskill"] do api.cmds[api["prefix"]["new"].."skill"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
 end)
 
 insertCommand("lskill2", function(getPlayer)
+    api.cmds[api["prefix"]["new"].."stop"]()
     loops["lskill2"] = true
     while loops["lskill2"] do api.cmds[api["prefix"]["new"].."skill2"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
 end)
 
 insertCommand("stop", function()
-    for i, v in next, loops do if v then pcall(function() v = false; v:Disconnect() end) end
+    for i, v in next, loops do if v then pcall(function() v = false end) end
 end)
