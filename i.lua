@@ -22,13 +22,6 @@ local function getRank(getPlayer)
     if ranking[plr] < ranking[getPlayer] then return true elseif ranking[plr] > ranking[getPlayer] then return false end
 end
 
-local function timer(duration, logic, execute)
-    if type(duration) == "number" and type(execute) == "function" then
-        local clock = os.time(); repeat task.wait(); if (os.time() - clock) >= duration then execute(); return false end until logic
-        return true
-    end
-end
-
 local function property()
     if not plr.Character then return end
     for i, v in next, plr.Character:GetChildren() do if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.new(0, 0, 0), Vector3.new(0, 0, 0) end end
@@ -36,7 +29,7 @@ end
 
 insertCommand("skill", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        local name = tostring(getPlayer):lower()
+        local name, clock = tostring(getPlayer):lower()
         for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
@@ -53,10 +46,9 @@ insertCommand("skill", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            local boolean = task.spawn(timer(5, plr.Character.Humanoid.Health <= 0, function() warn("Task-Failed!") end))
-            plr.Character.Humanoid:EquipTool(tool)
+            plr.Character.Humanoid:EquipTool(tool); clock = os.time()
 
-            repeat if not boolean then break end
+            repeat if (os.time() - clock) >= 5 then break end
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
@@ -66,13 +58,15 @@ insertCommand("skill", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        if not timer(5, getPlayer.Character.Humanoid.Health <= 0, function() plr.Character.Humanoid:ChangeState(15) end) then return end; plr.Character.Humanoid:ChangeState(15)
+        clock = os.time()
+        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
+        plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
 insertCommand("as", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        local name = tostring(getPlayer):lower()
+        local name, clock = tostring(getPlayer):lower()
         for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
@@ -86,10 +80,9 @@ insertCommand("as", function(getPlayer)
         for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
 
         local function run()
-            local boolean = task.spawn(timer(5, plr.Character.Humanoid.Health <= 0, function() warn("Task-Failed!") end))
-            plr.Character.Humanoid:EquipTool(tool)
+            plr.Character.Humanoid:EquipTool(tool); clock = os.time()
 
-            repeat if not boolean then break end
+            repeat if (os.time() - clock) >= 5 then break end
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
@@ -99,13 +92,15 @@ insertCommand("as", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        if not timer(5, getPlayer.Character:FindFirstChild("Sitting"), function() plr.Character.Humanoid:ChangeState(15) end) then return end; plr.Character.Humanoid:ChangeState(15)
+        clock = os.time()
+        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character:FindFirstChild("Sitting")
+        plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
 insertCommand("skill2", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        local name = tostring(getPlayer):lower()
+        local name, clock = tostring(getPlayer):lower()
         for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
@@ -121,10 +116,9 @@ insertCommand("skill2", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            local boolean = task.spawn(timer(5, plr.Character.Humanoid.Health <= 0, function() warn("Task-Failed!") end))
-            plr.Character.Humanoid:EquipTool(tool)
+            plr.Character.Humanoid:EquipTool(tool); clock = os.time()
 
-            repeat if not boolean then break end
+            repeat if (os.time() - clock) >= 5 then break end
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
@@ -135,7 +129,9 @@ insertCommand("skill2", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        if not timer(5, getPlayer.Character.Humanoid.Health <= 0, function() plr.Character.Humanoid:ChangeState(15) end) then return end; plr.Character.Humanoid:ChangeState(15)
+        clock = os.time()
+        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
+        plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
