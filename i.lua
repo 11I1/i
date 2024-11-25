@@ -24,8 +24,7 @@ end
 
 local function timer(duration, logic, execute)
     if type(duration) == "number" and type(execute) == "function" then
-        local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= duration then execute(); return false end until logic
+        local clock = os.time(); repeat task.wait(); if (os.time() - clock) >= duration then execute(); return false end until logic
         return true
     end
 end
@@ -54,9 +53,10 @@ insertCommand("skill", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
+            local boolean = task.spawn(timer(5, plr.Character.Humanoid.Health <= 0, function() warn("Task-Failed!") end))
             plr.Character.Humanoid:EquipTool(tool)
 
-            repeat
+            repeat if not boolean then break end
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
@@ -66,8 +66,7 @@ insertCommand("skill", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        if not timer(5, getPlayer.Character.Humanoid.Health <= 0, function() plr.Character.Humanoid:ChangeState(15) end) then return end
-        plr.Character.Humanoid:ChangeState(15)
+        if not timer(5, getPlayer.Character.Humanoid.Health <= 0, function() plr.Character.Humanoid:ChangeState(15) end) then return end; plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
@@ -87,9 +86,10 @@ insertCommand("as", function(getPlayer)
         for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
 
         local function run()
+            local boolean = task.spawn(timer(5, plr.Character.Humanoid.Health <= 0, function() warn("Task-Failed!") end))
             plr.Character.Humanoid:EquipTool(tool)
 
-            repeat
+            repeat if not boolean then break end
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
@@ -99,8 +99,7 @@ insertCommand("as", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        if not timer(5, getPlayer.Character:FindFirstChild("Sitting"), function() plr.Character.Humanoid:ChangeState(15) end) then return end
-        plr.Character.Humanoid:ChangeState(15)
+        if not timer(5, getPlayer.Character:FindFirstChild("Sitting"), function() plr.Character.Humanoid:ChangeState(15) end) then return end; plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
@@ -122,9 +121,10 @@ insertCommand("skill2", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
+            local boolean = task.spawn(timer(5, plr.Character.Humanoid.Health <= 0, function() warn("Task-Failed!") end))
             plr.Character.Humanoid:EquipTool(tool)
 
-            repeat
+            repeat if not boolean then break end
                 if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
@@ -135,8 +135,7 @@ insertCommand("skill2", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        if not timer(5, getPlayer.Character.Humanoid.Health <= 0, function() plr.Character.Humanoid:ChangeState(15) end) then return end
-        plr.Character.Humanoid:ChangeState(15)
+        if not timer(5, getPlayer.Character.Humanoid.Health <= 0, function() plr.Character.Humanoid:ChangeState(15) end) then return end; plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
