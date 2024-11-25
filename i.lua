@@ -46,12 +46,12 @@ insertCommand("skill", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run(clock)
-            plr.Character.Humanoid:EquipTool(tool)
+            tool.Parent = plr.Character
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-                plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0))
-                for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
+                if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+                plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0))
+                for i, v in next, parts do getPlayer.Character:PivotTo(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run, os.time()) end)
 
@@ -77,11 +77,11 @@ insertCommand("as", function(getPlayer)
         for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
 
         local function run(clock)
-            plr.Character.Humanoid:EquipTool(tool)
+            tool.Parent = plr.Character
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-                for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
+                if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+                for i, v in next, parts do getPlayer.Character:PivotTo(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
                 task.wait()
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run, os.time()) end)
@@ -113,8 +113,8 @@ insertCommand("skill2", function(getPlayer)
             tool.Parent = plr.Character
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-                plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:SetPrimaryPartCFrame(tool.Handle.CFrame)
+                if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+                plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:PivotTo(tool.Handle.CFrame)
                 firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
                 if tool.Parent ~= workspace then tool.Parent = workspace end
             until plr.Character.Humanoid.Health <= 0
@@ -129,14 +129,14 @@ end)
 insertCommand("lskill", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill = rs.RenderStepped:Connect(function()
-        api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait(); repeat task.wait() until plr.Character:FindFirstChild("HumanoidRootPart")
+        api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait(); task.wait(5)
     end)
 end)
 
 insertCommand("lskill2", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill2 = rs.RenderStepped:Connect(function()
-        api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait(); repeat task.wait() until plr.Character:FindFirstChild("HumanoidRootPart")
+        api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait(); task.wait(5)
     end)
 end)
 
