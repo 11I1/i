@@ -149,7 +149,7 @@ insertCommand("svoid", function(getPlayer)
                 getPlayer.Character:PivotTo(tool.Handle.CFrame)
                 firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
                 if tool.Parent ~= workspace then tool.Parent = workspace end
-            until getPlayer.Character:FindFirstChild("Sitting")
+            until tool:IsDescendantOf(getPlayer.Character)
 
             plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 10, 0))
         end task.spawn(function() pcall(run, os.time()) end)
