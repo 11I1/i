@@ -24,7 +24,8 @@ end
 
 function timer(t, i, m, e)
     if type(i) == "number" and type(e) == "function" then
-        local clock = os.time() - t; repeat task.wait(); if (clock >= i) then e(); return false end until m; return true
+        local clock = os.time() - t; repeat task.wait(); if (clock >= i) then e(); return false end until m
+        return true
     end
 end
 
