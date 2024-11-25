@@ -148,5 +148,5 @@ insertCommand("lskill2", function(getPlayer)
 end)
 
 insertCommand("stop", function()
-    for i, v in next, loops do if v then pcall(function() v = false end) end
+    for i, v in next, loops do if v then pcall(function() v = false; v:Disconnect() end) end end
 end)
