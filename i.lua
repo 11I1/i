@@ -48,8 +48,8 @@ insertCommand("skill", function(getPlayer)
         local function run()
             plr.Character.Humanoid:EquipTool(tool); clock = os.time()
 
-            repeat if (os.time() - clock) >= 5 then break end
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
+            repeat
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
                     break
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0))
@@ -82,8 +82,8 @@ insertCommand("as", function(getPlayer)
         local function run()
             plr.Character.Humanoid:EquipTool(tool); clock = os.time()
 
-            repeat if (os.time() - clock) >= 5 then break end
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
+            repeat
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
                     break
                 else
                     for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
@@ -118,8 +118,8 @@ insertCommand("skill2", function(getPlayer)
         local function run()
             plr.Character.Humanoid:EquipTool(tool); clock = os.time()
 
-            repeat if (os.time() - clock) >= 5 then break end
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
+            repeat
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
                     break
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:SetPrimaryPartCFrame(tool.Handle.CFrame)
