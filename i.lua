@@ -57,7 +57,6 @@ insertCommand("skill", function(getPlayer)
 
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
-        plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
@@ -79,16 +78,12 @@ insertCommand("as", function(getPlayer)
         local function run(clock)
             tool.Parent = plr.Character
 
-            repeat
-                if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+            repeat task.wait()
+                if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then break end
                 for i, v in next, parts do getPlayer.Character:PivotTo(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
-                task.wait()
+                if getPlayer.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(15) end
             until plr.Character.Humanoid.Health <= 0
-        end task.spawn(function() pcall(run, os.time()) end)
-
-        local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character:FindFirstChild("Sitting")
-        plr.Character.Humanoid:ChangeState(15)
+        end task.spawn(function() pcall(run) end)
     end
 end)
 
@@ -122,7 +117,6 @@ insertCommand("skill2", function(getPlayer)
 
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
-        plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
@@ -146,14 +140,14 @@ insertCommand("svoid", function(getPlayer)
 
             repeat
                 if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+                plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 13, 0) * CFrame.Angles(2, 0, 0))
                 if tool.Parent ~= workspace then tool.Parent = workspace end
-                firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 13, 0) * CFrame.Angles(1/2, 0, 0)))
-            until plr.Character.Humanoid.Health <= 0
+                firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait())
+            until getPlayer.Character:FindFirstChild("Sitting")
         end task.spawn(function() pcall(run, os.time()) end)
 
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
-        plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
