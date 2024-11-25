@@ -46,12 +46,15 @@ insertCommand("skill", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run(clock)
-            tool.Parent = plr.Character
+            plr.Character.Humanoid:EquipTool(tool)
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-                plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0))
-                for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
+                    break
+                else
+                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0))
+                    for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
+                end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run, os.time()) end)
 
@@ -77,12 +80,15 @@ insertCommand("as", function(getPlayer)
         for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
 
         local function run(clock)
-            tool.Parent = plr.Character
+            plr.Character.Humanoid:EquipTool(tool)
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-                for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
-                task.wait()
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
+                    break
+                else
+                    for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
+                    task.wait()
+                end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run, os.time()) end)
 
@@ -113,10 +119,13 @@ insertCommand("skill2", function(getPlayer)
             tool.Parent = plr.Character
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-                plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:SetPrimaryPartCFrame(tool.Handle.CFrame)
-                firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
-                if tool.Parent ~= workspace then tool.Parent = workspace end
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
+                    break
+                else
+                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:SetPrimaryPartCFrame(tool.Handle.CFrame)
+                    firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
+                    if tool.Parent ~= workspace then tool.Parent = workspace end
+                end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run, os.time()) end)
 
