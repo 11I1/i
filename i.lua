@@ -142,12 +142,11 @@ insertCommand("svoid", function(getPlayer)
 
         local function run(clock)
             workspace.Events.Morph.Player:FireServer("Sheep")
-            plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 10, 0))
             tool.Parent = plr.Character
 
             repeat
                 if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-                firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 1))
+                firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 10, 0)))
                 if tool.Parent ~= workspace then tool.Parent = workspace end
             until tool.Parent == getPlayer.Character
         end task.spawn(function() pcall(run, os.time()) end)
