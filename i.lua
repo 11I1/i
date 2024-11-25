@@ -140,17 +140,22 @@ insertCommand("svoid", function(getPlayer)
         if plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
         plr.Character.Humanoid:UnequipTools()
-        local tool = plr.Backpack["Stroller"]
-        workspace.Events.Morph.Player:FireServer("Sheep")
+        local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
 
-        local function run()
+        local function run(clock)
+            workspace.Events.Morph.Player:FireServer("Sheep")
             tool.Parent = plr.Character
 
-            if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then return end
-            plr.Character:PivotTo(CFrame.new(0, 0, -498)); getPlayer.Character:PivotTo(tool.Handle.CFrame)
-            firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
-            if tool.Parent ~= workspace then tool.Parent = workspace end
-        end task.spawn(function() pcall(run) end)
+            repeat task.wait()
+                if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+                getPlayer.Character:PivotTo(tool.Handle.CFrame)
+                firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
+                if tool.Parent ~= workspace then tool.Parent = workspace end
+            until getPlayer.Character:FindFirstChild("Sitting")
+        end task.spawn(function() pcall(run, os.time()) end)
+
+        workspace.FallenPartsDestroyHeight = -500
+        plr.Character:PivotTo(CFrame.new(0, 0, -498))
 
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
@@ -169,13 +174,6 @@ insertCommand("lskill2", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     signals.lskill2 = rs.RenderStepped:Connect(function()
         api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime)
-    end)
-end)
-
-insertCommand("lsvoid", function(getPlayer)
-    api.cmds[api.prefix.new.."stop"]()
-    signals.lsvoid = rs.RenderStepped:Connect(function()
-        api.cmds[api.prefix.new.."svoid"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime)
     end)
 end)
 
