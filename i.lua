@@ -58,7 +58,6 @@ insertCommand("skill", function(getPlayer)
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
         plr.Character.Humanoid:ChangeState(15)
-        utilities["target"] = getPlayer
     end
 end)
 
@@ -124,20 +123,19 @@ insertCommand("skill2", function(getPlayer)
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
         plr.Character.Humanoid:ChangeState(15)
-        utilities["target"] = getPlayer
     end
 end)
 
 insertCommand("lskill", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill = true
-    while loops.lskill do task.spawn(api.cmds[api.prefix.new.."skill"](getPlayer)); utilities["target"].CharacterAdded:WaitForChild("Humanoid") end
+    repeat api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:WaitForChild("Humanoid"); wait(1/4) until not loop.lskill
 end)
 
 insertCommand("lskill2", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill2 = true
-    while loops.lskill2 do task.spawn(api.cmds[api.prefix.new.."skill2"](getPlayer)); utilities["target"].CharacterAdded:WaitForChild("Humanoid") end
+    repeat api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:WaitForChild("Humanoid"); wait(1/4) until not loop.lskill2
 end)
 
 insertCommand("stop", function()
