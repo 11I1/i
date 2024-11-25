@@ -38,7 +38,7 @@ insertCommand("skill", function(getPlayer)
 
         if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
 
-        if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return else if plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
+        if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
         plr.Character.Humanoid:UnequipTools()
         local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
@@ -73,7 +73,7 @@ insertCommand("as", function(getPlayer)
             return
         end
 
-        if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return else if plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
+        if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
         plr.Character.Humanoid:UnequipTools()
         local tool, parts = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
