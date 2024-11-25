@@ -1,6 +1,6 @@
 local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76a5bb315aefda7687ad6d5705c5946/raw/ac2e5c08aca5b80d22317a34d3bde5dfebe37457/api.lua"))()
 
-local rs, plrs = game:GetService("RunService"), game.Players
+local rs, plrs = game:FindFirstChildOfClass("RunService"), game.Players
 local plr = plrs.LocalPlayer
 
 local utilities, signals, loops, ranking = {}, {}, {}, {[plr] = 1}
@@ -128,15 +128,15 @@ end)
 
 insertCommand("lskill", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
-    loops.lskill = rs.RenderStepped:Connect(function()
+    signals.lskill = rs.RenderStepped:Connect(function()
         api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait(); task.wait(5)
     end)
 end)
 
 insertCommand("lskill2", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
-    loops.lskill2 = rs.RenderStepped:Connect(function()
-        api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait(); task.wait(5)
+    signals.lskill2 = rs.RenderStepped:Connect(function()
+        api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime)
     end)
 end)
 
