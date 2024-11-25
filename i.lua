@@ -1,6 +1,6 @@
 local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76a5bb315aefda7687ad6d5705c5946/raw/ac2e5c08aca5b80d22317a34d3bde5dfebe37457/api.lua"))()
 
-local rs, plrs = game:GetService("RunService"), game.Players
+local plrs = game.Players
 local plr = plrs.LocalPlayer
 
 local utilities, loops, ranking = {}, {}, {[plr] = 1}
@@ -129,13 +129,13 @@ end)
 insertCommand("lskill", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill = true
-    while loops.lskill do pcall(api.cmds[api.prefix.new.."skill"](getPlayer)); plr.CharacterAdded:Wait(1); repeat task.wait() until loops.lskill and plr.Character:FindFirstChild("HumanoidRootPart") end
+    while loops.lskill do task.spawn(api.cmds[api.prefix.new.."skill"](getPlayer)); local clock = os.clock(); plr.CharacterAdded:Wait(plrs.RespawnTime - (os.clock() - clock)) end
 end)
 
 insertCommand("lskill2", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill2 = true
-    while loops.lskill2 do pcall(api.cmds[api.prefix.new.."skill2"](getPlayer)); plr.CharacterAdded:Wait(1); repeat task.wait() until loops.lskill2 and plr.Character:FindFirstChild("HumanoidRootPart") end
+    while loops.lskill2 do task.spawn(api.cmds[api.prefix.new.."skill2"](getPlayer)); local clock = os.clock(); plr.CharacterAdded:Wait(plrs.RespawnTime - (os.clock() - clock)) end
 end)
 
 insertCommand("stop", function()
