@@ -56,7 +56,7 @@ insertCommand("skill", function(getPlayer)
         end task.spawn(function() pcall(run, os.time()) end)
 
         local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
+        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0 or plr.Character.Humanoid.Health <= 0
     end
 end)
 
@@ -116,7 +116,7 @@ insertCommand("skill2", function(getPlayer)
         end task.spawn(function() pcall(run, os.time()) end)
 
         local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
+        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0 or plr.Character.Humanoid.Health <= 0
     end
 end)
 
@@ -147,7 +147,7 @@ insertCommand("svoid", function(getPlayer)
         end task.spawn(function() pcall(run, os.time()) end)
 
         local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
+        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0 or plr.Character.Humanoid.Health <= 0
     end
 end)
 
