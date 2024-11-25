@@ -137,12 +137,12 @@ end)
 
 insertCommand("lskill", function(getPlayer)
     loops["lskill"] = true
-    while loops["lskill"] do task.spawn(function() api.cmds[api["prefix"]["new"].."skill"](getPlayer) end); plr.CharacterAdded:Wait():WaitForChild("HumanoidRootPart") end
+    while loops["lskill"] do api.cmds[api["prefix"]["new"].."skill"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
 end)
 
 insertCommand("lskill2", function(getPlayer)
     loops["lskill2"] = true
-    while loops["lskill2"] do task.spawn(function() api.cmds[api["prefix"]["new"].."skill2"](getPlayer) end); plr.CharacterAdded:Wait():WaitForChild("HumanoidRootPart") end
+    while loops["lskill2"] do api.cmds[api["prefix"]["new"].."skill2"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
 end)
 
 --[[
