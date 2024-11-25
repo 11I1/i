@@ -135,8 +135,6 @@ insertCommand("svoid", function(getPlayer)
             return
         end
 
-        if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
-
         if plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
         plr.Character.Humanoid:UnequipTools()
@@ -155,7 +153,7 @@ insertCommand("svoid", function(getPlayer)
         end task.spawn(function() pcall(run, os.time()) end)
 
         workspace.FallenPartsDestroyHeight = -500
-        plr.Character:PivotTo(CFrame.new(0, -498, 0))
+        plr.Character:PivotTo(CFrame.new(0, -600, 0))
 
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
