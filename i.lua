@@ -126,10 +126,42 @@ insertCommand("skill2", function(getPlayer)
     end
 end)
 
+insertCommand("svoid", function(getPlayer)
+    if game.PlaceId == 1662219031 then
+        local name = tostring(getPlayer):lower()
+        for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
+
+        if not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then
+            return
+        end
+
+        if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
+
+        if plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
+
+        plr.Character.Humanoid:UnequipTools()
+        local tool = plr.Backpack["Stroller"]
+        workspace.Events.Morph.Player:FireServer("Sheep")
+
+        local function run()
+            tool.Parent = plr.Character
+
+            if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then break end
+            plr.Character:PivotTo(CFrame.new(0, 0, -498); getPlayer.Character:PivotTo(tool.Handle.CFrame)
+            firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
+            if tool.Parent ~= workspace then tool.Parent = workspace end
+        end task.spawn(function() pcall(run) end)
+
+        local clock = os.time()
+        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
+        plr.Character.Humanoid:ChangeState(15)
+    end
+end)
+
 insertCommand("lskill", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     signals.lskill = rs.RenderStepped:Connect(function()
-        api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait(); task.wait(5)
+        api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime)
     end)
 end)
 
@@ -137,6 +169,13 @@ insertCommand("lskill2", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     signals.lskill2 = rs.RenderStepped:Connect(function()
         api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime)
+    end)
+end)
+
+insertCommand("lsvoid", function(getPlayer)
+    api.cmds[api.prefix.new.."stop"]()
+    signals.lsvoid = rs.RenderStepped:Connect(function()
+        api.cmds[api.prefix.new.."svoid"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime)
     end)
 end)
 
