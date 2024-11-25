@@ -1,6 +1,6 @@
 local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76a5bb315aefda7687ad6d5705c5946/raw/ac2e5c08aca5b80d22317a34d3bde5dfebe37457/api.lua"))()
 
-local plrs = game:GetService("Players")
+local rs, plrs = game.RunService, game.Players
 local plr = plrs.LocalPlayer
 
 local utilities, loops, ranking = {}, {}, {[plr] = 1}
@@ -38,7 +38,7 @@ insertCommand("skill", function(getPlayer)
 
         if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
 
-        if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds(api.prefix.new.."skill2")(getPlayer) elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
+        if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds(api.prefix.new.."skill2")(getPlayer); return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
         plr.Character.Humanoid:UnequipTools()
         local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
@@ -49,12 +49,9 @@ insertCommand("skill", function(getPlayer)
             plr.Character.Humanoid:EquipTool(tool)
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
-                    break
-                else
-                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0))
-                    for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
-                end
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+                plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0))
+                for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run, os.time()) end)
 
@@ -83,12 +80,9 @@ insertCommand("as", function(getPlayer)
             plr.Character.Humanoid:EquipTool(tool)
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
-                    break
-                else
-                    for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
-                    task.wait()
-                end
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+                for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
+                task.wait()
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run, os.time()) end)
 
@@ -119,13 +113,10 @@ insertCommand("skill2", function(getPlayer)
             tool.Parent = plr.Character
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
-                    break
-                else
-                    plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:SetPrimaryPartCFrame(tool.Handle.CFrame)
-                    firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
-                    if tool.Parent ~= workspace then tool.Parent = workspace end
-                end
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+                plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:SetPrimaryPartCFrame(tool.Handle.CFrame)
+                firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
+                if tool.Parent ~= workspace then tool.Parent = workspace end
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run, os.time()) end)
 
@@ -138,13 +129,15 @@ end)
 insertCommand("lskill", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill = true
-    while loops.lskill do api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
+    while loops.lskill do api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:WaitForChild("HumanoidRootPart") end
+    rs.RenderStepped:Wait()
 end)
 
 insertCommand("lskill2", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill2 = true
-    while loops.lskill2 do api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
+    while loops.lskill2 do api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:WaitForChild("HumanoidRootPart") end
+    rs.RenderStepped:Wait()
 end)
 
 insertCommand("stop", function()
