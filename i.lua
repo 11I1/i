@@ -129,13 +129,13 @@ end)
 insertCommand("lskill", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill = true
-    while loops.lskill do task.spawn(api.cmds[api.prefix.new.."skill"](getPlayer)); local clock = os.clock(); plr.CharacterAdded:Wait(plrs.RespawnTime - (os.clock() - clock)) end
+    while loops.lskill do task.spawn(api.cmds[api.prefix.new.."skill"](getPlayer)); local clock = os.clock(); getPlayer.CharacterAdded:WaitForChild("Humanoid") end
 end)
 
 insertCommand("lskill2", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill2 = true
-    while loops.lskill2 do task.spawn(api.cmds[api.prefix.new.."skill2"](getPlayer)); local clock = os.clock(); plr.CharacterAdded:Wait(plrs.RespawnTime - (os.clock() - clock)) end
+    while loops.lskill2 do task.spawn(api.cmds[api.prefix.new.."skill2"](getPlayer)); local clock = os.clock(); getPlayer.CharacterAdded:WaitForChild("Humanoid") end
 end)
 
 insertCommand("stop", function()
