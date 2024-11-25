@@ -135,8 +135,8 @@ insertCommand("svoid", function(getPlayer)
         local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
 
         local function run(clock)
-            workspace.Events.Morph.Player:FireServer("Sheep")
-            tool.Parent = plr.Character
+            workspace.Events.Morph.Player:FireServer("Sheep"); wait(1)
+            tool.Parent = plr.Character; wait(1/4)
 
             repeat
                 if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
