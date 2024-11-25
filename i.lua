@@ -129,13 +129,13 @@ end)
 insertCommand("lskill", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill = true
-    while loops.lskill do api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait(1) end
+    while loops.lskill do api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait(); repeat task.wait() until loops.lskill2 and plr.Character:FindFirstChild("HumanoidRootPart") end
 end)
 
 insertCommand("lskill2", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill2 = true
-    while loops.lskill2 do api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait(1) end
+    while loops.lskill2 do api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait(1); repeat task.wait() until loops.lskill2 and plr.Character:FindFirstChild("HumanoidRootPart") end
 end)
 
 insertCommand("stop", function()
