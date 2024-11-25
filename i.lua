@@ -146,7 +146,7 @@ insertCommand("svoid", function(getPlayer)
         local function run()
             tool.Parent = plr.Character
 
-            if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then break end
+            if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then return end
             plr.Character:PivotTo(CFrame.new(0, 0, -498)); getPlayer.Character:PivotTo(tool.Handle.CFrame)
             firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
             if tool.Parent ~= workspace then tool.Parent = workspace end
