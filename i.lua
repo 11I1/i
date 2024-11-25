@@ -38,7 +38,7 @@ insertCommand("skill", function(getPlayer)
 
         if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
 
-        if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
+        if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds(api.prefix.new.."skill2")(getPlayer) elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
         plr.Character.Humanoid:UnequipTools()
         local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
@@ -136,15 +136,15 @@ insertCommand("skill2", function(getPlayer)
 end)
 
 insertCommand("lskill", function(getPlayer)
-    api.cmds[api["prefix"]["new"].."stop"]()
-    loops["lskill"] = true
-    while loops["lskill"] do api.cmds[api["prefix"]["new"].."skill"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
+    api.cmds[api.prefix.new.."stop"]()
+    loops.lskill = true
+    while loops.lskill do api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
 end)
 
 insertCommand("lskill2", function(getPlayer)
-    api.cmds[api["prefix"]["new"].."stop"]()
-    loops["lskill2"] = true
-    while loops["lskill2"] do api.cmds[api["prefix"]["new"].."skill2"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
+    api.cmds[api.prefix.new.."stop"]()
+    loops.lskill2 = true
+    while loops.lskill2 do api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
 end)
 
 insertCommand("stop", function()
