@@ -3,7 +3,7 @@ local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76
 local rs, plrs = game:GetService("RunService"), game.Players
 local plr = plrs.LocalPlayer
 
-local utilities, loops, ranking = {}, {}, {[plr] = 1}
+local utilities, signals, loops, ranking = {}, {}, {}, {[plr] = 1}
 
 for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
 workspace.ChildAdded:Connect(function(object)
@@ -32,13 +32,13 @@ insertCommand("skill", function(getPlayer)
         local name = tostring(getPlayer):lower()
         for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
-        if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
+        if not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then
             return
         end
 
         if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
 
-        if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds(api.prefix.new.."skill2")(getPlayer); return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
+        if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds[api.prefix.new.."skill2"](getPlayer); return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
         plr.Character.Humanoid:UnequipTools()
         local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
@@ -66,7 +66,7 @@ insertCommand("as", function(getPlayer)
         local name = tostring(getPlayer):lower()
         for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
-        if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
+        if not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then
             return
         end
 
@@ -97,7 +97,7 @@ insertCommand("skill2", function(getPlayer)
         local name = tostring(getPlayer):lower()
         for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
-        if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
+        if not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then
             return
         end
 
@@ -129,17 +129,18 @@ end)
 insertCommand("lskill", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill = rs.RenderStepped:Connect(function()
-        api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid")
+        api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait(); repeat task.wait() until plr.Character:FindFirstChild("HumanoidRootPart")
     end)
 end)
 
 insertCommand("lskill2", function(getPlayer)
     api.cmds[api.prefix.new.."stop"]()
     loops.lskill2 = rs.RenderStepped:Connect(function()
-        api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid")
+        api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait(); repeat task.wait() until plr.Character:FindFirstChild("HumanoidRootPart")
     end)
 end)
 
 insertCommand("stop", function()
-    for i, v in next, loops do if v then pcall(function() v = false; v:Disconnect() end) end end
+    for i, v in next, signals do if v then v:Disconnect() end end
+    for i, v in next, loops do if v then v = false end end
 end)
