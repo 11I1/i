@@ -1,6 +1,6 @@
 local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76a5bb315aefda7687ad6d5705c5946/raw/ac2e5c08aca5b80d22317a34d3bde5dfebe37457/api.lua"))()
 
-local rs, plrs = game.RunService, game.Players
+local rs, plrs = game:GetService("RunService"), game.Players
 local plr = plrs.LocalPlayer
 
 local utilities, loops, ranking = {}, {}, {[plr] = 1}
