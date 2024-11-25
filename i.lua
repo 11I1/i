@@ -22,12 +22,6 @@ local function getRank(getPlayer)
     if ranking[plr] < ranking[getPlayer] then return true elseif ranking[plr] > ranking[getPlayer] then return false end
 end
 
-function timer(t, i, m, e)
-    if type(i) == "number" and type(e) == "function" then
-        repeat task.wait(); if (os.time() - t >= i) then e(); return false end until m; return true
-    end
-end
-
 local function property()
     if not plr.Character then return end
     for i, v in next, plr.Character:GetChildren() do if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.new(0, 0, 0), Vector3.new(0, 0, 0) end end
@@ -52,10 +46,10 @@ insertCommand("skill", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            local clock = os.time(); plr.Character.Humanoid:EquipTool(tool)
+            plr.Character.Humanoid:EquipTool(tool)
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or timer(clock, 5, plr.Character.Humanoid.Health <= 0, function() warn("Task-Failed!") end) then
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0))
@@ -64,7 +58,9 @@ insertCommand("skill", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        if timer(os.time(), 5, getPlayer.Character.Humanoid.Health <= 0, function() plr.Character.Humanoid:ChangeState(15) end) then plr.Character.Humanoid:ChangeState(15) end
+        local clock = os.time()
+        repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character.Humanoid.Health <= 0
+        plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
@@ -96,7 +92,9 @@ insertCommand("as", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        if timer(os.time(), 5, getPlayer.Character:FindFirstChild("Sitting"), function() plr.Character.Humanoid:ChangeState(15) end) then plr.Character.Humanoid:ChangeState(15) end
+        local clock = os.time()
+        repeat task.wait(); if (os.time() - clock) >= 25 then return end until getPlayer.Character:FindFirstChild("Sitting")
+        plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
@@ -117,21 +115,23 @@ insertCommand("skill2", function(getPlayer)
         local tool, part = plr.Backpack["Stroller"] or plr.Character["Stroller"]
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
-        local function run()
+        local function run(clock)
             plr.Character.Humanoid:EquipTool(tool)
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
-                    break
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
+                    warn("Task-Failed!"); break
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:SetPrimaryPartCFrame(tool.Handle.CFrame)
                     firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
                     if tool.Parent ~= workspace then tool.Parent = workspace end
                 end
             until plr.Character.Humanoid.Health <= 0
-        end task.spawn(function() pcall(run) end)
+        end task.spawn(function() pcall(run(os.time())) end)
 
-        if timer(os.time(), 5, getPlayer.Character.Humanoid.Health <= 0, function() plr.Character.Humanoid:ChangeState(15) end) then plr.Character.Humanoid:ChangeState(15) end
+        local clock = os.time()
+        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
+        plr.Character.Humanoid:ChangeState(15)
     end
 end)
 
