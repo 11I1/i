@@ -146,14 +146,14 @@ insertCommand("svoid", function(getPlayer)
 
             repeat task.wait()
                 if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-                plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:PivotTo(tool.Handle.CFrame)
+                plr.Character:PivotTo(CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:PivotTo(tool.Handle.CFrame)
                 firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
                 if tool.Parent ~= workspace then tool.Parent = workspace end
             until getPlayer.Character:FindFirstChild("Sitting")
         end task.spawn(function() pcall(run, os.time()) end)
 
         workspace.FallenPartsDestroyHeight = -600
-        plr.Character:PivotTo(CFrame.new(0, -597, 0))
+        plr.Character:PivotTo(CFrame.new(0, -598, 0))
 
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
