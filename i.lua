@@ -140,7 +140,7 @@ insertCommand("svoid", function(getPlayer)
 
             repeat
                 if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-                plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 13, 0) * CFrame.Angles(2, 0, 0))
+                plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 5, 0) * CFrame.Angles(2, 0, 0))
                 if tool.Parent ~= workspace then tool.Parent = workspace end
                 firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
                 task.wait()
