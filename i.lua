@@ -22,6 +22,12 @@ local function getRank(getPlayer)
     if ranking[plr] < ranking[getPlayer] then return true elseif ranking[plr] > ranking[getPlayer] then return false end
 end
 
+function timer(t, i, m, e)
+    if type(i) == "number" and type(e) == "function" then
+        local clock = os.time() - t; repeat task.wait(); if (clock >= i) then e(); return false end until m; return true
+    end
+end
+
 local function property()
     if not plr.Character then return end
     for i, v in next, plr.Character:GetChildren() do if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.new(0, 0, 0), Vector3.new(0, 0, 0) end end
@@ -29,7 +35,7 @@ end
 
 insertCommand("skill", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        local name, clock = tostring(getPlayer):lower()
+        local name = tostring(getPlayer):lower()
         for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
@@ -46,10 +52,10 @@ insertCommand("skill", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            plr.Character.Humanoid:EquipTool(tool); clock = os.time()
+            plr.Character.Humanoid:EquipTool(tool)
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0))
@@ -58,15 +64,13 @@ insertCommand("skill", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
-        plr.Character.Humanoid:ChangeState(15)
+        if timer(os.time(), 5, getPlayer.Character.Humanoid.Health <= 0, function() plr.Character.Humanoid:ChangeState(15) end) then plr.Character.Humanoid:ChangeState(15) end
     end
 end)
 
 insertCommand("as", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        local name, clock = tostring(getPlayer):lower()
+        local name = tostring(getPlayer):lower()
         for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
@@ -80,10 +84,10 @@ insertCommand("as", function(getPlayer)
         for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
 
         local function run()
-            plr.Character.Humanoid:EquipTool(tool); clock = os.time()
+            plr.Character.Humanoid:EquipTool(tool)
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
                     for i, v in next, parts do getPlayer.Character:SetPrimaryPartCFrame(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
@@ -92,15 +96,13 @@ insertCommand("as", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character:FindFirstChild("Sitting")
-        plr.Character.Humanoid:ChangeState(15)
+        if timer(os.time(), 5, getPlayer.Character:FindFirstChild("Sitting"), function() plr.Character.Humanoid:ChangeState(15) end) then plr.Character.Humanoid:ChangeState(15) end
     end
 end)
 
 insertCommand("skill2", function(getPlayer)
     if game.PlaceId == 1662219031 then
-        local name, clock = tostring(getPlayer):lower()
+        local name = tostring(getPlayer):lower()
         for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
         if not plr.Character or not plr.Character.Humanoid or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
@@ -116,10 +118,10 @@ insertCommand("skill2", function(getPlayer)
         for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
         local function run()
-            plr.Character.Humanoid:EquipTool(tool); clock = os.time()
+            plr.Character.Humanoid:EquipTool(tool)
 
             repeat
-                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then
+                if not getPlayer.Character or not getPlayer.Character.Humanoid or getPlayer.Character.Humanoid.Health <= 0 then
                     break
                 else
                     plr.Character:SetPrimaryPartCFrame(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0)); getPlayer.Character:SetPrimaryPartCFrame(tool.Handle.CFrame)
@@ -129,9 +131,7 @@ insertCommand("skill2", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
-        plr.Character.Humanoid:ChangeState(15)
+        if timer(os.time(), 5, getPlayer.Character.Humanoid.Health <= 0, function() plr.Character.Humanoid:ChangeState(15) end) then plr.Character.Humanoid:ChangeState(15) end
     end
 end)
 
