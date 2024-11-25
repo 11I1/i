@@ -127,7 +127,7 @@ insertCommand("skill2", function(getPlayer)
                     if tool.Parent ~= workspace then tool.Parent = workspace end
                 end
             until plr.Character.Humanoid.Health <= 0
-        end task.spawn(function() pcall(run(os.time())) end)
+        end task.spawn(function() pcall(run, os.time()) end)
 
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
