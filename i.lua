@@ -152,8 +152,8 @@ insertCommand("svoid", function(getPlayer)
             until getPlayer.Character:FindFirstChild("Sitting")
         end task.spawn(function() pcall(run, os.time()) end)
 
-        workspace.FallenPartsDestroyHeight = -600
-        plr.Character:PivotTo(CFrame.new(0, -598, 0))
+        workspace.FallenPartsDestroyHeight = -802
+        plr.Character:PivotTo(CFrame.new(0, -800, 0))
 
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until getPlayer.Character.Humanoid.Health <= 0
