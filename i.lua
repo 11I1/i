@@ -22,6 +22,14 @@ local function getRank(getPlayer)
     if ranking[plr] < ranking[getPlayer] then return true elseif ranking[plr] > ranking[getPlayer] then return false end
 end
 
+local function timer(duration, logic, execute)
+    if type(duration) == "number" and type(execute) == "function" then
+        local clock = os.time()
+        repeat task.wait(); if (os.time() - clock) >= duration then execute(); return false end until logic
+        return true
+    end
+end
+
 local function property()
     if not plr.Character then return end
     for i, v in next, plr.Character:GetChildren() do if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.new(0, 0, 0), Vector3.new(0, 0, 0) end end
@@ -58,8 +66,7 @@ insertCommand("skill", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 3 then return end until getPlayer.Character.Humanoid.Health <= 0
+        if not timer(5, getPlayer.Character.Humanoid.Health <= 0, function() plr.Character.Humanoid:ChangeState(15) end) then return end
         plr.Character.Humanoid:ChangeState(15)
     end
 end)
@@ -92,8 +99,7 @@ insertCommand("as", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 3 then return end until getPlayer.Character:FindFirstChild("Sitting")
+        if not timer(5, getPlayer.Character:FindFirstChild("Sitting"), function() plr.Character.Humanoid:ChangeState(15) end) then return end
         plr.Character.Humanoid:ChangeState(15)
     end
 end)
@@ -129,8 +135,7 @@ insertCommand("skill2", function(getPlayer)
             until plr.Character.Humanoid.Health <= 0
         end task.spawn(function() pcall(run) end)
 
-        local clock = os.time()
-        repeat task.wait(); if (os.time() - clock) >= 3 then return end until getPlayer.Character.Humanoid.Health <= 0
+        if not timer(5, getPlayer.Character.Humanoid.Health <= 0, function() plr.Character.Humanoid:ChangeState(15) end) then return end
         plr.Character.Humanoid:ChangeState(15)
     end
 end)
