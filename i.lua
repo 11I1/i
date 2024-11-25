@@ -3,7 +3,7 @@ local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76
 local plrs = game:GetService("Players")
 local plr = plrs.LocalPlayer
 
-local loops, utilities, ranking, loop, rs = {}, {}, {[plr] = 1}, false
+local loops, utilities, ranking, rs = {}, {}, {[plr] = 1}
 
 for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
 workspace.ChildAdded:Connect(function(object)
@@ -145,28 +145,6 @@ insertCommand("lskill2", function(getPlayer)
     while loops["lskill2"] do api.cmds[api["prefix"]["new"].."skill2"](getPlayer); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
 end)
 
---[[
-insertCommand("svoid", function(getPlayer)
-    if ((tonumber(game["PlaceId"])) == (1662219031)) then
-        for _, v in next, (plrs:GetPlayers()) do
-            if v:IsA("Player") then
-                if ((tostring(v["Name"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower()) or (tostring(v["DisplayName"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower())) then
-                    getPlayer = (v)
-                end
-            end
-        end
-    end
+insertCommand("stop", function()
+    for i, v in next, loops do if v then pcall(function() v = false; v:Disconnect() end) end
 end)
-
-insertCommand("sbring", function(getPlayer)
-    if ((tonumber(game["PlaceId"])) == (1662219031)) then
-        for _, v in next, (plrs:GetPlayers()) do
-            if v:IsA("Player") then
-                if ((tostring(v["Name"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower()) or (tostring(v["DisplayName"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower())) then
-                    getPlayer = (v)
-                end
-            end
-        end
-    end
-end)
-]]
