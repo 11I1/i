@@ -137,16 +137,16 @@ insertCommand("svoid", function(getPlayer)
         local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
 
         local function run(clock)
-            workspace.Events.Morph.Player:FireServer("Sheep"); plr.Character.Humanoid:EquipTool(tool)
+            plr.Character.Humanoid:EquipTool(tool)
 
             repeat
                 if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-                if tool.Parent ~= getPlayer.Character and tool.Parent ~= workspace then tool.Parent = workspace end
+                if tool.Parent == plr.Character and tool.Parent ~= getPlayer.Character then tool.Parent = workspace end
                 firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0); task.wait()
             until plr.Character.Humanoid.Health <= 0
         end spawn(function() pcall(run, os.time()) end)
 
-        plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 25, 0))
+        plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 25, 0) * CFrame.Angles(-1.5, 0, 0))
 
         local clock = os.time()
         repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
