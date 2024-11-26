@@ -142,8 +142,8 @@ insertCommand("svoid", function(getPlayer)
             spawn(function()
                 repeat
                     if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+                    if tool.Parent ~= workspace then tool.Parent = workspace end
                     firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0); task.wait()
-                    if tool.Parent == getPlayer.Character and tool.Parent ~= workspace then tool.Parent = workspace end
                 until plr.Character.Humanoid.Health <= 0
             end)
 
