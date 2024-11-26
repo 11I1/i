@@ -147,7 +147,7 @@ insertCommand("svoid", function(getPlayer)
                 until plr.Character.Humanoid.Health <= 0
             end)
 
-            plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 10, 0))
+            plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 20, 0))
         end task.spawn(function() pcall(run, os.time()) end)
 
         local clock = os.time()
