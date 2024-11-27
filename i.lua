@@ -137,6 +137,7 @@ insertCommand("svoid", function(getPlayer)
     tool.Parent, wand.Parent = plr.Character, plr.Character
     wait(1)
     tool.Parent = workspace
+    wait(1)
     firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
     wand.Parent = workspace
 
