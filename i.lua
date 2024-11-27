@@ -135,7 +135,6 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
     tool.Parent, wand.Parent = plr.Character, plr.Character
-    wait(1)
     tool.Parent = workspace
     wait(1)
     firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
