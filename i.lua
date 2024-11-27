@@ -136,11 +136,9 @@ insertCommand("svoid", function(getPlayer)
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
     tool.Parent, wand.Parent = plr.Character, plr.Character
 
-    local function run()
-        tool.Parent, wand.Parent = workspace, workspace
-        firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0))
-    end; pcall(run)
-
+    tool.Parent, wand.Parent = workspace, workspace
+    repeat task.wait(); if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then return end until tool.Parent == workspace and wand.Parent == workspace
+    firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0))
     if not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 then return end
 
     local clock = os.time()
