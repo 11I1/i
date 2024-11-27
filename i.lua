@@ -3,9 +3,9 @@ local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76
 local rs, plrs = game:FindFirstChildOfClass("RunService"), game.Players
 local plr = plrs.LocalPlayer
 
-local utilities, signals, loops, ranking = {}, {}, {}, {[plr] = 1}
+local utilities, signals, loops, ranking, id = {}, {}, {}, {[plr] = 1}, {1662219031}
 
-do if game.PlaceId ~= 1662219031 then return end
+if table.find(id, game.PlaceId) then
     for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
     workspace.ChildAdded:Connect(function(object)
         if not plrs:FindFirstChild(object.Name) then
@@ -30,7 +30,7 @@ local function property()
 end
 
 insertCommand("skill", function(getPlayer)
-    if game.PlaceId ~= 1662219031 then return end
+    if not table.find(id, game.PlaceId) then return end
     local name = tostring(getPlayer):lower()
     for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
@@ -62,7 +62,7 @@ insertCommand("skill", function(getPlayer)
 end)
 
 insertCommand("as", function(getPlayer)
-    if game.PlaceId ~= 1662219031 then return end
+    if not table.find(id, game.PlaceId) then return end
     local name = tostring(getPlayer):lower()
     for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
@@ -90,7 +90,7 @@ insertCommand("as", function(getPlayer)
 end)
 
 insertCommand("skill2", function(getPlayer)
-    if game.PlaceId ~= 1662219031 then return end
+    if not table.find(id, game.PlaceId) then return end
     local name = tostring(getPlayer):lower()
     for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
@@ -122,7 +122,7 @@ insertCommand("skill2", function(getPlayer)
 end)
 
 insertCommand("svoid", function(getPlayer)
-    if game.PlaceId ~= 1662219031 then return end
+    if not table.find(id, game.PlaceId) then return end
     local name = tostring(getPlayer):lower()
     for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
 
@@ -152,7 +152,7 @@ insertCommand("svoid", function(getPlayer)
 end)
 
 insertCommand("lskill", function(getPlayer)
-    if game.PlaceId ~= 1662219031 then return end
+    if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
     signals.lskill = rs.RenderStepped:Connect(function()
         api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime)
@@ -160,7 +160,7 @@ insertCommand("lskill", function(getPlayer)
 end)
 
 insertCommand("lskill2", function(getPlayer)
-    if game.PlaceId ~= 1662219031 then return end
+    if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
     signals.lskill2 = rs.RenderStepped:Connect(function()
         api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime)
