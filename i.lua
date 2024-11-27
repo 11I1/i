@@ -149,9 +149,9 @@ insertCommand("svoid", function(getPlayer)
 
     plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); plr.Character.HumanoidRootPart:BreakJoints()
     local wand = plr.Backpack:FindFirstChild("Fairy Wand")
-    wand.Parent = plr.Character
+    wand.Parent = plr.Character; rs.RenderStepped:Wait()
     wand.Parent = workspace
-    firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0)
+    repeat task.wait(); firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0) until wand.Parent == getPlayer.Character or getPlayer.Character.Humanoid.Health <= 0
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
