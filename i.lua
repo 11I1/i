@@ -146,6 +146,7 @@ insertCommand("svoid", function(getPlayer)
             until wand.Parent == getPlayer.Character
         end)
 
+        plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/2)
         wand.Parent = workspace
     end; pcall(run, os.time())
 
