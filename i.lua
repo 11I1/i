@@ -5,23 +5,21 @@ local plr = plrs.LocalPlayer
 
 local utilities, signals, loops, ranking, id = {}, {}, {}, {[plr] = 1}, {1662219031}
 
-if table.find(id, game.PlaceId) then
-    for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
-    workspace.ChildAdded:Connect(function(object)
-        if not plrs:FindFirstChild(object.Name) then
-            return
-        else
-            object = plrs:FindFirstChild(object.Name)
-        end
-
-        ranking[object] = 1
-        for i, v in next, ranking do if i ~= object then ranking[i] = v + 1 end end
-    end)
-
-    local function getRank(getPlayer)
-        if not getPlayer then return end
-        if ranking[plr] < ranking[getPlayer] then return true elseif ranking[plr] > ranking[getPlayer] then return false end
+for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
+local added = workspace.ChildAdded:Connect(function(object)
+    if not plrs:FindFirstChild(object.Name) then
+        return
+    else
+        object = plrs:FindFirstChild(object.Name)
     end
+
+    ranking[object] = 1
+    for i, v in next, ranking do if i ~= object then ranking[i] = v + 1 end end
+end); if not table.find(id, game.PlaceId) then added:Disconnect() end
+
+local function getRank(getPlayer)
+    if not getPlayer then return end
+    if ranking[plr] < ranking[getPlayer] then return true elseif ranking[plr] > ranking[getPlayer] then return false end
 end
 
 local function property()
@@ -140,12 +138,12 @@ insertCommand("svoid", function(getPlayer)
 
         repeat rs.RenderStepped:Wait()
             if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-            for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v.Name ~= "Handle" then firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end end
             if tool.Parent == plr.Character then tool.Parent = workspace end
+            firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
         until plr.Character.Humanoid.Health <= 0
     end spawn(function() pcall(run, os.time()) end)
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 25, 0) * CFrame.new(-1.5, 0, 0))
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 25, 0) * CFrame.Angles(-1.5, 0, 0))
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
