@@ -141,7 +141,8 @@ insertCommand("svoid", function(getPlayer)
         repeat
             if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
             if tool.Parent == plr.Character and wand.Parent == plr.Character then tool.Parent, wand.Parent = workspace, workspace end
-            firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0))
+            firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 1))
+            firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 1))
         until tool.Parent == getPlayer.Character
     end task.spawn(function() pcall(run, os.time()) end)
 
