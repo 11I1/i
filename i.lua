@@ -145,8 +145,8 @@ insertCommand("svoid", function(getPlayer)
         until plr.Character.Humanoid.Health <= 0
     end spawn(function() pcall(run, os.time()) end)
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 25, 0) * CFrame.Angles(-1.5, 0, 0)); rs.RenderStepped:Wait()
-    plr.Character.HumanoidRootPart:BreakJoints(); rs.RenderStepped:Wait()
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 25, 0) * CFrame.Angles(-1.5, 0, 0)); wait(1/4)
+    plr.Character.HumanoidRootPart:BreakJoints(); wait(1)
     plr.Character.Humanoid:ChangeState(15)
 
     local clock = os.time()
