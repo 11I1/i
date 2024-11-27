@@ -145,10 +145,9 @@ insertCommand("svoid", function(getPlayer)
             firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
             task.wait()
         until tool.Parent == getPlayer.Character
+        repeat task.wait(); firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0) until wand.Parent == getPlayer.Character
         if wand.Parent == plr.Character then wand.Parent = workspace end
     end; pcall(run, os.time())
-
-    firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
