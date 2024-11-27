@@ -140,10 +140,14 @@ insertCommand("svoid", function(getPlayer)
 
         repeat
             if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+            plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); rs.RenderStepped:Wait()
             tool.Parent, wand.Parent = workspace, workspace
-            firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0))
+            firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0))
         until plr.Character.Humanoid.Health <= 0
-    end pcall(run, os.time())
+    end spawn(function() pcall(run, os.time()) end)
+
+    plr.Character.HumanoidRootPart:BreakJoints(); wait(1/2)
+    plr.Character.Humanoid:ChangeState(15)
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
