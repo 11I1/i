@@ -1,5 +1,7 @@
 local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76a5bb315aefda7687ad6d5705c5946/raw/ac2e5c08aca5b80d22317a34d3bde5dfebe37457/api.lua"))()
 
+if workspace then workspace.FallenPartsDestroyHeight = 0/0 end
+
 local rs, plrs = game:FindFirstChildOfClass("RunService"), game.Players
 local plr = plrs.LocalPlayer
 
@@ -143,7 +145,9 @@ insertCommand("svoid", function(getPlayer)
         until plr.Character.Humanoid.Health <= 0
     end spawn(function() pcall(run, os.time()) end)
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 25, 0) * CFrame.Angles(-1.5, 0, 0))
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 25, 0) * CFrame.Angles(-1.5, 0, 0)); rs.RenderStepped:Wait()
+    plr.Character.HumanoidRootPart:BreakJoints(); rs.RenderStepped:Wait()
+    plr.Character.Humanoid:ChangeState(15)
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
