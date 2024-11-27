@@ -140,7 +140,7 @@ insertCommand("svoid", function(getPlayer)
             plr.Character.Humanoid:EquipTool(tool); wait(1/2)
             tool.Parent = workspace
 
-            repeat task.wait()
+            repeat rs.RenderStepped:Wait()
                 if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
                 plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 5, 0) * CFrame.Angles(-1.5, 0, 0))
                 spawn(function() for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v.Name ~= "Handle" then firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end end end)
