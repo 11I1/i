@@ -147,8 +147,12 @@ insertCommand("svoid", function(getPlayer)
 
     if not plr.Character or not plr.Character:FindFirstChild("Humanoid") or plr.Character.Humanoid.Health <= 0 then return end
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); plr.Character.HumanoidRootPart:BreakJoints()
-    wand.Parent = workspace; rs.RenderStepped:Wait(); firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0))
+    wand.Parent = workspace
+
+    wait(1/2)
+    
+    firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
