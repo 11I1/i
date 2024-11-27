@@ -143,7 +143,7 @@ insertCommand("svoid", function(getPlayer)
             if tool.Parent == plr.Character then tool.Parent = workspace end
             firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
             if wand.Parent == plr.Character and tool.Parent == getPlayer.Character then wand.Parent = workspace end
-        until plr.Character.Humanoid.Health <= 0 or wand.Parent = getPlayer.Character
+        until plr.Character.Humanoid.Health <= 0 or wand.Parent == getPlayer.Character
     end; pcall(run, os.time())
 
     local clock = os.time()
