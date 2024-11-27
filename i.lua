@@ -144,13 +144,10 @@ insertCommand("svoid", function(getPlayer)
     firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)
     ]]
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1)
-    tool.Parent, wand.Parent = plr.Character, plr.Character
-    wait(1)
-    tool.Parent, wand.Parent = workspace, workspace
-    wait(1)
-    firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
-    wait(1)
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 25, 0)); wait(1/2)
+    tool.Parent, wand.Parent = plr.Character, plr.Character; wait(1/2)
+    tool.Parent, wand.Parent = workspace, workspace; wait(1/2)
+    firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0); wait(1/2)
     firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)
 
     local clock = os.time()
