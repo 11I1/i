@@ -137,8 +137,7 @@ insertCommand("svoid", function(getPlayer)
         local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
 
         local function run(clock)
-            plr.Character.Humanoid:EquipTool(tool)
-            repeat task.wait() until tool.Parent == plr.Character
+            plr.Character.Humanoid:EquipTool(tool); wait(1/2)
             tool.Parent = workspace
 
             repeat task.wait()
