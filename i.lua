@@ -138,12 +138,12 @@ insertCommand("svoid", function(getPlayer)
     local function run(clock)
         plr.Character.Humanoid:EquipTool(tool)
 
-        repeat rs.RenderStepped:Wait()
+        repeat task.wait()
             if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
             if tool.Parent == plr.Character then tool.Parent = workspace end
             firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
         until plr.Character.Humanoid.Health <= 0 or getPlayer.Character:FindFirstChild("Sitting")
-    end pcall(run)
+    end pcall(run, os.time())
 
     plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 15, 0) * CFrame.Angles(-1.5, 0, 0))
 
