@@ -134,12 +134,13 @@ insertCommand("svoid", function(getPlayer)
 
     plr.Character.Humanoid:UnequipTools()
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
-    tool.Parent, wand.Parent = plr.Character, plr.Character
-    wait(1)
-    tool.Parent = workspace
+    plr.Character.Humanoid:EquipTool(tool); wait()
+    tool.Parent = workspace; wait()
     firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
-    wand.Parent = workspace
-
+    plr.Character.Humanoid:EquipTool(wand); wait()
+    wand.Parent = workspace; wait()
+    firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)
+    
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
 end)
