@@ -133,12 +133,12 @@ insertCommand("svoid", function(getPlayer)
     if plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
     plr.Character.Humanoid:UnequipTools()
-    local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
+    local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
 
     local function run(clock)
-        plr.Character.Humanoid:EquipTool(tool)
+        tool.Parent, wand.Parent = plr.Character, plr.Character
 
-        repeat rs.RenderStepped:Wait()
+        repeat task.wait()
             if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
             if tool.Parent == plr.Character then tool.Parent = workspace end
             firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
@@ -148,10 +148,7 @@ insertCommand("svoid", function(getPlayer)
     if not plr.Character or not plr.Character:FindFirstChild("Humanoid") or plr.Character.Humanoid.Health <= 0 then return end
 
     plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); plr.Character.HumanoidRootPart:BreakJoints()
-    local wand = plr.Backpack:FindFirstChild("Fairy Wand")
-    wand.Parent = plr.Character; rs.RenderStepped:Wait()
-    wand.Parent = workspace
-    repeat task.wait(); firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0) until wand.Parent == getPlayer.Character or getPlayer.Character.Humanoid.Health <= 0
+    wand.Parent = workspace; rs.RenderStepped:Wait(); firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
