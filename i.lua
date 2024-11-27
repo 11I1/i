@@ -144,8 +144,8 @@ insertCommand("svoid", function(getPlayer)
     firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)
     ]]
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/2)
-    tool.Parent, wand.Parent = plr.Character, plr.Character
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/4)
+    tool.Parent, wand.Parent = plr.Character, plr.Character; wait(1/2)
     tool.Parent, wand.Parent = workspace, workspace
     spawn(function()
         repeat firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)) until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
