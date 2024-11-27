@@ -136,7 +136,8 @@ insertCommand("svoid", function(getPlayer)
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
     tool.Parent, wand.Parent = plr.Character, plr.Character
     tool.Parent = workspace
-    firetouchinterest(getPlayer.Character.HumanoidRootPart, tool.Handle, 0, task.wait(), {wand.Parent = workspace})
+    firetouchinterest(getPlayer.Character.HumanoidRootPart, tool.Handle, 0)
+    wand.Parent = workspace
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
