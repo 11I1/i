@@ -143,11 +143,9 @@ insertCommand("svoid", function(getPlayer)
             if tool.Parent == plr.Character then tool.Parent = workspace end
             firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
         until plr.Character.Humanoid.Health <= 0
-    end spawn(function() pcall(run, os.time()) end)
+    end
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 25, 0) * CFrame.Angles(-1.5, 0, 0)); wait(1/4)
-    plr.Character.HumanoidRootPart:BreakJoints(); wait(1)
-    plr.Character.Humanoid:ChangeState(15)
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 25, 0) * CFrame.Angles(-1.5, 0, 0)); pcall(run, os.time())
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
