@@ -144,7 +144,7 @@ insertCommand("svoid", function(getPlayer)
             firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 1))
             firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 1))
         until tool.Parent == getPlayer.Character
-    end task.spawn(function() pcall(run, os.time()) end)
+    end pcall(run, os.time())
 
     plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0))
 
