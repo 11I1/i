@@ -141,11 +141,12 @@ insertCommand("svoid", function(getPlayer)
         repeat
             if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
             if tool.Parent == plr.Character and wand.Parent == plr.Character then tool.Parent, wand.Parent = workspace, workspace end
-            firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 1))
+            firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
         until tool.Parent == getPlayer.Character
     end pcall(run, os.time())
 
     plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0))
+    for i, v in next, wand:GetChildren() do if v:IsA("BasePart") then firetouchinterest(v, getPlayer.Character.PrimaryPart, 0) end end
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
