@@ -146,7 +146,7 @@ insertCommand("svoid", function(getPlayer)
             task.wait()
         until tool.Parent == getPlayer.Character
         if wand.Parent == plr.Character then wand.Parent = workspace end
-    end; call(run, os.time())
+    end; pcall(run, os.time())
 
     firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)
 
