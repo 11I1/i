@@ -147,8 +147,11 @@ insertCommand("svoid", function(getPlayer)
 
     if not plr.Character or not plr.Character:FindFirstChild("Humanoid") or plr.Character.Humanoid.Health <= 0 then return end
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 5, 0))
-    for i, v in next, plr.Character.HumanoidRootPart:GetChildren() do if v:IsA("Weld") then v.Enabled = false end end
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); plr.Character.HumanoidRootPart:BreakJoints()
+    local wand = plr.Backpack:FindFirstChild("Fairy Wand")
+    wand.Parent = plr.Character
+    wand.Parent = workspace
+    firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0)
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
