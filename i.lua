@@ -140,7 +140,7 @@ insertCommand("svoid", function(getPlayer)
     tool.Parent = plr.Backpack
     plr.Character.Humanoid:EquipTool(tool)
     tool.Parent = workspace
-    for i, v in next, tool:GetChildren() do if v:IsA("BasePart") then firetouchinterest(tool.Handle, plr.Character.PrimaryPart, 0) end end
+    for i, v in next, tool:GetChildren() do if v:IsA("BasePart") then firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0) end end
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
