@@ -136,7 +136,7 @@ insertCommand("svoid", function(getPlayer)
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
 
     local function run(clock)
-        plr.Character.Humanoid:EquipTool(tool); plr.Character.Humanoid:EquipTool(wand)
+        tool.Parent, wand.Parent = plr.Character, plr.Character
 
         repeat task.wait()
             if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
