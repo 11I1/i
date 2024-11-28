@@ -25,9 +25,9 @@ local function getRank(getPlayer)
 end
 
 local function teleported(object, toObject)
-    if not object or toObject then print("true") end
+    if not object or toObject then print("true1") end
     local magnitude = (object.Position - toObject.Position).Magnitude
-    if magnitude >= 0.1 then print("true") else print("false") end
+    if magnitude >= 1 then print("true2") elseif magnitude <= 1 then print("false2") end
 end
 
 local function property()
