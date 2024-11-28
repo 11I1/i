@@ -143,7 +143,7 @@ insertCommand("svoid", function(getPlayer)
         if tool.Parent == plr.Character then tool.Parent = workspace end
     until plr.Character.Humanoid.Health <= 0 or tool.Parent == getPlayer.Character
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait()
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/4)
 
     plr.Character.Humanoid:EquipTool(wand)
     repeat task.wait()
