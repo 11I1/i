@@ -52,7 +52,7 @@ insertCommand("skill", function(getPlayer)
 
         repeat
             if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-            plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.5, 0, 0))
+            plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.25, 0, 0))
             for i, v in next, parts do getPlayer.Character:PivotTo(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
         until plr.Character.Humanoid.Health <= 0
     end task.spawn(function() pcall(run, os.time()) end)
@@ -135,13 +135,16 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
 
-    plr.Character.Humanoid:EquipTool(tool); wait(1/2)
-    tool.Parent = workspace; wait(1)
-    firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
-    plr.Character.Humanoid:EquipTool(wand); wait(1/2)
-    wand.Parent = workspace; wait(1)
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0))
-    firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)
+    local function run(clock)
+        plr.Character.Humanoid:EquipTool(tool); plr.Character.Humanoid:EquipTool(wand)
+
+        repeat task.wait()
+            if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+            plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 25, 0) * CFrame.Angles(-1.5, 0, 0))
+            if tool.Parent == plr.Character then tool.Parent = workspace elseif tool.Parent == getPlayer.Character and wand.Parent == plr.Character then wand.Parent = workspace end
+            if tool.Parent == workspace then firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0) elseif wand.Parent == workspace then firetouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0) end
+        until plr.Character.Humanoid.Health <= 0
+    end; pcall(run, os.time())
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
