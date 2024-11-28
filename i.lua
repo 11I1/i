@@ -135,7 +135,7 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
 
-    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)); wait(1/8)
+    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -500, 0)); wait()
     local clock = os.time()
 
     tool.Parent, wand.Parent = plr.Character, plr.Character
@@ -148,12 +148,12 @@ insertCommand("svoid", function(getPlayer)
     until plr.Character.Humanoid.Health <= 0 or tool.Parent == getPlayer.Character
 
     plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/2)
-    clock = os.time()
 
     repeat task.wait()
-        if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then print("gnsdkksdjfnd"); plr.Character.Humanoid:ChangeState(15); break end
         firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0)
-    until plr.Character.Humanoid.Health <= 0
+    until not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0
+
+    plr.Character.Humanoid:ChangeState(15)
 end)
 
 insertCommand("lskill", function(getPlayer)
