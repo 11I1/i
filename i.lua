@@ -138,7 +138,7 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:EquipTool(tool)
     repeat task.wait() until plr.Character:FindFirstChild(tool)
     tool.Parent = workspace
-    for i = 1, 10 do firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0); task.wait() end
+    task.spawn(function() for i = 1, 10 do firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0); task.wait() end end)
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
