@@ -140,6 +140,7 @@ insertCommand("svoid", function(getPlayer)
 
     tool.Parent, wand.Parent = plr.Character, plr.Character
     tool.Parent, wand.Parent = workspace, workspace
+
     repeat task.wait()
         if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
         firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0)
