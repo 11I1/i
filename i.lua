@@ -138,7 +138,7 @@ insertCommand("svoid", function(getPlayer)
     local function run(clock)
         plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/4)
         tool.Parent, wand.Parent = plr.Character, plr.Character
-        repeat wait() if not tool or wand then break end until tool.Parent == plr.Character and wand.Parent == plr.Character
+        repeat wait(1/4) if not tool or wand then break end until tool.Parent == plr.Character and wand.Parent == plr.Character
 
         repeat
             if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
