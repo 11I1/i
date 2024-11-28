@@ -138,13 +138,12 @@ insertCommand("svoid", function(getPlayer)
     local function run(clock)
         plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/4)
         tool.Parent, wand.Parent = plr.Character, plr.Character
-        wait(1)
 
         repeat
             if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
             tool.Parent = workspace; wait(1/2)
             firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
-            wand.Parent = plr.Character; wait(1/2)
+            wand.Parent = workspace; wait(1/2)
             ifiretouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)
         until plr.Character.Humanoid.Health <= 0
     end; pcall(run, os.time())
