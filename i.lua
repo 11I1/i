@@ -133,29 +133,26 @@ insertCommand("svoid", function(getPlayer)
     if plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
     plr.Character.Humanoid:UnequipTools()
-    local tool, wand, clock = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"], os.time()
+    local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
 
-    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -1000, 0)); wait()
+    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -500, 0)); wait()
+    local clock = os.time()
 
-    plr.Character.Humanoid:EquipTool(wand)
+    tool.Parent, wand.Parent = plr.Character, plr.Character
     wand.Parent = workspace
-    plr.Character.Humanoid:EquipTool(tool)
-
     repeat task.wait()
         if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
         firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0)
         if tool.Parent == plr.Character then tool.Parent = workspace end
     until plr.Character.Humanoid.Health <= 0 or tool.Parent == getPlayer.Character
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/4)
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait()
     clock = os.time()
 
     repeat task.wait()
         if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
         firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0)
-    until plr.Character.Humanoid.Health <= 0 or wand.Parent == getPlayer.Character or getPlayer.Character:FindFirstChildOfClass("Humanoid").Health <= 0
-
-    wait(1); plr.Character.Humanoid:ChangeState(15)
+    until plr.Character.Humanoid.Health <= 0 or wand.Parent == getPlayer.Character or getPlayer.Character.Humanoid.Health <= 0
 
     clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
