@@ -147,9 +147,13 @@ insertCommand("svoid", function(getPlayer)
         if tool.Parent == plr.Character then tool.Parent = workspace end
     until plr.Character.Humanoid.Health <= 0 or tool.Parent == getPlayer.Character
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); task.wait(3/4)
-    firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0)
-    plr.Character.Humanoid:ChangeState(15)
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/2)
+    clock = os.time()
+
+    repeat task.wait()
+        if not getPlayer.Character or (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); break end
+        firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0)
+    until plr.Character.Humanoid.Health <= 0
 end)
 
 insertCommand("lskill", function(getPlayer)
