@@ -135,7 +135,6 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0))
     plr.Character.Humanoid:EquipTool(tool)
     tool.Parent = workspace
     for i = 1, 10 do firetouchinterest(getPlayer.Character.HumanoidRootPart, tool.Handle, 0, task.wait(), firetouchinterest(getPlayer.Character.HumanoidRootPart, tool.Handle, 1)) end
