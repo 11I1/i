@@ -135,15 +135,13 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool, wand, clock = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"], os.time()
 
-    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)); wait()
+    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -800, 0)); wait()
     plr.Character.Humanoid:EquipTool(tool)
     repeat task.wait()
         if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
         firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0)
         if tool.Parent == plr.Character then tool.Parent = workspace end
     until plr.Character.Humanoid.Health <= 0 or tool.Parent == getPlayer.Character
-
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/4)
 
     plr.Character.Humanoid:EquipTool(wand)
     repeat task.wait()
