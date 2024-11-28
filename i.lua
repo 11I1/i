@@ -1,6 +1,6 @@
 local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76a5bb315aefda7687ad6d5705c5946/raw/ac2e5c08aca5b80d22317a34d3bde5dfebe37457/api.lua"))()
 
-workspace.FallenPartsDestroyHeight = 0/0
+if workspace then workspace.FallenPartsDestroyHeight = 0/0 end
 
 local rs, plrs = game:FindFirstChildOfClass("RunService"), game.Players
 local plr = plrs.LocalPlayer
@@ -135,7 +135,7 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
 
-    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -495, 0)); wait(1/8)
+    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/8)
     local clock = os.time()
 
     tool.Parent, wand.Parent = plr.Character, plr.Character
