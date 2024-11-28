@@ -136,6 +136,7 @@ insertCommand("svoid", function(getPlayer)
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
 
     plr.Character.Humanoid:EquipTool(tool)
+    repeat task.wait() until plr.Character:FindFirstChild(tool)
     tool.Parent = workspace
     for i = 1, 10 do firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0); task.wait() end
 
