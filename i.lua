@@ -148,7 +148,7 @@ insertCommand("svoid", function(getPlayer)
     until plr.Character.Humanoid.Health <= 0 or tool.Parent == getPlayer.Character
 
     plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0))
-    rs.RenderStepped:Wait()
+    task.wait(1)
     firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0)
 end)
 
