@@ -48,14 +48,14 @@ insertCommand("skill", function(getPlayer)
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
     local function run(clock)
+        tool.Parent = plr.Character
+
         repeat
             if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
             plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.25, 0, 0))
             for i, v in next, parts do getPlayer.Character:PivotTo(v.CFrame); firetouchinterest(getPlayer.Character.PrimaryPart, v, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
         until plr.Character.Humanoid.Health <= 0
     end task.spawn(function() pcall(run, os.time()) end)
-
-    tool.Parent = plr.Character
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
@@ -107,6 +107,8 @@ insertCommand("skill2", function(getPlayer)
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
     local function run(clock)
+        tool.Parent = plr.Character
+
         repeat
             if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
             plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, 0) * CFrame.Angles(-1.25, 0, 0)); getPlayer.Character:PivotTo(tool.Handle.CFrame)
@@ -114,8 +116,6 @@ insertCommand("skill2", function(getPlayer)
             if tool.Parent == getPlayer.Character then tool.Parent = workspace end
         until plr.Character.Humanoid.Health <= 0
     end task.spawn(function() pcall(run, os.time()) end)
-
-    tool.Parent = plr.Character
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
@@ -135,19 +135,12 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
 
-    local function run(clock)
-        plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/4)
-        tool.Parent, wand.Parent = plr.Character, plr.Character
-        repeat wait(1/4) if not tool or wand then break end until tool.Parent == plr.Character and wand.Parent == plr.Character
-
-        repeat
-            if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-            tool.Parent = workspace; wait(1/2)
-            firetouchinterest(getPlayer.Character.PrimaryPart, tool.Handle, 0)
-            wand.Parent = workspace; wait(1/2)
-            ifiretouchinterest(getPlayer.Character.PrimaryPart, wand.Handle, 0)
-        until plr.Character.Humanoid.Health <= 0
-    end; pcall(run, os.time())
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0))
+    plr.Character.Humanoid:EquipTool(tool)
+    tool.Parent = plr.Backpack
+    plr.Character.Humanoid:EquipTool(tool)
+    tool.Parent = workspace
+    firetouchinterest(tool.Handle, plr.Character.PrimaryPart, 0)
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0 or getPlayer.Character.Humanoid.Health <= 0
