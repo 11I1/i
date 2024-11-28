@@ -24,6 +24,12 @@ local function getRank(getPlayer)
     if ranking[plr] < ranking[getPlayer] then return true elseif ranking[plr] > ranking[getPlayer] then return false end
 end
 
+local function teleported(object, toObject)
+    if not object or toObject then return false end
+    local magnitude = (object.Position - toObject.Position).Magnitude
+    if magnitude >= 0.5 then return true else return false end
+end
+
 local function property()
     if not plr.Character then return end
     for i, v in next, plr.Character:GetChildren() do if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.new(0, 0, 0), Vector3.new(0, 0, 0) end end
@@ -135,8 +141,10 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool, wand, clock = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"], os.time()
 
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0))
+    repeat task.wait() until teleported(plr.Character:GetModelCFrame(), CFrame.new(0, workspace.FallenPartsDestroyHeight, 0))
     plr.Character.Humanoid:EquipTool(tool)
-    repeat rs.RenderStepped:Wait()
+    repeat task.wait()
         if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
         firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0)
         if tool.Parent == plr.Character then tool.Parent = workspace end
