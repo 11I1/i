@@ -172,7 +172,7 @@ insertCommand("lsvoid", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
     loops.lsvoid = true
-    while loops.lsvoid do api.cmds[api.prefix.new.."svoid"](getPlayer); plr.CharacterAdded:Wait(); task.wait(1) end
+    while loops.lsvoid do api.cmds[api.prefix.new.."svoid"](getPlayer); plr.CharacterAdded:Wait(); task.wait(3/4) end
 end)
 
 insertCommand("stop", function()
