@@ -130,6 +130,8 @@ insertCommand("svoid", function(getPlayer)
         return
     end
 
+    if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
+
     if plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
     plr.Character.Humanoid:UnequipTools()
@@ -149,7 +151,7 @@ insertCommand("svoid", function(getPlayer)
 
     plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/2)
     firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0)
-    repeat task.wait(); if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then wait(); plr.Character.Humanoid:ChangeState(15); break end until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0
+    repeat task.wait(); if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then plr.Character.Humanoid:ChangeState(15); break end until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0
 end)
 
 insertCommand("lskill", function(getPlayer)
