@@ -135,7 +135,7 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
 
-    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -480, 0)); task.wait(1/2)
+    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -400, 0)); task.wait(1/2)
     local clock = os.time()
 
     tool.Parent, wand.Parent = plr.Character, plr.Character
