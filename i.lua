@@ -150,8 +150,10 @@ insertCommand("svoid", function(getPlayer)
     until plr.Character.Humanoid.Health <= 0 or tool.Parent == getPlayer.Character
 
     plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/2)
+    clock = os.time()
+
     firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0)
-    repeat task.wait(); if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then plr.Character.Humanoid:ChangeState(15); break end until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0
+    repeat task.wait(); if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then wait(); plr.Character.Humanoid:ChangeState(15); break end until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0
 end)
 
 insertCommand("lskill", function(getPlayer)
@@ -170,10 +172,7 @@ insertCommand("lsvoid", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
     loops.lsvoid = true
-    while loops.lsvoid do
-        api.cmds[api.prefix.new.."svoid"](getPlayer)
-        plr.CharacterAdded:Wait():WaitForChild("Humanoid")
-    end
+    while loops.lsvoid do pcall(api.cmds[api.prefix.new.."svoid"](getPlayer)); plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
 end)
 
 insertCommand("stop", function()
