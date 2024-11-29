@@ -153,7 +153,7 @@ insertCommand("svoid", function(getPlayer)
     clock = os.time()
 
     firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0)
-    repeat task.wait(); if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then wait(); plr.Character.Humanoid:ChangeState(15); break end until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0
+    repeat task.wait(); if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then wait(1/2); plr.Character.Humanoid:ChangeState(15); break end until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0
 end)
 
 insertCommand("lskill", function(getPlayer)
@@ -172,7 +172,7 @@ insertCommand("lsvoid", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
     loops.lsvoid = true
-    while loops.lsvoid do api.cmds[api.prefix.new.."svoid"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime) end
+    while loops.lsvoid do api.cmds[api.prefix.new.."svoid"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime / 2) end
 end)
 
 insertCommand("stop", function()
