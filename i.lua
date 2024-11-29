@@ -168,6 +168,14 @@ insertCommand("lskill2", function(getPlayer)
     end)
 end)
 
+insertCommand("lsvoid", function(getPlayer)
+    if not table.find(id, game.PlaceId) then return end
+    api.cmds[api.prefix.new.."stop"]()
+    signals.lskill2 = rs.RenderStepped:Connect(function()
+        api.cmds[api.prefix.new.."svoid"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime)
+    end)
+end)
+
 insertCommand("stop", function()
     for i, v in next, signals do if v then v:Disconnect() end end
     for i, v in next, loops do if v then v = false end end
