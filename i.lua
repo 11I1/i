@@ -157,23 +157,19 @@ end)
 insertCommand("lskill", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
-    signals.lskill = rs.RenderStepped:Connect(function()
-        api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime)
-    end)
+    signals.lskill = rs.RenderStepped:Connect(function() pcall(api.cmds[api.prefix.new.."skill"](getPlayer)); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime) end)
 end)
 
 insertCommand("lskill2", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
-    signals.lskill2 = rs.RenderStepped:Connect(function()
-        api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime)
-    end)
+    signals.lskill2 = rs.RenderStepped:Connect(function() pcall(api.cmds[api.prefix.new.."skill2"](getPlayer)); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime) end)
 end)
 
 insertCommand("lsvoid", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
-    signals.lsvoid = rs.RenderStepped:Connect(function() api.cmds[api.prefix.new.."svoid"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime); print("Hello, World!") end)
+    signals.lsvoid = rs.RenderStepped:Connect(function() pcall(api.cmds[api.prefix.new.."svoid"](getPlayer)); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime) end)
 end)
 
 insertCommand("stop", function()
