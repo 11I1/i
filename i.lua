@@ -157,20 +157,23 @@ end)
 insertCommand("lskill", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
-    signals.lskill = rs.RenderStepped:Connect(function() api.cmds[api.prefix.new.."skill"](getPlayer) end)
+    signals.lskill = rs.Heartbeat:Connect(function() api.cmds[api.prefix.new.."skill"](getPlayer) end)
 end)
 
 insertCommand("lskill2", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
-    signals.lskill2 = rs.RenderStepped:Connect(function() api.cmds[api.prefix.new.."skill2"](getPlayer) end)
+    signals.lskill2 = rs.Heartbeat:Connect(function() api.cmds[api.prefix.new.."skill2"](getPlayer) end)
 end)
 
 insertCommand("lsvoid", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
     loops.lsvoid = true
-    repeat pcall(api.cmds[api.prefix.new.."svoid"](getPlayer)); plr.CharacterAdded:Wait():WaitForChild("Humanoid") until loops.lsvoid == false
+    while loops.lsvoid do
+        api.cmds[api.prefix.new.."svoid"](getPlayer)
+        plr.CharacterAdded:Wait():WaitForChild("Humanoid")
+    end
 end)
 
 insertCommand("stop", function()
