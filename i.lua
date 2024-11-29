@@ -171,7 +171,8 @@ end)
 insertCommand("lsvoid", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
-    signals.lsvoid = rs.Heartbeat:Connect(function() api.cmds[api.prefix.new.."svoid"](getPlayer) end)
+    loops.lsvoid = true
+    while loops.lsvoid do api.cmds[api.prefix.new.."svoid"](getPlayer); plr.CharacterAdded:Wait(); task.wait(plrs.RespawnTime) end
 end)
 
 insertCommand("stop", function()
