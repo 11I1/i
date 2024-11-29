@@ -137,7 +137,7 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
 
-    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -450, 0)); wait(1/2)
+    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -450, 0)); wait(1/3)
     local clock = os.time()
 
     tool.Parent, wand.Parent = plr.Character, plr.Character
@@ -171,11 +171,7 @@ end)
 insertCommand("lsvoid", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
     api.cmds[api.prefix.new.."stop"]()
-    loops.lsvoid = true
-    while loops.lsvoid do
-        api.cmds[api.prefix.new.."svoid"](getPlayer)
-        plr.CharacterAdded:Wait():WaitForChild("Humanoid")
-    end
+    signals.lsvoid = rs.Heartbeat:Connect(function() api.cmds[api.prefix.new.."svoid"](getPlayer) end)
 end)
 
 insertCommand("stop", function()
