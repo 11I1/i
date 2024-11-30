@@ -134,11 +134,13 @@ insertCommand("svoid", function(getPlayer)
     local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
 
     workspace.FallenPartsDestroyHeight = 0/0
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 3, 0) * CFrame.Angles(-1.5, 0, 0)); task.wait(1/8)
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0) * CFrame.Angles(-1.5, 0, 0)); task.wait(1/8)
 
     tool.Parent, tool.Parent = plr.Character, workspace
     firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0)
-    plr.Character.Humanoid:ChangeState(15)
+
+    local clock = os.time()
+    repeat task.wait() if tool.Parent == getPlayer.Character then plr.Character.Humanoid:ChangeState(15); break end until (os.time() - clock) >= 5
 end)
 
 insertCommand("lskill", function(getPlayer)
