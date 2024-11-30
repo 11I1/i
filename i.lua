@@ -133,10 +133,12 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 5, 0) * CFrame.Angles(-1.5, 0, 0)); wait(1/8)
+    workspace.FallenPartsDestroyHeight = 0/0
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0) * CFrame.Angles(-1.5, 0, 0)); task.wait(1/8)
 
     tool.Parent, tool.Parent = plr.Character, workspace
     firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0)
+    plr.Character.Humanoid:ChangeState(15)
 end)
 
 insertCommand("lskill", function(getPlayer)
@@ -160,5 +162,5 @@ end)
 
 insertCommand("stop", function()
     for i, v in next, signals do if v then v:Disconnect() end end
-    for i, v in next, loops do if v then v = false end end
+    for i, v in next, loops do if v then v = false; loops[i] = v end end
 end)
