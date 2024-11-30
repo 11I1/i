@@ -131,13 +131,12 @@ insertCommand("svoid", function(getPlayer)
     if plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
     plr.Character.Humanoid:UnequipTools()
-    local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
+    local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
 
     plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/8)
     local clock = os.time()
 
-    tool.Parent, wand.Parent = plr.Character, plr.Character
-    wand.Parent = workspace
+    tool.Parent = plr.Character
 
     repeat task.wait()
         if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
