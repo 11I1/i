@@ -133,7 +133,7 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/8)
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 50, 0) * CFrame.new(-1.5, 0, 0)); wait(1/8)
     local clock = os.time()
 
     tool.Parent = plr.Character
