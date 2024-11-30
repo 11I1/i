@@ -1,7 +1,5 @@
 local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76a5bb315aefda7687ad6d5705c5946/raw/ac2e5c08aca5b80d22317a34d3bde5dfebe37457/api.lua"))()
 
-if workspace then workspace.FallenPartsDestroyHeight = 0/0 end
-
 local rs, plrs = game:FindFirstChildOfClass("RunService"), game.Players
 local plr = plrs.LocalPlayer
 
@@ -130,14 +128,12 @@ insertCommand("svoid", function(getPlayer)
         return
     end
 
-    if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
-
     if plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
     plr.Character.Humanoid:UnequipTools()
     local tool, wand = plr.Backpack["Stroller"] or plr.Character["Stroller"], plr.Backpack["Fairy Wand"] or plr.Character["Fairy Wand"]
 
-    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -500, 0)); wait(1/2)
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/8)
     local clock = os.time()
 
     tool.Parent, wand.Parent = plr.Character, plr.Character
@@ -147,13 +143,7 @@ insertCommand("svoid", function(getPlayer)
         if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
         firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0)
         if tool.Parent == plr.Character then tool.Parent = workspace end
-    until plr.Character.Humanoid.Health <= 0 or tool.Parent == getPlayer.Character
-
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight, 0)); wait(1/2)
-    clock = os.time()
-
-    firetouchinterest(wand.Handle, getPlayer.Character.PrimaryPart, 0)
-    repeat task.wait(); if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then wait(1/2); plr.Character.Humanoid:ChangeState(15); break end until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0
+    until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or tool.Parent == getPlayer.Character
 end)
 
 insertCommand("lskill", function(getPlayer)
