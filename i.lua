@@ -133,16 +133,10 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 50, 0) * CFrame.new(-1.5, 0, 0)); wait(1/8)
-    local clock = os.time()
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 5, 0) * CFrame.Angles(-1.5, 0, 0)); wait(1/8)
 
-    tool.Parent = plr.Character
-
-    repeat task.wait()
-        if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-        firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0)
-        if tool.Parent == plr.Character then tool.Parent = workspace end
-    until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or tool.Parent == getPlayer.Character
+    tool.Parent, tool.Parent = plr.Character, workspace
+    firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0)
 end)
 
 insertCommand("lskill", function(getPlayer)
