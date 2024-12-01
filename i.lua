@@ -41,10 +41,8 @@ insertCommand("skill", function(getPlayer)
     if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds[api.prefix.new.."skill2"](getPlayer); return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
     plr.Character.Humanoid:UnequipTools()
-    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)); wait(1/8)
 
     local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
-    tool.Parent = plr.Character
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
@@ -54,7 +52,9 @@ insertCommand("skill", function(getPlayer)
             plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, -3/2) * CFrame.Angles(-1.5, 0, 0))
             for i, v in next, parts do firetouchinterest(v, getPlayer.Character.PrimaryPart, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
         until plr.Character.Humanoid.Health <= 0
-    end; spawn(function() pcall(run, os.time()) end)
+    end; task.spawn(function() pcall(run, os.time()) end)
+
+    tool.Parent = plr.Character
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0
@@ -102,10 +102,8 @@ insertCommand("skill2", function(getPlayer)
     if plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
     plr.Character.Humanoid:UnequipTools()
-    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)); wait(1/8)
 
     local tool, part = plr.Backpack["Stroller"] or plr.Character["Stroller"]
-    tool.Parent = plr.Character; tool.Parent = workspace
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
     local function run(clock)
@@ -114,7 +112,9 @@ insertCommand("skill2", function(getPlayer)
             plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, -3/2) * CFrame.Angles(-1.5, 0, 0))
             firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0))
         until plr.Character.Humanoid.Health <= 0
-    end; spawn(function() pcall(run, os.time()) end)
+    end; task.spawn(function() pcall(run, os.time()) end)
+
+    tool.Parent, tool.Parent = plr.Character, workspace
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0
