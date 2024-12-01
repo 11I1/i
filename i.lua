@@ -133,31 +133,10 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 10, 0)); task.wait(1/8)
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 50, 0)); task.wait(1/8)
 
     tool.Parent, tool.Parent = plr.Character, workspace
     firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0)
-end)
-
-insertCommand("lskill", function(getPlayer)
-    if not table.find(id, game.PlaceId) then return end
-    api.cmds[api.prefix.new.."stop"]()
-    loops.lskill = true
-    while loops.lskill do api.cmds[api.prefix.new.."skill"](getPlayer); plr.CharacterAdded:Wait(); task.wait(1/2) end
-end)
-
-insertCommand("lskill2", function(getPlayer)
-    if not table.find(id, game.PlaceId) then return end
-    api.cmds[api.prefix.new.."stop"]()
-    loops.lskill2 = true
-    while loops.lskill2 do api.cmds[api.prefix.new.."skill2"](getPlayer); plr.CharacterAdded:Wait(); task.wait(1/2) end
-end)
-
-insertCommand("lsvoid", function(getPlayer)
-    if not table.find(id, game.PlaceId) then return end
-    api.cmds[api.prefix.new.."stop"]()
-    loops.lsvoid = true
-    while loops.lsvoid do api.cmds[api.prefix.new.."svoid"](getPlayer); plr.CharacterAdded:Wait(); task.wait(1/2) end
 end)
 
 insertCommand("stop", function()
