@@ -133,7 +133,7 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 5, 0)); wait(1/8)
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 5, 0)); wait(1)
 
     tool.Parent, tool.Parent = plr.Character, workspace
     firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0)
