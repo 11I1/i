@@ -41,7 +41,7 @@ insertCommand("skill", function(getPlayer)
     if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds[api.prefix.new.."skill2"](getPlayer); return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
     plr.Character.Humanoid:UnequipTools()
-    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0))
+    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)); wait(1/8)
 
     local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
@@ -103,7 +103,7 @@ insertCommand("skill2", function(getPlayer)
     if plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
     plr.Character.Humanoid:UnequipTools()
-    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0))
+    plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)); wait(1/8)
 
     local tool, part = plr.Backpack["Stroller"] or plr.Character["Stroller"]
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
@@ -137,7 +137,7 @@ insertCommand("svoid", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
     local tool = plr.Backpack["Stroller"] or plr.Character["Stroller"]
 
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 50, 0)); task.wait(1/8)
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 250, 0)); wait(1)
 
     tool.Parent, tool.Parent = plr.Character, workspace
     firetouchinterest(tool.Handle, getPlayer.Character.PrimaryPart, 0)
