@@ -149,13 +149,15 @@ insertCommand("vs", function()
         return
     end
 
+    plr.Character.Humanoid:ChangeState(1)
+
     local oldCF = plr.Character:GetModelCFrame()
 
     workspace.FallenPartsDestroyHeight = 0/0
-    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 5, 0))
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 10, 0)); wait(1/8)
 
     plr.Character.Humanoid:UnequipTools()
-    if plr.Character:FindFirstChild("Sitting") then repeat task.wait(); plr.Character.Humanoid.Jump = true until not plr.Character:FindFirstChild("Sitting") or not plr.Character.Humanoid.Sit end
+    repeat task.wait(); plr.Character.Humanoid.Jump = true until not plr.Character:FindFirstChild("Sitting") or not plr.Character.Humanoid.Sit
 
     plr.Character:PivotTo(oldCF)
 end)
