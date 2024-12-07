@@ -25,15 +25,7 @@ end
 local function teleported(toCF)
     if typeof(toCF) == "CFrame" then
         local mg = (plr.Character:GetModelCFrame().Position - toCF.Position).Magnitude
-        repeat task.wait(1/8) until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or mg <= 5
-    end
-end
-
-local function avoid(Execute)
-    if type(Execute) == "function" then
-        local toCF = plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)
-        plr.Character:PivotTo(toCF)
-        teleported(toCF); Execute()
+        repeat task.wait() until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or mg <= 5
     end
 end
 
@@ -56,9 +48,11 @@ insertCommand("skill", function(getPlayer)
     if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds[api.prefix.new.."skill2"](getPlayer); return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
     plr.Character.Humanoid:UnequipTools()
+    local toCF = plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)
+    plr.Character:PivotTo(toCF); teleported(toCF)
 
     local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
-    avoid(function() tool.Parent = plr.Character end)
+    tool.Parent = plr.Character
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
