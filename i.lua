@@ -23,13 +23,9 @@ local function getRank(getPlayer)
 end
 
 local function teleported(toCF)
-    warn("is not a cframe!")
     if typeof(toCF) == "CFrame" then
-        print("is a cframe")
         local mg = (plr.Character:GetModelCFrame().Position - toCF.Position).Magnitude
-        print("Hello, World!")
-        repeat task.wait() until mg <= 5
-        warn("teleported! player came in range!")
+        repeat task.wait(1/8) until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or mg <= 5
     end
 end
 
@@ -37,7 +33,7 @@ local function avoid(Execute)
     if type(Execute) == "function" then
         local toCF = plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)
         plr.Character:PivotTo(toCF)
-        teleported(toCF); print("avoid: teleported!"); Execute()
+        teleported(toCF); Execute()
     end
 end
 
@@ -62,10 +58,9 @@ insertCommand("skill", function(getPlayer)
     plr.Character.Humanoid:UnequipTools()
 
     local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
+    avoid(function() tool.Parent = plr.Character end)
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
-
-    avoid(function() tool.Parent = plr.Character; print("done!") end)
 
     local function run(clock)
         repeat
