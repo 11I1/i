@@ -25,7 +25,7 @@ end
 local function teleported(toCF)
     if typeof(toCF) == "CFrame" then
         local mg = (plr.Character:GetModelCFrame().Position - toCF.Position).Magnitude
-        repeat task.wait() until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or mg <= 5
+        repeat task.wait(1/8) until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or mg <= 5
     end
 end
 
