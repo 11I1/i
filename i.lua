@@ -32,7 +32,7 @@ local function teleported(toCF)
 end
 
 local function avoid(Execute)
-    if type(Execute) ~= "function" then
+    if type(Execute) == "function" then
         local toCF = plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)
         plr.Character:PivotTo(toCF)
         teleported(toCF); print("avoid: teleported!"); Execute()
