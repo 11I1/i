@@ -25,7 +25,7 @@ end
 local function teleported(toCF)
     if typeof(toCF) == "CFrame" then
         local mg = (plr.Character:GetModelCFrame().Position - toCF.Position).Magnitude
-        repeat wait(1/2) until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or mg <= 5
+        repeat task.wait(); plr.Character:PivotTo(toCF) until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or mg <= 1
     end
 end
 
@@ -47,9 +47,7 @@ insertCommand("skill", function(getPlayer)
 
     if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds[api.prefix.new.."skill2"](getPlayer); return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
-    plr.Character.Humanoid:UnequipTools()
-    local toCF = plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)
-    plr.Character:PivotTo(toCF); teleported(toCF)
+    plr.Character.Humanoid:UnequipTools(); teleported(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0))
 
     local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
     tool.Parent = plr.Character
@@ -150,8 +148,6 @@ insertCommand("vs", function()
     if not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 then
         return
     end
-
-
 end)
 
 insertCommand("stop", function()
