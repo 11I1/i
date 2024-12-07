@@ -25,8 +25,8 @@ end
 local function teleported(toCF)
     if typeof(toCF) == "CFrame" then
         local mg = (plr.Character:GetModelCFrame().Position - toCF.Position).Magnitude
-
-        repeat task.wait() until mg >= 25
+        print("Hello, World!")
+        repeat task.wait() until mg <= 25
         warn("teleported! player came in range!")
     end
 end
