@@ -46,7 +46,9 @@ insertCommand("skill", function(getPlayer)
 
     if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds[api.prefix.new.."skill2"](getPlayer); return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
-    plr.Character.Humanoid:UnequipTools(); teleported(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0))
+    plr.Character.Humanoid:UnequipTools()
+    local toCF = plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)
+    teleported(toCF)
 
     local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
     tool.Parent = plr.Character
