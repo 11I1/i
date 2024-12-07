@@ -23,7 +23,9 @@ local function getRank(getPlayer)
 end
 
 local function teleported(toCF)
+    warn("is not a cframe!")
     if typeof(toCF) == "CFrame" then
+        print("is a cframe")
         local mg = (plr.Character:GetModelCFrame().Position - toCF.Position).Magnitude
         print("Hello, World!")
         repeat task.wait() until mg <= 25
