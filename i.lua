@@ -25,7 +25,7 @@ end
 local function teleported(toCF)
     if typeof(toCF) == "CFrame" then
         local mg = (plr.Character:GetModelCFrame().Position - toCF.Position).Magnitude
-        repeat task.wait(1/8) until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or mg <= 5
+        repeat wait(1/8) until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or mg <= 5
     end
 end
 
@@ -80,20 +80,13 @@ insertCommand("as", function(getPlayer)
     if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
     plr.Character.Humanoid:UnequipTools()
+
     local tool, parts = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
+    tool.Parent = plr.Character
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
 
-    local function run(clock)
-        tool.Parent = plr.Character
-
-        repeat task.wait()
-            if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-            for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
-        until getPlayer.Character:FindFirstChild("Sitting")
-    end; task.spawn(function() pcall(run, os.time()) end)
-
-    local clock = os.time()
-    repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0
+    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
+    plr.Character.Humanoid:ChangeState(15)
 end)
 
 insertCommand("skill2", function(getPlayer)
