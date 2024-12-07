@@ -22,12 +22,6 @@ local function getRank(getPlayer)
     if ranking[plr] < ranking[getPlayer] then return true elseif ranking[plr] > ranking[getPlayer] then return false end
 end
 
-local function teleported(toCF)
-    if typeof(toCF) == "CFrame" then
-        repeat plr.Character:PivotTo(toCF); wait(1/8) until not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or (plr.Character:GetModelCFrame().Position - toCF.Position).Magnitude <= 5
-    end
-end
-
 local function property()
     if not plr.Character then return end
     for i, v in next, plr.Character:GetChildren() do if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.new(0, 0, 0), Vector3.new(0, 0, 0) end end
@@ -46,7 +40,7 @@ insertCommand("skill", function(getPlayer)
 
     if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds[api.prefix.new.."skill2"](getPlayer); return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
-    plr.Character.Humanoid:UnequipTools(); teleported(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0))
+    plr.Character.Humanoid:UnequipTools(); plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)); wait(1/8)
 
     local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
     tool.Parent = plr.Character
@@ -59,7 +53,7 @@ insertCommand("skill", function(getPlayer)
             plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, -3/2) * CFrame.Angles(-1.5, 0, 0))
             for i, v in next, parts do firetouchinterest(v, getPlayer.Character.PrimaryPart, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
         until plr.Character.Humanoid.Health <= 0
-    end; task.spawn(function() pcall(run, os.time()) end)
+    end; spawn(function() pcall(run, os.time()) end)
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0
@@ -77,13 +71,20 @@ insertCommand("as", function(getPlayer)
     if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
     plr.Character.Humanoid:UnequipTools()
-
     local tool, parts = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
-    tool.Parent = plr.Character
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
 
-    for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
-    plr.Character.Humanoid:ChangeState(15)
+    local function run(clock)
+        tool.Parent = plr.Character
+
+        repeat task.wait()
+            if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
+            for i, v in next, parts do firetouchinterest(getPlayer.Character.PrimaryPart, v, 0) end
+        until plr.Character.Humanoid.Health <= 0
+    end; spawn(function() pcall(run, os.time()) end)
+
+    local clock = os.time()
+    repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0
 end)
 
 insertCommand("skill2", function(getPlayer)
@@ -148,7 +149,17 @@ insertCommand("vs", function()
         return
     end
 
+    local oldCF = plr.Character:GetModelCFrame()
 
+    workspace.FallenPartsDestroyHeight = 0/0
+
+    plr.Character.Humanoid:ChangeState(1)
+    plr.Character:PivotTo(CFrame.new(0, workspace.FallenPartsDestroyHeight + 5, 0))
+
+    plr.Character.Humanoid:UnequipTools()
+    repeat task.wait(); plr.Character.Humanoid.Jump = true until not plr.Character:FindFirstChild("Sitting") or not plr.Character.Humanoid.Sit
+
+    plr.Character:PivotTo(oldCF)
 end)
 
 insertCommand("stop", function()
