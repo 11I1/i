@@ -46,7 +46,7 @@ local function property()
 end
 
 local function radius(obj)
-    local objt = typeof(obj) == "Vector3" and objt = obj or typeof(obj) == "CFrame" and objt = obj.Position or obj:IsA("BasePart") and objt = (obj.CFrame).Position
+    local objt = typeof(obj) == "Vector3" and obj or typeof(obj) == "CFrame" and obj.Position or obj:IsA("BasePart") and (obj.CFrame).Position
     if not objt or not status(plr) then return false end
 
     return (objt - plr.Character:GetModelCFrame().Position).Magnitude <= 3
