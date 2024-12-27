@@ -1,31 +1,71 @@
 local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76a5bb315aefda7687ad6d5705c5946/raw/ac2e5c08aca5b80d22317a34d3bde5dfebe37457/api.lua"))()
 
-local rs, plrs = game:FindFirstChildOfClass("RunService"), game.Players
-local plr = plrs.LocalPlayer
+local workspace, plrs, rstorage, startergui, rservice = workspace, game.Players, game.ReplicatedStorage, game.StarterGui, game:GetService("RunService")
+local id, plr = game.PlaceId, plrs.LocalPlayer
 
-local utilities, signals, loops, ranking, id = {}, {}, {}, {[plr] = 1}, {1662219031}
+local utilities, signals, loops, ranking, ids = {}, {}, {}, {[plr] = 1}, {1662219031}
+local findID = ids[id]
 
-for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
-local added = workspace.ChildAdded:Connect(function(object)
-    if not plrs:FindFirstChild(object.Name) then
-        return
-    else
-        object = plrs:FindFirstChild(object.Name)
+if findID then
+    for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
+    workspace.ChildAdded:Connect(function(obj)
+        obj = obj.Name
+
+        if not plrs:FindFirstChild(obj) then return end obj = plrs:FindFirstChild(obj)
+
+        ranking[obj] = 1
+        for i, v in next, ranking do if i ~= obj then ranking[i] = v + 1 end end
+    end)
+end
+
+local function getRank(player)
+    if not findID or not player then return end
+    return ranking[plr] < ranking[player]
+end
+
+local function getPlayer(player)
+    if type(player) ~= "string" or player == "" then return nil end
+
+    player = player:lower()
+
+    for i, v in next, plrs:GetPlayers() do
+        if v.Name:lower():sub(1, #player) == player or v.DisplayName:lower():sub(1, #player) == player then return v end
     end
 
-    ranking[object] = 1
-    for i, v in next, ranking do if i ~= object then ranking[i] = v + 1 end end
-end); if not table.find(id, game.PlaceId) then added:Disconnect() end
+    return nil
+end
 
-local function getRank(getPlayer)
-    if not getPlayer then return end
-    if ranking[plr] < ranking[getPlayer] then return true elseif ranking[plr] > ranking[getPlayer] then return false end
+local function status(player)
+    if not player:IsA("Player") or player.Parent ~= plrs then return false end
+    if player.Character and player.Character:FindFirstChildOfClass("Humanoid") then return true end return false
 end
 
 local function property()
-    if not plr.Character then return end
-    for i, v in next, plr.Character:GetChildren() do if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.new(0, 0, 0), Vector3.new(0, 0, 0) end end
+    if not status(plr) then return end
+    for i, v in next, plr.Character:GetChildren() do if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.zero, Vector3.zero end end
 end
+
+local function radius(obj)
+    local objt = typeof(obj) == "Vector3" and objt = obj or typeof(obj) == "CFrame" and objt = obj.Position or obj:IsA("BasePart") and objt = (obj.CFrame).Position
+    if not objt or not status(plr) then return false end
+
+    return (objt - plr.Character:GetModelCFrame().Position).Magnitude <= 3
+end
+
+insertCommand("stop", function()
+    for i, v in next, signals do if v then v:Disconnect() end end
+    for i, v in next, loops do if v then v = false loops[i] = v end end
+end)
+
+insertCommand("csl", function(action)
+    startergui:SetCore("DevConsoleVisible", action:lower() ~= "x")
+end)
+
+insertCommand("to", function(player)
+    player = getPlayer(player)
+    if not player then return end
+    print(player)
+end)
 
 insertCommand("skill", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
@@ -40,10 +80,9 @@ insertCommand("skill", function(getPlayer)
 
     if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds[api.prefix.new.."skill2"](getPlayer); return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
 
-    plr.Character.Humanoid:UnequipTools(); plr.Character:PivotTo(plr.Character:GetModelCFrame() * CFrame.new(0, -250, 0)); wait(1/8)
+    plr.Character.Humanoid:UnequipTools()
 
     local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
-    tool.Parent = plr.Character
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
 
@@ -53,7 +92,9 @@ insertCommand("skill", function(getPlayer)
             plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, -3/2) * CFrame.Angles(-1.5, 0, 0))
             for i, v in next, parts do firetouchinterest(v, getPlayer.Character.PrimaryPart, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
         until plr.Character.Humanoid.Health <= 0
-    end; spawn(function() pcall(run, os.time()) end)
+    end; task.spawn(function() pcall(run, os.time()) end)
+
+    tool.Parent = plr.Character
 
     local clock = os.time()
     repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0
@@ -160,9 +201,4 @@ insertCommand("vs", function()
     repeat task.wait(); plr.Character.Humanoid.Jump = true until not plr.Character:FindFirstChild("Sitting") or not plr.Character.Humanoid.Sit
 
     plr.Character:PivotTo(oldCF)
-end)
-
-insertCommand("stop", function()
-    for i, v in next, signals do if v then v:Disconnect() end end
-    for i, v in next, loops do if v then v = false; loops[i] = v end end
 end)
