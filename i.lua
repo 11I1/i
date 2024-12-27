@@ -67,7 +67,7 @@ insertCommand("to", function(player)
     warn(plr, "Status:", status(plr))
 
     player = getPlayer(player)
-    if not player or status(player) then return end
+    if not player or not status(player) then return end
     warn(player, "is found!", "Status:", status(player))
 
     api.cmds[api.prefix.new.."stop"]()
