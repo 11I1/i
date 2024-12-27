@@ -57,8 +57,9 @@ insertCommand("stop", function()
     for i, v in next, loops do if v then v = false loops[i] = v end end
 end)
 
-insertCommand("csl", function(action)
-    startergui:SetCore("DevConsoleVisible", action:lower() ~= "x")
+insertCommand("csl", function()
+    utilities["csl"] = false
+    startergui:SetCore("DevConsoleVisible", not utilities["csl"])
 end)
 
 insertCommand("to", function(player)
