@@ -64,16 +64,20 @@ end)
 
 insertCommand("to", function(player)
     if not status(plr) then return end
+    warn(plr, "Status:", status(plr))
 
     player = getPlayer(player)
     if not player or status(player) then return end
+    warn(player, "is found!", "Status:", status(player))
 
     api.cmds[api.prefix.new.."stop"]()
+    warn("Stopped all loops!")
 
-    plr.Character.Humanoid:ChangeState(1)
-    plr.Character:PivotTo(player.Character:GetModelCFrame())
+    local obj, objt = plr.Character, player.Character
+    obj.Humanoid:ChangeState(1)
+    obj:PivotTo(objt:GetModelCFrame())
     wait(2)
-    if radius(player.Character:GetModelCFrame()) then warn("Player has teleported!") end
+    if radius(objt:GetModelCFrame()) then warn("Player has teleported!") end
 end)
 
 insertCommand("skill", function(getPlayer)
