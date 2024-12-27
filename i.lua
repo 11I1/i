@@ -28,6 +28,8 @@ local function getPlayer(player)
 
     player = player:lower()
 
+    if player == "me" then return api.fplr end
+
     for i, v in next, plrs:GetPlayers() do
         if v.Name:lower():sub(1, #player) == player or v.DisplayName:lower():sub(1, #player) == player then return v end
     end
