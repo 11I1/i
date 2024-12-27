@@ -1,12 +1,10 @@
 local ChatEvents = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents")
 local SayMessageRequest = ChatEvents:WaitForChild("SayMessageRequest")
 
--- Whispering a private message
+-- Format the message for whispering
 local targetUsername = "5qea" -- Replace with the username of the recipient
-local message = "This is a private message!"
+local message = "Hello, this is a private message!"
+local privateMessage = string.format("/w %s %s", targetUsername, message)
 
--- Format the whisper message
-local whisperMessage = string.format("%s", message)
-
--- Attempt to send the message using the "Whisper" channel
-SayMessageRequest:FireServer(whisperMessage, "Whisper", targetUsername)
+-- Fire the message to the chat system
+SayMessageRequest:FireServer(privateMessage, "All")
