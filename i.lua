@@ -3,7 +3,7 @@ local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76
 local workspace, plrs, rstorage, startergui, rservice = workspace, game.Players, game.ReplicatedStorage, game.StarterGui, game:GetService("RunService")
 local id, plr = game.PlaceId, plrs.LocalPlayer
 
-local utilities, signals, loops, ranking, ids = {}, {}, {}, {[plr] = 1}, {1662219031}
+local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {[plr] = 1}, {1662219031}
 local findID = ids[id]
 
 if findID then
@@ -58,14 +58,22 @@ insertCommand("stop", function()
 end)
 
 insertCommand("csl", function()
-    utilities["csl"] = false
-    startergui:SetCore("DevConsoleVisible", not utilities["csl"])
+    utilities["DevConsoleVisible"] = not utilities["DevConsoleVisible"]
+    startergui:SetCore("DevConsoleVisible", utilities["DevConsoleVisible"])
 end)
 
 insertCommand("to", function(player)
+    if not status(plr) then return end
+
     player = getPlayer(player)
-    if not player then return end
-    print(player)
+    if not player or status(player) then return end
+
+    api.cmds[api.prefix.new.."stop"]()
+
+    plr.Character.Humanoid:ChangeState(1)
+    plr.Character:PivotTo(player.Character:GetModelCFrame())
+    wait(2)
+    if radius(player.Character:GetModelCFrame()) then warn("Player has teleported!") end
 end)
 
 insertCommand("skill", function(getPlayer)
