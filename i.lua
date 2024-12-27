@@ -49,7 +49,7 @@ local function radius(obj)
     local objt = typeof(obj) == "Vector3" and obj or typeof(obj) == "CFrame" and obj.Position or obj:IsA("BasePart") and (obj.CFrame).Position
     if not objt or not status(plr) then return false end
 
-    return (objt - plr.Character:GetModelCFrame().Position).Magnitude <= 3
+    return (objt - plr.Character:GetModelCFrame().Position).Magnitude <= 5
 end
 
 insertCommand("stop", function()
@@ -64,20 +64,14 @@ end)
 
 insertCommand("to", function(player)
     if not status(plr) then return end
-    warn(plr, "Status:", status(plr))
 
     player = getPlayer(player)
     if not player or not status(player) then return end
-    warn(player, "is found!", "Status:", status(player))
 
     api.cmds[api.prefix.new.."stop"]()
-    warn("Stopped all loops!")
 
     local obj, objt = plr.Character, player.Character
-    obj.Humanoid:ChangeState(1)
-    obj:PivotTo(objt:GetModelCFrame())
-    wait(2)
-    if radius(objt:GetModelCFrame()) then warn("Player has teleported!") end
+    obj.Humanoid:ChangeState(1) obj:PivotTo(objt:GetModelCFrame())
 end)
 
 insertCommand("skill", function(getPlayer)
