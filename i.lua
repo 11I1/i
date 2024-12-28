@@ -6,7 +6,7 @@ local id, plr, dcsce = game.PlaceId, plrs.LocalPlayer, rstorage:FindFirstChild("
 local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {[plr] = 1}, {1662219031}
 local findID, Commands = ids[id]
 
-for i, v in next, api.cmds do Commands += i end print(Commands)
+table.foreach(api.cmds, warn)
 
 if findID then
     for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
