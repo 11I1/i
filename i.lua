@@ -4,7 +4,7 @@ local workspace, plrs, rstorage, startergui, rservice = workspace, game.Players,
 local id, plr, dcsce = game.PlaceId, plrs.LocalPlayer, rstorage:FindFirstChild("DefaultChatSystemChatEvents")
 
 local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {[plr] = 1}, {1662219031}
-local findID, Commands = ids[id]
+local findID, Commands = ids[id], ""
 
 task.defer(function() for i, v in next, api.cmds do Commands = Commands.." "..i end warn(Commands) end)
 
