@@ -96,9 +96,7 @@ insertCommand("to", function(player)
 end)
 
 insertCommand("cmds", function(text)
-    if not Commands or #Commands <= 0 then return elseif text:lower() == "sum" then privateMsg(api.fplr["Name"], "Total Commands: "..getIndexes(api.cmds)) elseif not text or text == "" then privateMsg(api.fplr["Name"], Commands) end
-
-    print(getIndexes(api.cmds))
+    if not Commands or #Commands <= 0 then return elseif text:lower() == "#" then privateMsg(api.fplr["Name"], "#Commands: "..getIndexes(api.cmds)) return end privateMsg(api.fplr["Name"], Commands)
 end)
 
 insertCommand("skill", function(getPlayer)
