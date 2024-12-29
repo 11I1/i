@@ -58,7 +58,10 @@ local function radius(obj)
 end
 
 local function privateMsg(name, msg)
-    if type(name) ~= "string" or type(msg) ~= "string" or not dcsce then return end
+    if not name or not msg or not dcsce then return end
+
+    name, msg = tostring(name), tostring(msg)
+    if type(name) ~= "string" or type(msg) ~= "string" then return end
 
     dcsce.SayMessageRequest:FireServer(string.format("/w %s %s", name, msg), "All")
 end
