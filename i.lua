@@ -7,8 +7,8 @@ local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false},
 local findID, Commands = ids[id], {}
 
 task.defer(function()
-    for i, v in next, api.cmds do Commands[#Commands + 1] = i end
-    Commands = table.concat(Commands, ", ")
+    for i, v in next, api.cmds do Commands[#Commands + 1] = string.sub(i, 2, #i) end
+    Commands = table.concat(Commands, " | ")
 end)
 
 if findID then
@@ -94,7 +94,7 @@ insertCommand("to", function(player)
 end)
 
 insertCommand("cmds", function(text)
-    if not Commands or #Commands <= 0 then return end privateMsg(api.fplr["Name"], "#Commands: ["..getIndexes(api.cmds).."] : "..Commands)
+    if not Commands or #Commands <= 0 then return end privateMsg(api.fplr["Name"], "Commands ["..getIndexes(api.cmds).."]: "..Commands)
 end)
 
 insertCommand("skill", function(getPlayer)
