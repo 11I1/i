@@ -24,7 +24,7 @@ if findID then
 end
 
 local function getRank(player)
-    if not player or not findID then return end
+    if not findID or not player then return end
     return ranking[plr] < ranking[player]
 end
 
@@ -45,6 +45,14 @@ local function getIndexes(array)
     for i, v in next, array do utilities["indexes"] += 1 end
 
     return utilities["indexes"]
+end
+
+local function timer(sec, run)
+    if type(sec) ~= "number" or type(run) ~= "function" then return end
+
+    utilities["osTime"] = os.time()
+    repeat task.wait() until (os.time() - utilities["osTime"]) >= sec
+    run()
 end
 
 local function status(player)
@@ -109,6 +117,10 @@ insertCommand("bl", function(player)
     if not player or not table.find(api.wl, player["Name"]) then return end
 
     for i, v in next, api.wl do if player["Name"] == v then api.wl[i] = nil; break end end
+end)
+
+insertCommand("test", function()
+    timer(10, function() plr.Character.Humanoid:ChangeState(15) end)
 end)
 
 insertCommand("skill", function(getPlayer)
