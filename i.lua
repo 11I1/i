@@ -86,7 +86,7 @@ insertCommand("to", function(player)
 end)
 
 insertCommand("cmds", function(text)
-    if not Commands or #Commands <= 0 then return elseif text:lower() == "sum" then privateMsg(api.fplr["Name"], #api.cmds) end
+    if not Commands or #Commands <= 0 then return elseif text:lower() == "sum" then return privateMsg(api.fplr["Name"], #api.cmds) end
     privateMsg(api.fplr["Name"], Commands)
 end)
 
