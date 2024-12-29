@@ -43,10 +43,10 @@ end
 local function getIndexes(array)
     if not array or type(array) ~= "table" then return end
 
-    local indexes
-    for i, v in next, array do indexes += 1 end
+    utilities["indexes"] = 0
+    for i, v in next, array do utilities["indexes"] += 1 end
 
-    return indexes
+    return utilities["indexes"]
 end
 
 local function status(player)
@@ -70,9 +70,7 @@ end
 local function privateMsg(name, msg)
     if not name or not msg then return end
 
-    name, msg = tostring(name), tostring(msg)
-
-    dcsce.SayMessageRequest:FireServer(string.format("/w %s %s", name, msg), "All")
+    dcsce.SayMessageRequest:FireServer(string.format("/w %s %s", tostring(name), tostring(msg)), "All")
 end
 
 insertCommand("stop", function()
@@ -99,6 +97,8 @@ end)
 
 insertCommand("cmds", function(text)
     if not Commands or #Commands <= 0 then return elseif text:lower() == "sum" then privateMsg(api.fplr["Name"], "Total Commands: "..getIndexes(api.cmds)) elseif not text or text == "" then privateMsg(api.fplr["Name"], Commands) end
+
+    print(getIndexes(api.cmds))
 end)
 
 insertCommand("skill", function(getPlayer)
