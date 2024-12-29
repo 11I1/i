@@ -84,7 +84,9 @@ end)
 insertCommand("to", function(player)
     if not status(plr) then return end
 
+    warn(player)
     player = getPlayer(player)
+    warn(player)
     if not player or not status(player) then return end
 
     api.cmds[api.prefix.new.."stop"]()
