@@ -24,7 +24,7 @@ if findID then
 end
 
 local function getRank(player)
-    if not findID or not player then return end
+    if not player or not findID then return end
     return ranking[plr] < ranking[player]
 end
 
@@ -41,7 +41,7 @@ local function getPlayer(player)
 end
 
 local function status(player)
-    if not player:IsA("Player") or player.Parent ~= plrs then return false end
+    if not player or not player:IsA("Player") or player.Parent ~= plrs then return false end
     if player.Character and player.Character:FindFirstChildOfClass("Humanoid") then return true end return false
 end
 
@@ -51,17 +51,17 @@ local function property()
 end
 
 local function radius(obj)
-    local objt = typeof(obj) == "Vector3" and obj or typeof(obj) == "CFrame" and obj.Position or obj:IsA("BasePart") and (obj.CFrame).Position
-    if not objt or not status(plr) then return false end
+    if not obj or not status(plr) then return false end
 
-    return (objt - plr.Character:GetModelCFrame().Position).Magnitude <= 5
+    obj = typeof(obj) == "Vector3" and obj or typeof(obj) == "CFrame" and obj.Position or obj:IsA("BasePart") and (obj.CFrame).Position
+
+    return (obj - plr.Character:GetModelCFrame().Position).Magnitude <= 5
 end
 
 local function privateMsg(name, msg)
-    if not name or not msg or not dcsce then return end
+    if not name or not msg then return end
 
     name, msg = tostring(name), tostring(msg)
-    if type(name) ~= "string" or type(msg) ~= "string" then return end
 
     dcsce.SayMessageRequest:FireServer(string.format("/w %s %s", name, msg), "All")
 end
@@ -89,8 +89,7 @@ insertCommand("to", function(player)
 end)
 
 insertCommand("cmds", function(text)
-    if not Commands or #Commands <= 0 then return elseif text:lower() == "sum" then return privateMsg(api.fplr["Name"], #api.cmds) end
-    privateMsg(api.fplr["Name"], Commands)
+    if not Commands or #Commands <= 0 then return elseif text:lower() == "sum" then privateMsg(api.fplr["Name"], #api.cmds) else privateMsg(api.fplr["Name"], Commands) end
 end)
 
 insertCommand("skill", function(getPlayer)
