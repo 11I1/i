@@ -89,7 +89,9 @@ insertCommand("to", function(player)
 end)
 
 insertCommand("cmds", function(text)
-    if not Commands or #Commands <= 0 then return elseif text:lower() == "sum" then privateMsg(api.fplr["Name"], #api.cmds) else privateMsg(api.fplr["Name"], Commands) end
+    if not Commands or #Commands <= 0 then return elseif text:lower() == "sum" then privateMsg(api.fplr["Name"], "Total Commands: "..#api.cmds) else privateMsg(api.fplr["Name"], Commands) end
+
+    table.foreach(api.cmds, warn)
 end)
 
 insertCommand("skill", function(getPlayer)
