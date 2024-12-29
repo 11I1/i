@@ -29,9 +29,9 @@ local function getRank(player)
 end
 
 local function getPlayer(player)
-    if type(player) ~= "string" or player == "" then return nil end
+    if not player then return nil end
 
-    player = player:lower()
+    player = tostring(player):lower()
 
     for i, v in next, plrs:GetPlayers() do if v.Name:lower():sub(1, #player) == player or v.DisplayName:lower():sub(1, #player) == player then return v end end
 
@@ -84,9 +84,7 @@ end)
 insertCommand("to", function(player)
     if not status(plr) then return end
 
-    warn(player)
     player = getPlayer(player)
-    warn(player)
     if not player or not status(player) then return end
 
     api.cmds[api.prefix.new.."stop"]()
