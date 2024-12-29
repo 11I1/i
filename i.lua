@@ -97,6 +97,20 @@ insertCommand("cmds", function(text)
     if not Commands or #Commands <= 0 then return end privateMsg(api.fplr["Name"], "Commands ["..getIndexes(api.cmds).."]: "..Commands)
 end)
 
+insertCommand("wl", function(player)
+    player = getPlayer(player)
+    if not player or table.find(api.wl, player["Name"]) then return end
+
+    api.wl[#api.wl + 1] = player["Name"]
+end)
+
+insertCommand("bl", function(player)
+    player = getPlayer(player)
+    if not player or not table.find(api.wl, player["Name"]) then return end
+
+    api.wl[player["Name"]] = nil
+end)
+
 insertCommand("skill", function(getPlayer)
     if not table.find(id, game.PlaceId) then return end
     local name = tostring(getPlayer):lower()
