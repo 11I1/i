@@ -90,7 +90,7 @@ insertCommand("to", function(player)
     api.cmds[api.prefix.new.."stop"]()
 
     local obj, objt = plr.Character, player.Character
-    obj.Humanoid:ChangeState(1) obj:PivotTo(objt:GetModelCFrame())
+    obj.Humanoid:ChangeState(1) property() obj:PivotTo(objt:GetModelCFrame())
 end)
 
 insertCommand("cmds", function(text)
@@ -99,20 +99,16 @@ end)
 
 insertCommand("wl", function(player)
     player = getPlayer(player)
-    if not player or table.find(api.wl, player["Name"]) then return end
+    if not player or api.wl[player["Name"]] then return end
 
     api.wl[#api.wl + 1] = player["Name"]
-
-    table.foreach(api.wl, warn)
 end)
 
 insertCommand("bl", function(player)
     player = getPlayer(player)
-    if not player or not table.find(api.wl, player["Name"]) then return end
+    if not player or not api.wl[player["Name"]] then return end
 
-    api.wl[player["Name"]] = nil
-
-    table.foreach(api.wl, warn)
+    for i, v in next, api.wl do if player["Name"] = v then api.wl[i] = nil break end end
 end)
 
 insertCommand("skill", function(getPlayer)
