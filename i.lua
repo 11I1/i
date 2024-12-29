@@ -102,6 +102,8 @@ insertCommand("wl", function(player)
     if not player or api.wl[player["Name"]] then return end
 
     api.wl[#api.wl + 1] = player["Name"]
+
+    table.foreach(api.wl, warn)
 end)
 
 insertCommand("bl", function(player)
@@ -109,6 +111,8 @@ insertCommand("bl", function(player)
     if not player or not api.wl[player["Name"]] then return end
 
     for i, v in next, api.wl do if player["Name"] == v then api.wl[i] = nil; break end end
+
+    table.foreach(api.wl, warn)
 end)
 
 insertCommand("skill", function(getPlayer)
