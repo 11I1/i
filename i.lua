@@ -85,8 +85,8 @@ insertCommand("to", function(player)
     obj.Humanoid:ChangeState(1) obj:PivotTo(objt:GetModelCFrame())
 end)
 
-insertCommand("cmds", function()
-    if not Commands then return end
+insertCommand("cmds", function(text)
+    if not Commands or #Commands <= 0 then return elseif text:lower() == "sum" then privateMsg(api.fplr["Name"], #api.cmds) end
     privateMsg(api.fplr["Name"], Commands)
 end)
 
