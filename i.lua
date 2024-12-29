@@ -99,20 +99,16 @@ end)
 
 insertCommand("wl", function(player)
     player = getPlayer(player)
-    if not player or api.wl[player["Name"]] then return end
+    if not player or table.find(api.wl, player["Name"]) then return end
 
     api.wl[#api.wl + 1] = player["Name"]
-
-    table.foreach(api.wl, warn)
 end)
 
 insertCommand("bl", function(player)
     player = getPlayer(player)
-    if not player or not api.wl[player["Name"]] then return end
+    if not player or not table.find(api.wl, player["Name"]) then return end
 
     for i, v in next, api.wl do if player["Name"] == v then api.wl[i] = nil; break end end
-
-    table.foreach(api.wl, warn)
 end)
 
 insertCommand("skill", function(getPlayer)
