@@ -94,7 +94,7 @@ insertCommand("to", function(player)
 end)
 
 insertCommand("cmds", function(text)
-    if not Commands or #Commands <= 0 then return end privateMsg(api.fplr["Name"], "#Commands: "..getIndexes(api.cmds).." : "..Commands)
+    if not Commands or #Commands <= 0 then return end privateMsg(api.fplr["Name"], "#Commands: ["..getIndexes(api.cmds).."] : "..Commands)
 end)
 
 insertCommand("skill", function(getPlayer)
