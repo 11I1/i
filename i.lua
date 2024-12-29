@@ -33,9 +33,7 @@ local function getPlayer(player)
 
     player = player:lower()
 
-    for i, v in next, plrs:GetPlayers() do
-        if v.Name:lower():sub(1, #player) == player or v.DisplayName:lower():sub(1, #player) == player then return v end
-    end
+    for i, v in next, plrs:GetPlayers() do if v.Name:lower():sub(1, #player) == player or v.DisplayName:lower():sub(1, #player) == player then return v end end
 
     return nil
 end
@@ -96,7 +94,7 @@ insertCommand("to", function(player)
 end)
 
 insertCommand("cmds", function(text)
-    if not Commands or #Commands <= 0 then return elseif text:lower() == "#" then privateMsg(api.fplr["Name"], "#Commands: "..getIndexes(api.cmds)) return end
+    if not Commands or #Commands <= 0 then return end privateMsg(api.fplr["Name"], "#Commands: "..getIndexes(api.cmds).." : "..Commands)
 end)
 
 insertCommand("skill", function(getPlayer)
