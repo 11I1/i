@@ -108,7 +108,7 @@ insertCommand("bl", function(player)
     player = getPlayer(player)
     if not player or not api.wl[player["Name"]] then return end
 
-    for i, v in next, api.wl do if player["Name"] = v then api.wl[i] = nil break end end
+    for i, v in next, api.wl do if player["Name"] == v then api.wl[i] = nil; break end end
 end)
 
 insertCommand("skill", function(getPlayer)
