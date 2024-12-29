@@ -40,6 +40,15 @@ local function getPlayer(player)
     return nil
 end
 
+local function getIndexes(array)
+    if not array or type(array) ~= "table" then return end
+
+    local indexes
+    for i, v in next, array do indexes += 1 end
+
+    return indexes
+end
+
 local function status(player)
     if not player or not player:IsA("Player") or player.Parent ~= plrs then return false end
     if player.Character and player.Character:FindFirstChildOfClass("Humanoid") then return true end return false
@@ -89,9 +98,7 @@ insertCommand("to", function(player)
 end)
 
 insertCommand("cmds", function(text)
-    if not Commands or #Commands <= 0 then return elseif text:lower() == "sum" then privateMsg(api.fplr["Name"], "Total Commands: "..#api.cmds) else privateMsg(api.fplr["Name"], Commands) end
-
-    table.foreach(api.cmds, warn)
+    if not Commands or #Commands <= 0 then return elseif text:lower() == "sum" then privateMsg(api.fplr["Name"], "Total Commands: "..getIndexes(api.cmds)) elseif not text or text == "" then privateMsg(api.fplr["Name"], Commands) end
 end)
 
 insertCommand("skill", function(getPlayer)
