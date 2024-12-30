@@ -124,13 +124,17 @@ insertCommand("kill", function(player)
     if not findID then return end
 
     player = getPlayer(player)
-    if not player or not status(player) or not status(plr) then return elseif not getRank(player) then return plr.Character.Humanoid:ChangeState(15) end
+    if not player or not status(player) or not status(plr) then return elseif not getRank(player) then warn("#0") return plr.Character.Humanoid:ChangeState(15) end
+
+    warn("#1")
 
     api.cmds[api.prefix.new.."stop"]()
 
     local obj, objt = plr.Character, player.Character
 
     task.defer(function() timer(5, function() obj.Humanoid:ChangeState(15) end) end)
+
+    warn("#2")
 
     for i = 1, 3 do obj.Humanoid.Jump = true end
 
@@ -139,6 +143,8 @@ insertCommand("kill", function(player)
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then killPart = v; break end end
 
     obj.Humanoid:UnequipTools()
+    tool.Parent = obj
+
     for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
     firetouchinterest(objt.PrimaryPart, killPart, 0, task.wait(), firetouchinterest(objt.PrimaryPart, killPart, 1))
 end)
