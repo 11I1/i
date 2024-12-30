@@ -131,18 +131,21 @@ insertCommand("kill", function(player)
 
     task.defer(function() timer(5, function() obj.Humanoid:ChangeState(15) end) end)
 
-    for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/2) end
-
     local tool, toolParts, killPart = plr.Backpack.Stroller or obj.Stroller, {}
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then toolParts[#toolParts + 1] = v end end
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then killPart = v; break end end
 
     obj.Humanoid:UnequipTools()
+
+    for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/2) end
+
+    local cframe = obj:GetModelCFrame() * CFrame.new(0, -250, 0)
+    obj:PivotTo(cframe)
+    repeat task.wait() until radius(cframe)
+
     tool.Parent = obj
 
-    for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
-    firetouchinterest(objt.PrimaryPart, killPart, 0, task.wait(), firetouchinterest(objt.PrimaryPart, killPart, 1))
-    obj:PivotTo(killPart.CFrame)
+    for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, killPart, 0)) end
 end)
 
 insertCommand("as", function(getPlayer)
