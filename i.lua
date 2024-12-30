@@ -141,7 +141,17 @@ insertCommand("kill", function(player)
 
     for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
     wait(2)
-    firetouchinterest(objt.PrimaryPart, killPart, 0, task.wait(), firetouchinterest(objt.PrimaryPart, killPart, 1))
+    firetouchinterest(tool.Handle, killPart, 0, task.wait(), firetouchinterest(tool.Handle, killPart, 1))
+    wait(1)
+    if objt.Humanoid.Health <= 0 then warn("#1") return end
+
+    firetouchinterest(tool.MainPart, killPart, 0, task.wait(), firetouchinterest(tool.MainPart, killPart, 1))
+    wait(1)
+    if objt.Humanoid.Health <= 0 then warn("#2") return end
+
+    for i, v in next, toolParts do firetouchinterest(v, killPart, 0, task.wait(), firetouchinterest(v, killPart, 1)) end
+    wait(1)
+    if objt.Humanoid.Health <= 0 then warn("#3") return end
 end)
 
 insertCommand("as", function(getPlayer)
