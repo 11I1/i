@@ -141,7 +141,7 @@ insertCommand("kill", function(player)
 
     local cframe = obj:GetModelCFrame() * CFrame.new(0, -250, 0)
     obj:PivotTo(cframe)
-    repeat task.wait(1/2) until radius(cframe)
+    repeat task.wait(1/8) until radius(cframe)
 
     tool.Parent = obj
 
