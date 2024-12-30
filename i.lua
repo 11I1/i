@@ -140,7 +140,6 @@ insertCommand("kill", function(player)
     tool.Parent = obj
 
     for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
-    repeat task.wait() until radius(objt:GetModelCFrame()) and objt:FindFirstChild("Sitting")
     firetouchinterest(objt.PrimaryPart, killPart, 0, firetouchinterest(objt.PrimaryPart, killPart, 1))
 end)
 
