@@ -3,7 +3,7 @@ local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76
 local workspace, plrs, rstorage, startergui, rservice = workspace, game.Players, game.ReplicatedStorage, game.StarterGui, game:GetService("RunService")
 local id, plr, dcsce = game.PlaceId, plrs.LocalPlayer, rstorage.DefaultChatSystemChatEvents or nil
 
-local utilities, signals, loops, ranking, ids = {"DevConsoleVisible" = false}, {}, {}, {plr = 1}, {1662219031 = "Life In Paradise"}
+local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {plr = 1}, {[1662219031] = "Life In Paradise"}
 local findID, Commands = ids.id, {}
 
 task.defer(function()
