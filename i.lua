@@ -2,10 +2,9 @@ local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76
 
 local workspace, plrs, rstorage, startergui, rservice = workspace, game.Players, game.ReplicatedStorage, game.StarterGui, game:GetService("RunService")
 local id, plr, dcsce = game.PlaceId, plrs.LocalPlayer, rstorage:FindFirstChild("DefaultChatSystemChatEvents")
-local bp = plr.Backpack
 
 local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {[plr] = 1}, {[1662219031] = "Life In Paradise"}
-local findID, Commands = ids[id], {}
+local bp, findID, Commands = plr.Backpack, ids[id], {}
 
 task.defer(function()
     for i, v in next, api.cmds do Commands[#Commands + 1] = string.sub(i, 2, #i) end
@@ -123,12 +122,8 @@ end)
 insertCommand("kill", function(player)
     if not findID then return end
 
-    warn("#-1")
-
     player = getPlayer(player)
-    if not player or not status(player) or not status(plr) then return elseif not getRank(player) then warn("#0") return plr.Character.Humanoid:ChangeState(15) end
-
-    warn("#1")
+    if not player or not status(player) or not status(plr) then return elseif not getRank(player) then return plr.Character.Humanoid:ChangeState(15) end
 
     api.cmds[api.prefix.new.."stop"]()
 
@@ -136,9 +131,7 @@ insertCommand("kill", function(player)
 
     task.defer(function() timer(5, function() obj.Humanoid:ChangeState(15) end) end)
 
-    warn("#2")
-
-    for i = 1, 3 do obj.Humanoid.Jump = true end
+    for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/2) end
 
     local tool, toolParts, killPart = bp.Stroller or obj.Stroller, {}
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then toolParts[#toolParts + 1] = v end end
