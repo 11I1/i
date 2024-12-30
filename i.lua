@@ -146,7 +146,7 @@ insertCommand("kill", function(player)
     tool.Parent = obj
 
     for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
-    firetouchinterest(tool.MainPart, killPart, 0, task.wait(), firetouchinterest(tool.MainPart, killPart, 1))
+    firetouchinterest(objt.PrimaryPart, killPart, 0)
 end)
 
 insertCommand("as", function(getPlayer)
