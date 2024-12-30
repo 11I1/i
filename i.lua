@@ -133,7 +133,7 @@ insertCommand("kill", function(player)
 
     for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/2) end
 
-    local tool, toolParts, killPart = (bp.Stroller or obj.Stroller), {}
+    local tool, toolParts, killPart = plr.Backpack.Stroller or obj.Stroller, {}
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then toolParts[#toolParts + 1] = v end end
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then killPart = v; break end end
 
