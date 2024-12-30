@@ -141,11 +141,11 @@ insertCommand("kill", function(player)
 
     local cframe = obj:GetModelCFrame() * CFrame.new(0, -250, 0)
     obj:PivotTo(cframe)
-    repeat task.wait() until radius(cframe)
+    repeat task.wait(1/2) until radius(cframe)
 
     tool.Parent = obj
 
-    for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, killPart, 0)) end
+    for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(objt.PrimaryPart, killPart, 0)) end
 end)
 
 insertCommand("as", function(getPlayer)
