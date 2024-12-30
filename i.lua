@@ -137,7 +137,7 @@ insertCommand("kill", function(player)
 
     obj.Humanoid:UnequipTools()
 
-    for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/2) end
+    for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/8) end
 
     local cframe = obj:GetModelCFrame() * CFrame.new(0, -250, 0)
     obj:PivotTo(cframe)
@@ -146,7 +146,7 @@ insertCommand("kill", function(player)
     tool.Parent = obj
 
     for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
-    firetouchinterest(objt.PrimaryPart, killPart, 0)
+    firetouchinterest(objt.HumanoidRootPart, killPart, 0, task.wait(), firetouchinterest(objt.HumanoidRootPart, killPart, 1))
 end)
 
 insertCommand("as", function(getPlayer)
