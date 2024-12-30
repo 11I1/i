@@ -139,13 +139,10 @@ insertCommand("kill", function(player)
 
     for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/8) end
 
-    local cframe = obj:GetModelCFrame() * CFrame.new(0, -250, 0)
-    obj:PivotTo(cframe)
-    repeat task.wait(2/25) until radius(cframe)
-
     tool.Parent = obj
 
-    for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) firetouchinterest(objt.PrimaryPart, killPart, 0, task.wait(), firetouchinterest(objt.PrimaryPart, killPart, 1)) end
+    for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)); break end
+    firetouchinterest(objt.PrimaryPart, killPart, 0, task.wait(), firetouchinterest(objt.PrimaryPart, killPart, 1))
 end)
 
 insertCommand("as", function(getPlayer)
