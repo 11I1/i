@@ -4,7 +4,7 @@ local workspace, plrs, rstorage, startergui, rservice = workspace, game.Players,
 local id, plr, dcsce = game.PlaceId, plrs.LocalPlayer, rstorage:FindFirstChild("DefaultChatSystemChatEvents")
 local bp = plr.Backpack
 
-local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {[plr] = 1}, {1662219031}
+local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {[plr] = 1}, {[1662219031] = "Life In Paradise"}
 local findID, Commands = ids[id], {}
 
 task.defer(function()
@@ -122,6 +122,8 @@ end)
 
 insertCommand("kill", function(player)
     if not findID then return end
+
+    warn("#-1")
 
     player = getPlayer(player)
     if not player or not status(player) or not status(plr) then return elseif not getRank(player) then warn("#0") return plr.Character.Humanoid:ChangeState(15) end
