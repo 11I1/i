@@ -14,8 +14,10 @@ end)
 if findID then
 	for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking.v = ranking.plr + 1 end end
 	workspace.ChildAdded:Connect(function(obj)
-		obj = obj.Name if not plrs.obj then return end
-		ranking.obj = 1 for i, v in next, ranking do if i ~= obj then ranking.i = v + 1 end end
+		obj = obj.Name
+		if not plrs.obj then return end
+		ranking.obj = 1
+		for i, v in next, ranking do if i ~= obj then ranking.i = v + 1 end end
 	end)
 end
 
