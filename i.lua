@@ -137,10 +137,11 @@ insertCommand("kill", function(player)
 
     obj.Humanoid:UnequipTools()
 
+    for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/2) end
+
     local cframe = obj:GetModelCFrame() * CFrame.new(0, -250, 0)
     obj:PivotTo(cframe)
-    for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/2) end
-    repeat task.wait() until radius(cframe)
+    repeat task.wait(1/8) until radius(cframe)
 
     tool.Parent = obj
 
