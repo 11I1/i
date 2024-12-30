@@ -102,21 +102,21 @@ insertCommand("goto", function(player)
 end)
 
 insertCommand("cmds", function(text)
-    if not Commands or #Commands <= 0 then return end privateMsg(api.fplr["Name"], "Commands ["..getIndexes(api.cmds).."]: "..Commands)
+    if not Commands or #Commands <= 0 then return end privateMsg(api.fplr.Name, "Commands ["..getIndexes(api.cmds).."]: "..Commands)
 end)
 
 insertCommand("wl", function(player)
     player = getPlayer(player)
-    if not player or table.find(api.wl, player["Name"]) then return end
+    if not player or table.find(api.wl, player.Name) then return end
 
-    api.wl[#api.wl + 1] = player["Name"]
+    api.wl[#api.wl + 1] = player.Name
 end)
 
 insertCommand("bl", function(player)
     player = getPlayer(player)
-    if not player or not table.find(api.wl, player["Name"]) then return end
+    if not player or not table.find(api.wl, player.Name) then return end
 
-    for i, v in next, api.wl do if player["Name"] == v then api.wl[i] = nil; break end end
+    for i, v in next, api.wl do if player.Name == v then api.wl[i] = nil; break end end
 end)
 
 insertCommand("kill", function(player)
@@ -147,8 +147,8 @@ end)
 insertCommand("lkill", function(player)
     local Success, Error
 
-    loops["lkill"] = true
-    while loops["lkill"] do Success, Error = pcall(function() api.cmds[api.prefix.new.."kill"](player) end) if not Success then loops["lkill"] = false end plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
+    loops.lkill = true
+    while loops.lkill do Success, Error = pcall(function() api.cmds.'{api.prefix.new}kill'(player) end) if not Success then loops.lkill = false end plr.CharacterAdded:Wait():WaitForChild("Humanoid") end
 end)
 
 insertCommand("as", function(getPlayer)
