@@ -4,7 +4,7 @@ local workspace, plrs, rstorage, startergui, rservice = workspace, game.Players,
 local id, plr, dcsce = game.PlaceId, plrs.LocalPlayer, rstorage:FindFirstChild("DefaultChatSystemChatEvents")
 
 local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {[plr] = 1}, {[1662219031] = "Life In Paradise"}
-local bp, findID, Commands = plr.Backpack, ids[id], {}
+local findID, Commands = ids[id], {}
 
 task.defer(function()
     for i, v in next, api.cmds do Commands[#Commands + 1] = string.sub(i, 2, #i) end
@@ -142,6 +142,7 @@ insertCommand("kill", function(player)
 
     for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
     firetouchinterest(objt.PrimaryPart, killPart, 0, task.wait(), firetouchinterest(objt.PrimaryPart, killPart, 1))
+    obj:PivotTo(killPart.CFrame)
 end)
 
 insertCommand("as", function(getPlayer)
