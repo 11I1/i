@@ -1,7 +1,7 @@
 local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76a5bb315aefda7687ad6d5705c5946/raw/ac2e5c08aca5b80d22317a34d3bde5dfebe37457/api.lua"))()
 
 local workspace, plrs, rstorage, startergui, rservice = workspace, game.Players, game.ReplicatedStorage, game.StarterGui, game:GetService("RunService")
-local id, plr, dcsce = game.PlaceId, plrs.LocalPlayer, rstorage:FindFirstChild("DefaultChatSystemChatEvents")
+local id, plr, dcsce = game.PlaceId, plrs.LocalPlayer, rstorage.DefaultChatSystemChatEvents or nil
 
 local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {[plr] = 1}, {[1662219031] = "Life In Paradise"}
 local findID, Commands = ids[id], {}
@@ -12,57 +12,55 @@ task.defer(function()
 end)
 
 if findID then
-    for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
+    for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking.v = ranking.plr + 1 end end
     workspace.ChildAdded:Connect(function(obj)
-        obj = obj.Name
+        obj = obj.Name; obj = plrs.obj or return
 
-        if not plrs:FindFirstChild(obj) then return end obj = plrs:FindFirstChild(obj)
-
-        ranking[obj] = 1
-        for i, v in next, ranking do if i ~= obj then ranking[i] = v + 1 end end
+        ranking.obj = 1; for i, v in next, ranking do if i ~= obj then ranking.i = v + 1 end end
     end)
 end
 
 local function getRank(player)
     if not findID or not player then return end
-    return ranking[plr] < ranking[player]
+    return ranking.plr < ranking.player
 end
 
 local function getPlayer(player)
-    if not player then return nil end
+    if not player or player == "" then return nil end
 
-    player = tostring(player):lower()
+    player = player:lower()
+    local length, name = #player
 
-    for i, v in next, plrs:GetPlayers() do if v.Name:lower():sub(1, #player) == player or v.DisplayName:lower():sub(1, #player) == player then return v end end
-
-    return nil
+    for i, v in next, plrs:GetPlayers() do name, i = v.Name:lower(), v.DisplayName:lower() if name:sub(1, length) == player or i:sub(1, length) == player then return v end end return nil
 end
 
 local function getIndexes(array)
     if not array or type(array) ~= "table" then return end
 
-    utilities["indexes"] = 0
-    for i, v in next, array do utilities["indexes"] += 1 end
-
-    return utilities["indexes"]
+    utilities.indexes = 0
+    for i, v in next, array do utilities.indexes += 1 end return utilities.indexes
 end
 
 local function timer(sec, run)
-    if type(sec) ~= "number" or type(run) ~= "function" then return end
+    if not tonumber(sec) or type(run) ~= "function" then return end
 
-    utilities["osTime"] = os.time()
-    repeat task.wait() until (os.time() - utilities["osTime"]) >= sec
+    utilities.osTime = os.time()
+    repeat task.wait() until (os.time() - utilities.osTime) >= sec
     run()
 end
 
 local function status(player)
-    if not player or not player:IsA("Player") or player.Parent ~= plrs then return false end
-    if player.Character and player.Character:FindFirstChildOfClass("Humanoid") then return true end return false
+    if not player or not player:IsA("Player") then return false end
+
+    local chr = player.Character
+    if chr and chr:FindFirstChildOfClass("Humanoid") then return true end return false
 end
 
 local function property()
     if not status(plr) then return end
-    for i, v in next, plr.Character:GetChildren() do if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.zero, Vector3.zero end end
+
+    local children, v = plr.Character:GetChildren()
+    for i = 1, #children do v = children[i] if i:IsA("BasePart") then i.Velocity, i.RotVelocity = Vector3.zero, Vector3.zero end end
 end
 
 local function radius(obj)
@@ -85,8 +83,8 @@ insertCommand("stop", function()
 end)
 
 insertCommand("csl", function()
-    utilities["DevConsoleVisible"] = not utilities["DevConsoleVisible"]
-    startergui:SetCore("DevConsoleVisible", utilities["DevConsoleVisible"])
+    utilities.DevConsoleVisible = not utilities.DevConsoleVisible
+    startergui:SetCore("DevConsoleVisible", utilities.DevConsoleVisible)
 end)
 
 insertCommand("goto", function(player)
@@ -95,14 +93,14 @@ insertCommand("goto", function(player)
     player = getPlayer(player)
     if not player or not status(player) then return end
 
-    api.cmds[api.prefix.new.."stop"]()
+    api.cmds[`{api.prefix.new}stop `]()
 
-    local obj, objt = plr.Character, player.Character
-    obj.Humanoid:ChangeState(1) property() obj:PivotTo(objt:GetModelCFrame())
+    local obj = plr.Character
+    obj.Humanoid:ChangeState(1) property() obj:PivotTo(player.Character:GetModelCFrame())
 end)
 
-insertCommand("cmds", function(text)
-    if not Commands or #Commands <= 0 then return end privateMsg(api.fplr.Name, "Commands ["..getIndexes(api.cmds).."]: "..Commands)
+insertCommand("cmds", function()
+    if not Commands or #Commands <= 0 then return end privateMsg(api.fplr.Name, `{"Commands"}[{getIndexes(api.cmds)}]:{Commands}`)
 end)
 
 insertCommand("wl", function(player)
@@ -125,7 +123,7 @@ insertCommand("kill", function(player)
     player = getPlayer(player)
     if not player or not status(player) or not status(plr) then return elseif not getRank(player) then return plr.Character.Humanoid:ChangeState(15) end
 
-    api.cmds[api.prefix.new.."stop"]()
+    api.cmds[`{api.prefix.new}stop`]()
 
     local obj, objt = plr.Character, player.Character
 
