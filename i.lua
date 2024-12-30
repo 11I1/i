@@ -3,7 +3,7 @@ local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76
 local workspace, plrs, rstorage, startergui, rservice = workspace, game.Players, game.ReplicatedStorage, game.StarterGui, game:GetService("RunService")
 local id, plr, dcsce = game.PlaceId, plrs.LocalPlayer, rstorage.DefaultChatSystemChatEvents or nil
 
-local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {[plr] = 1}, {[1662219031] = "Life In Paradise"}
+local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {plr = 1}, {[1662219031] = "Life In Paradise"}
 local findID, Commands = ids[id], {}
 
 task.defer(function()
@@ -15,7 +15,7 @@ if findID then
 	for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking.v = ranking.plr + 1 end end
 	workspace.ChildAdded:Connect(function(obj)
 		obj = obj.Name
-		if not plrs.obj then return end
+		if plrs.obj then obj = plrs.obj else return end
 		ranking.obj = 1
 		for i, v in next, ranking do if i ~= obj then ranking.i = v + 1 end end
 	end)
