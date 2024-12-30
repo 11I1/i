@@ -139,7 +139,8 @@ insertCommand("kill", function(player)
     for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/8) end
     tool.Parent = obj
 
-    for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
+    for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, firetouchinterest(v, objt.PrimaryPart, 1)) end
+    repeat task.wait() until radius(objt:GetModelCFrame()) and objt:FindFirstChild("Sitting")
     firetouchinterest(objt.PrimaryPart, killPart, 0, firetouchinterest(objt.PrimaryPart, killPart, 1))
 end)
 
