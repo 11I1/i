@@ -2,6 +2,7 @@ local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76
 
 local workspace, plrs, rstorage, startergui, rservice = workspace, game.Players, game.ReplicatedStorage, game.StarterGui, game:GetService("RunService")
 local id, plr, dcsce = game.PlaceId, plrs.LocalPlayer, rstorage:FindFirstChild("DefaultChatSystemChatEvents")
+local bp = plr.Backpack
 
 local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {[plr] = 1}, {1662219031}
 local findID, Commands = ids[id], {}
@@ -119,41 +120,27 @@ insertCommand("bl", function(player)
     for i, v in next, api.wl do if player["Name"] == v then api.wl[i] = nil; break end end
 end)
 
-insertCommand("test", function()
-    timer(10, function() plr.Character.Humanoid:ChangeState(15) end)
-end)
+insertCommand("skill", function(player)
+    if not findID then return end
 
-insertCommand("skill", function(getPlayer)
-    if not table.find(id, game.PlaceId) then return end
-    local name = tostring(getPlayer):lower()
-    for _, v in next, plrs:GetPlayers() do if v:IsA("Player") and v.Name:lower():sub(1, #name) == name or v.DisplayName:lower():sub(1, #name) == name then getPlayer = v end end
+    player = getPlayer(player)
+    if not player or not status(player) or not status(plr) then return elseif not getRank(player) then return plr.Character.Humanoid:ChangeState(15) end
 
-    if not plr.Character or not plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character.Humanoid.Health <= 0 or not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 then
-        return
-    end
+    api.cmds[api.prefix.new.."stop"]()
 
-    if not getRank(getPlayer) then plr.Character.Humanoid:ChangeState(15); return end
+    local obj, objt = plr.Character, player.Character
 
-    if getPlayer.Character:FindFirstChild("Sitting") or getPlayer.Character:FindFirstChild("Stroller") then api.cmds[api.prefix.new.."skill2"](getPlayer); return elseif plr.Character.Humanoid.Sit or plr.Character:FindFirstChild("Sitting") then plr.Character.Humanoid:ChangeState(1) end
+    task.defer(function() timer(5, function() obj.Humanoid:ChangeState(15) end) end)
 
-    plr.Character.Humanoid:UnequipTools()
+    for i = 1, 3 do obj.Humanoid.Jump = true end
 
-    local tool, parts, part = plr.Backpack["Stroller"] or plr.Character["Stroller"], {}
-    for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then table.insert(parts, v) end end
-    for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChild("TouchInterest") then part = v; break end end
+    local tool, toolParts, killPart = bp.Stroller or obj.Stroller, {}
+    for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then toolParts[#toolParts + 1] = v end end
+    for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then killPart = v; break end end
 
-    local function run(clock)
-        repeat
-            if not getPlayer.Character or not getPlayer.Character:FindFirstChildOfClass("Humanoid") or getPlayer.Character.Humanoid.Health <= 0 or (os.time() - clock) >= 5 then break end
-            plr.Character:PivotTo(part.CFrame * CFrame.new(0, 5, -3/2) * CFrame.Angles(-1.5, 0, 0))
-            for i, v in next, parts do firetouchinterest(v, getPlayer.Character.PrimaryPart, 0, task.wait(), firetouchinterest(getPlayer.Character.PrimaryPart, part, 0)) end
-        until plr.Character.Humanoid.Health <= 0
-    end; task.spawn(function() pcall(run, os.time()) end)
-
-    tool.Parent = plr.Character
-
-    local clock = os.time()
-    repeat task.wait(); if (os.time() - clock) >= 5 then plr.Character.Humanoid:ChangeState(15); return end until plr.Character.Humanoid.Health <= 0
+    obj.Humanoid:UnequipTools()
+    for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
+    firetouchinterest(objt.PrimaryPart, killPart, 0 task.wait(), firetouchinterest(objt.PrimaryPart, killPart, 1))
 end)
 
 insertCommand("as", function(getPlayer)
