@@ -90,7 +90,7 @@ insertCommand("csl", function()
     startergui:SetCore("DevConsoleVisible", utilities["DevConsoleVisible"])
 end)
 
-insertCommand("to", function(player)
+insertCommand("goto", function(player)
     if not status(plr) then return end
 
     player = getPlayer(player)
@@ -120,7 +120,7 @@ insertCommand("bl", function(player)
     for i, v in next, api.wl do if player["Name"] == v then api.wl[i] = nil; break end end
 end)
 
-insertCommand("skill", function(player)
+insertCommand("kill", function(player)
     if not findID then return end
 
     player = getPlayer(player)
@@ -140,7 +140,7 @@ insertCommand("skill", function(player)
 
     obj.Humanoid:UnequipTools()
     for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
-    firetouchinterest(objt.PrimaryPart, killPart, 0 task.wait(), firetouchinterest(objt.PrimaryPart, killPart, 1))
+    firetouchinterest(objt.PrimaryPart, killPart, 0, task.wait(), firetouchinterest(objt.PrimaryPart, killPart, 1))
 end)
 
 insertCommand("as", function(getPlayer)
