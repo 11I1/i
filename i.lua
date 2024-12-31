@@ -20,7 +20,7 @@ if findID then
         warn(`{o} : Valid Model!`)
 
         s, e = pcall(function()
-            o = plrs[o]
+            o = plrs[o.Name]
             warn(`{o} : Players!`)
         end) if not s then return warn(`{e} : Invalid Player!`) end
 
