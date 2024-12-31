@@ -128,8 +128,6 @@ insertCommand("kill", function(player)
     player = getPlayer(player)
     if not player or not status(player) or not status(plr) then return elseif not getRank(player) then return plr.Character.Humanoid:ChangeState(15) end
 
-    api.cmds[`{api.prefix.new}stop`]()
-
     local obj, objt = plr.Character, player.Character
 
     task.defer(function() timer(5, function() if status(plr) then obj.Humanoid:ChangeState(15) end end) end)
@@ -148,12 +146,12 @@ insertCommand("kill", function(player)
 end)
 
 insertCommand("lkill", function(player)
+    api.cmds[`{api.prefix.new}stop`]()
+
     loops.lkill = true
     while loops.lkill do
-        warn(`Loop Status: {loops.lkill}`)
-        pcall(api.cmds[`{api.prefix.new}kill`](player))
-        wait(plrs.RespawnTime + 1)
-        warn("Waiting completed. Looping again.")
+        api.cmds[`{api.prefix.new}kill`](player)
+        plr.CharacterAdded:Wait():WaitForChild("Humanoid")
     end
 end)
 
