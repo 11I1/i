@@ -19,12 +19,12 @@ if findID then
 
         warn(`{o} : Valid Model!`)
 
-        p = plrs:GetPlayers()
         s, e = pcall(function()
-            o = p[o]
+            o = plrs[o]
             warn(`{o} : Players!`)
         end) if not s then return warn(`{e} : Invalid Player!`) end
-        ranking[o] = 1
+
+        ranking[o], p = 1, plrs:GetPlayers()
         warn(`{o} : {ranking[o]}`)
         for i = 1, #p do v = p[i] if v ~= o then ranking[v] += ranking[v] end end
         table.foreach(ranking, warn)
