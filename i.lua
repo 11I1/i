@@ -151,7 +151,7 @@ insertCommand("lkill", function(player)
     local Success, Error
 
     loops.lkill = true
-    while loops.lkill do warn(`Loop Status: {loops.lkill}`) Success, Error = pcall(function() api.cmds[`{api.prefix.new}kill`](player) end) warn(Success) if not Success then loops.lkill = false end plr.CharacterAdded:Wait():WaitForChild("Humanoid") warn("CharacterAdded!") end
+    while loops.lkill do warn(`Loop Status: {loops.lkill}`) Success, Error = pcall(function() api.cmds[`{api.prefix.new}kill`](player) end) warn(Success) if not Success then loops.lkill = false end local ca = plr.CharacterAdded:Wait(); ca:WaitForChild("Humanoid") warn("CharacterAdded!") end
 end)
 
 insertCommand("as", function(getPlayer)
