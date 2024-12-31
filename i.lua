@@ -27,8 +27,10 @@ end
 local function getPlayer(p)
     p = tostring(p):lower()
 
+    warn(p)
+
     local x, n = #p
-    for d, v in next, plrs:GetPlayers() do n, d = v.Name:lower(), v.DisplayName:lower() if n:sub(1, x) == p or d:sub(1, x) == p then return v end end
+    for d, v in next, plrs:GetPlayers() do n, d = v.Name:lower(), v.DisplayName:lower() if n:sub(1, x) == p or d:sub(1, x) == p then warn(v) return v end end
 
     return nil
 end
