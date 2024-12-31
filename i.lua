@@ -12,8 +12,8 @@ task.defer(function()
 end)
 
 if findID then
-    local p, r, v = plrs:GetPlayers(), ranking[plr]
-    for i = 1, #p do v = p[i]; if v ~= plr then ranking[v] = r + 1 end end
+    local p, v = plrs:GetPlayers()
+    for i = 1, #p do v = p[i]; if v ~= plr then ranking[v] = ranking[plr] + 1 end end
     workspace.ChildAdded:Connect(function(o)
         if not o:IsA("Model") then return end
 
@@ -26,7 +26,7 @@ if findID then
 
         ranking[o], p = 1, plrs:GetPlayers()
         warn(`{o} : {ranking[o]}`)
-        for i = 1, #p do v = p[i] if v ~= o then ranking[v] += ranking[v] end end
+        for i = 1, #p do v = p[i] if v ~= o then ranking[v] = ranking[v] + 1 end end
         table.foreach(ranking, warn)
     end)
 end
