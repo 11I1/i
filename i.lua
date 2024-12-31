@@ -61,7 +61,7 @@ local function property()
     if not status(plr) then return end
 
     local children, v = plr.Character:GetChildren()
-    for i = 1, #children do v = children[i] if i:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.zero, Vector3.zero end end
+    for i = 1, #children do v = children[i] if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.zero, Vector3.zero end end
 end
 
 local function radius(obj)
