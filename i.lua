@@ -94,7 +94,7 @@ insertCommand("goto", function(player)
 
         warn("Hiiii")
 
-    api.cmds[`{api.prefix.new}stop `]()
+    api.cmds[`{api.prefix.new}stop`]()
 
         warn("byee")
 
