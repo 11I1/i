@@ -145,14 +145,11 @@ insertCommand("kill", function(player)
     firetouchinterest(objt.PrimaryPart, killPart, 0, firetouchinterest(objt.PrimaryPart, killPart, 1))
 end)
 
-insertCommand("lkill", function(player)
+insertCommand("lkill", function(p)
     api.cmds[`{api.prefix.new}stop`]()
 
-    loops.lkill = true
-    while loops.lkill do
-        api.cmds[`{api.prefix.new}kill`](player)
-        plr.CharacterAdded:Wait():WaitForChild("Humanoid")
-    end
+    utilities.lkill = true; local CA = plr.CharacterAdded:Wait()
+    while utilities.lkill do pcall(api.cmds[`{api.prefix.new}kill`](p)) CA:WaitForChild("Humanoid", 1) end
 end)
 
 insertCommand("as", function(getPlayer)
