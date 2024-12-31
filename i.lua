@@ -148,11 +148,10 @@ insertCommand("kill", function(player)
 end)
 
 insertCommand("lkill", function(player)
-    loops.lkill = true -- Ensure loop status is initialized as true
-    
+    loops.lkill = true
     while loops.lkill do
         warn(`Loop Status: {loops.lkill}`)
-        api.cmds[`{api.prefix.new}kill`](player)
+        pcall(api.cmds[`{api.prefix.new}kill`](player))
         wait(plrs.RespawnTime + 1)
         warn("Waiting completed. Looping again.")
     end
