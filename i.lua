@@ -3,7 +3,7 @@ local api = loadstring(game:HttpGet("https://gist.githubusercontent.com/I1Il/b76
 local workspace, plrs, rstorage, startergui, rservice = workspace, game.Players, game.ReplicatedStorage, game.StarterGui, game:GetService("RunService")
 local id, plr, dcsce = game.PlaceId, plrs.LocalPlayer, rstorage.DefaultChatSystemChatEvents or nil
 
-local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {plr = 1}, {[1662219031] = "Life In Paradise"}
+local utilities, signals, loops, ranking, ids = {["DevConsoleVisible"] = false}, {}, {}, {[plr] = 1}, {[1662219031] = "Life In Paradise"}
 local findID, Commands = ids[id], {}
 
 task.defer(function()
@@ -12,10 +12,10 @@ task.defer(function()
 end)
 
 if findID then
-    for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking.v = ranking.plr + 1 end end
+    for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking[v] = ranking[plr] + 1 end end
     workspace.ChildAdded:Connect(function(obj)
         obj = obj.Name; obj = plrs[obj] if not obj then return end
-        ranking.obj = 1 for i, v in next, ranking do if i ~= obj then ranking.i = v + 1 end end
+        ranking[obj] = 1 for i, v in next, ranking do if i ~= obj then ranking[i] = v + 1 end end
     end)
 end
 
@@ -88,8 +88,6 @@ insertCommand("csl", function()
 end)
 
 insertCommand("goto", function(player)
-    if not status(plr) then return end
-
     player = getPlayer(player)
     if not player or not status(player) then return end
 
