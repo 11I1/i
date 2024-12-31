@@ -13,27 +13,22 @@ end)
 
 if findID then
     local p, v = plrs:GetPlayers()
-    for i = 1, #p do v = p[i]; if v ~= plr then ranking[v] = ranking[plr] + 1 end end
+    for i = 1, #p do v = p[i] if v ~= plr then ranking[v] = ranking[plr] + 1 end end
     workspace.ChildAdded:Connect(function(o)
         if not o:IsA("Model") then return end
 
-        warn(`{o} : Valid Model!`)
-
         s, e = pcall(function()
             o = plrs[o.Name]
-            warn(`{o} : Players!`)
         end) if not s then return warn(`{e} : Invalid Player!`) end
 
         ranking[o], p = 1, plrs:GetPlayers()
-        warn(`{o} : {ranking[o]}`)
         for i = 1, #p do v = p[i] if v ~= o then ranking[v] = ranking[v] + 1 end end
-        table.foreach(ranking, warn)
     end)
 end
 
-local function getRank(player)
-    if not findID or not player then return end
-    return ranking.plr < ranking.player
+local function getRank(p)
+    if not findID then return end
+    return ranking[plr] < ranking[p]
 end
 
 local function getPlayer(p)
