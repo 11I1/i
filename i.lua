@@ -25,17 +25,15 @@ local function getRank(player)
 end
 
 local function getPlayer(player)
-    if not player then return nil end
-
     player = tostring(player):lower()
-    if player == "" then return nil end
 
-    local players, length, name, display, v = plrs:GetPlayers(), #player
+    local players, length, v, name, display = plrs:GetPlayers(), #player
 
     for i = 1, #players do
         v = players[i]
 
         name, display = v.Name:lower(), v.DisplayName:lower()
+        warn(name)
         if name:sub(1, length) == player or display:sub(1, length) == player then return v end
     end
 
