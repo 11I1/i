@@ -25,9 +25,21 @@ local function getRank(player)
 end
 
 local function getPlayer(player)
+    if not player then return nil end
+
     player = tostring(player):lower()
-    local length, n = #player
-    for d, v in next, plrs:GetPlayers() do n, d = v.Name:lower():sub(1, length), v.DisplayName:lower():sub(1, length) if n == player or d == player then return v end end
+    if player == "" then return nil end
+
+    local players, length, name, display = plrs:GetPlayers(), #player
+
+    for i = 1, #players do
+        v = players[i]
+
+        name, display = v.Name:lower(), v.DisplayName:lower()
+        if name:sub(1, length) == player or display:sub(1, length) == player then return v end
+    end
+
+    return nil
 end
 
 local function getIndexes(array)
