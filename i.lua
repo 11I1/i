@@ -89,12 +89,17 @@ end)
 
 insertCommand("goto", function(player)
     player = getPlayer(player)
+        warn("Nigger")
     if not player or not status(player) then return end
+
+        warn("Hiiii")
 
     api.cmds[`{api.prefix.new}stop `]()
 
+        warn("byee")
+
     local obj = plr.Character
-    obj.Humanoid:ChangeState(1) property() obj:PivotTo(player.Character:GetModelCFrame())
+    obj.Humanoid:ChangeState(1) warn("wsp") property() warn("bruh") obj:PivotTo(player.Character:GetModelCFrame())
 end)
 
 insertCommand("cmds", function()
