@@ -24,18 +24,11 @@ local function getRank(player)
     return ranking.plr < ranking.player
 end
 
-local function getPlayer(player)
-    player = tostring(player):lower()
+local function getPlayer(p)
+    p = tostring(p):lower()
 
-    local players, length, v, name, display = plrs:GetPlayers(), #player
-
-    for i = 1, #players do
-        v = players[i]
-
-        name, display = v.Name:lower(), v.DisplayName:lower()
-        warn(name)
-        if name:sub(1, length) == player or display:sub(1, length) == player then return v end
-    end
+    local x, n = #p
+    for d, v in next, plrs:GetPlayers() do n, d = v.Name:lower(), v.DisplayName:lower() if n:sub(1, x) == p or d:sub(1, x) == p then return v end end
 
     return nil
 end
