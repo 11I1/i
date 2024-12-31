@@ -254,3 +254,290 @@ insertCommand("vs", function()
 
     plr.Character:PivotTo(oldCF)
 end)
+
+insertCommand("tfling", function(getPlayer)
+    if not (((tostring(getPlayer):lower()) == ("all")) or ((tostring(getPlayer):lower()) == ("others"))) then
+        if (plr.Character) and ((tonumber(plr.Character:FindFirstChild("Humanoid").Health)) > 0) then
+            for _, v in next, (plrs:GetPlayers()) do
+                if v:IsA("Player") then
+                    if ((tostring(v["Name"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower()) or (tostring(v["DisplayName"]):lower():sub(1, tonumber(string.len(tostring(getPlayer)))) == tostring(getPlayer):lower())) then
+                        getPlayer = (v)
+                    end
+                end
+            end
+
+            if (getPlayer):IsA("Player") and ((getPlayer).Character) and ((tonumber((getPlayer).Character:FindFirstChild("Humanoid").Health)) > (0)) then
+                if getPlayer.Character.Humanoid.Sit and (plr.Character.PrimaryPart.Position - (getPlayer).Character.PrimaryPart.Position).Magnitude > 150 then return end
+                
+                if (plr.Character:FindFirstChildWhichIsA("Tool")) then
+                    repeat task.wait()
+                        plr.Character:FindFirstChild("Humanoid"):UnequipTools()
+                    until not (plr.Character:FindFirstChildWhichIsA("Tool"))
+                end
+
+                repeat task.wait() until not (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                if ((tonumber(#plr.Backpack:GetChildren())) > (0)) and ((tonumber(#plr.Backpack:GetChildren())) >= (1)) then
+                    local seats = {}; table.clear(seats)
+
+                    repeat task.wait() until ((tonumber(#seats)) <= (0))
+
+                    for _, v in next, (game:GetService("Workspace"):GetDescendants()) do
+                        if v:IsA("Seat") and (v:IsDescendantOf(game:GetService("Workspace"))) then
+                            table.insert(seats, v)
+                        end
+                    end
+
+                    if ((tonumber(#seats)) > (0)) and ((tonumber(#seats)) >= (1)) then
+                        plr.Character:FindFirstChild("Humanoid").Sit = (true)
+                        repeat task.wait() until (plr.Character:FindFirstChild("Humanoid").Sit)
+
+                        game:GetService("Workspace")["FallenPartsDestroyHeight"] = (0/0)
+
+                        local tool = (plr.Character:FindFirstChildWhichIsA("Tool") or plr.Backpack:FindFirstChildWhichIsA("Tool"))
+
+                        if (plr.Character) and (plr.Character["PrimaryPart"]) and not (plr.Character["PrimaryPart"].Anchored) then
+                            plr.Character:SetPrimaryPartCFrame(plr.Character:GetModelCFrame() * CFrame.new(0, -25, 0)); wait(1/2)
+
+                            plr.Character["PrimaryPart"].Anchored = (true)
+                            repeat task.wait() until (plr.Character["PrimaryPart"].Anchored)
+
+                            function method()
+                                if (plr.Character:FindFirstChildWhichIsA("Tool")) then
+                                    repeat task.wait()
+                                        plr.Character:FindFirstChild("Humanoid"):UnequipTools()
+                                    until not (plr.Character:FindFirstChildWhichIsA("Tool"))
+                                end
+
+                                repeat task.wait() until not (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                                plr.Character:FindFirstChild("Humanoid"):EquipTool(tool)
+                                repeat task.wait() until (tool:IsDescendantOf(plr.Character)) and (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                                if (tool) and ((tool):IsDescendantOf(plr.Character)) and (plr.Character:FindFirstChildWhichIsA("Tool")) then
+                                    repeat task.wait()
+                                        plr.Character:FindFirstChild("Humanoid"):UnequipTools()
+                                    until not (tool:IsDescendantOf(plr.Character)) and not (plr.Character:FindFirstChildWhichIsA("Tool"))
+                                end
+
+                                repeat task.wait() until not (tool:IsDescendantOf(plr.Character)) and not (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                                tool["Parent"] = (plr.Character)
+                                tool["Parent"] = (plr.Backpack)
+                                tool["Parent"] = (plr.Character:FindFirstChild("Humanoid"))
+                                tool["Parent"] = (plr.Character)
+                            end; method()
+                        end
+
+                        if (tool) and ((tool):IsDescendantOf(plr.Character)) and (plr.Character:FindFirstChildWhichIsA("Tool")) then
+                            repeat task.wait()
+                                plr.Character:FindFirstChild("Humanoid"):UnequipTools()
+                            until not (tool:IsDescendantOf(plr.Character)) and not (plr.Character:FindFirstChildWhichIsA("Tool"))
+                        end
+
+                        repeat task.wait() until not ((tool):IsDescendantOf(plr.Character)) and not (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                        if not (plr.Character:FindFirstChildWhichIsA("Tool")) then
+                            local time, radius, speed = tick(), 10, 15
+                            rs = game:GetService("RunService").Heartbeat:Connect(function()
+                                if ((getPlayer).Character) and ((tonumber((getPlayer).Character:FindFirstChild("Humanoid").Health)) > 0) and ((getPlayer).Character["PrimaryPart"]) and (tool) and (tool:FindFirstChild("Handle")) then
+                                    tool:FindFirstChild("Handle").Velocity = Vector3.new(28, 0, 20)
+                                    tool:FindFirstChild("Handle").CFrame = ((getPlayer).Character["PrimaryPart"].CFrame * CFrame.new(0, math.sin((time - tick()) * speed), -5/2 + math.cos((time - tick()) * speed) * radius))
+                                    tool:FindFirstChild("Handle").RotVelocity = Vector3.new(9e9, 9e9, 9e9)
+                                else
+                                    rs:Disconnect()
+                                end
+                            end)
+
+                            tool["Parent"] = (plr.Character)
+                            tool["Parent"] = (plr.Backpack)
+
+                            repeat task.wait() until ((tool):IsDescendantOf(plr.Backpack)) and not ((tool):IsDescendantOf(plr.Character)) and not (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                            local seat = (seats[tonumber(math.random(1, tonumber(#seats)))])
+
+                            plr.Character:SetPrimaryPartCFrame(seat["CFrame"] * CFrame.new(0, 0, 7)); wait(1/2)
+
+                            tool["Parent"] = (plr.Character)
+                            tool["Parent"] = (plr.Backpack)
+                            repeat task.wait() until ((tool):IsDescendantOf(plr.Backpack)) and not ((tool):IsDescendantOf(plr.Character)) and not (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                            repeat task.wait()
+                                seat:Sit(plr.Character:FindFirstChild("Humanoid"))
+                            until (plr.Character:FindFirstChild("Humanoid").Sit)
+
+                            repeat task.wait() until (plr.Character:FindFirstChild("Humanoid").Sit)
+
+                            plr.Character:FindFirstChild("Humanoid").Health = (0)
+                            repeat task.wait() until ((tonumber(plr.Character:FindFirstChild("Humanoid").Health)) <= (0))
+
+                            tool["Parent"] = (plr.Character)
+
+                            tool:FindFirstChild("Handle").CanCollide = (false)
+                            repeat task.wait() until (((tool):FindFirstChild("Handle").CanCollide) == (false))
+
+                            for _, v in next, (game:GetService("Workspace"):GetDescendants()) do
+                                if (v:IsA("BasePart") or v:IsA("Part")) and (v:IsDescendantOf(game:GetService("Workspace"))) then
+                                    if (tool) and ((tool):FindFirstChild("Handle")) then
+                                        local ncc = Instance.new("NoCollisionConstraint", v)
+                                        ncc["Enabled"] = (true)
+                                        ncc["Part0"] = ((tool):FindFirstChild("Handle"))
+                                        ncc["Part1"] = (v)
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    elseif (((tostring(getPlayer):lower()) == ("all")) or ((tostring(getPlayer):lower()) == ("others"))) then
+        if (plr.Character) and ((tonumber(plr.Character:FindFirstChild("Humanoid").Health)) > (0)) then
+            if (plr.Character:FindFirstChildWhichIsA("Tool")) then
+                repeat task.wait()
+                    plr.Character:FindFirstChild("Humanoid"):UnequipTools()
+                until not (plr.Character:FindFirstChildWhichIsA("Tool"))
+            end
+
+            repeat task.wait() until not (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+            if ((tonumber(#plr.Backpack:GetChildren())) > (0)) and ((tonumber(#plr.Backpack:GetChildren())) >= (1)) then
+                local seats = {}; table.clear(seats)
+
+                repeat task.wait() until ((tonumber(#seats)) <= (0))
+
+                for _, v in next, (game:GetService("Workspace"):GetDescendants()) do
+                    if v:IsA("Seat") and (v:IsDescendantOf(game:GetService("Workspace"))) then
+                        table.insert(seats, v)
+                    end
+                end
+
+                if ((tonumber(#seats)) > (0)) and ((tonumber(#seats)) >= (1)) then
+                    plr.Character:FindFirstChild("Humanoid").Sit = (true)
+                    repeat task.wait() until (plr.Character:FindFirstChild("Humanoid").Sit)
+
+                    game:GetService("Workspace")["FallenPartsDestroyHeight"] = (0/0)
+
+                    local tool = (plr.Character:FindFirstChildWhichIsA("Tool") or plr.Backpack:FindFirstChildWhichIsA("Tool"))
+
+                    if (plr.Character) and (plr.Character["PrimaryPart"]) and not (plr.Character["PrimaryPart"].Anchored) then
+                        plr.Character:SetPrimaryPartCFrame(plr.Character:GetModelCFrame() * CFrame.new(0, -25, 0)); wait(1)
+
+                        plr.Character["PrimaryPart"].Anchored = (true)
+                        repeat task.wait() until (plr.Character["PrimaryPart"].Anchored)
+
+                        function method()
+                            if (plr.Character:FindFirstChildWhichIsA("Tool")) then
+                                repeat task.wait()
+                                    plr.Character:FindFirstChild("Humanoid"):UnequipTools()
+                                until not (plr.Character:FindFirstChildWhichIsA("Tool"))
+                            end
+
+                            repeat task.wait() until not (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                            plr.Character:FindFirstChild("Humanoid"):EquipTool(tool)
+                            repeat task.wait() until (tool:IsDescendantOf(plr.Character)) and (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                            if (tool) and (tool:IsDescendantOf(plr.Character)) and (plr.Character:FindFirstChildWhichIsA("Tool")) then
+                                repeat task.wait()
+                                    plr.Character:FindFirstChild("Humanoid"):UnequipTools()
+                                until not (tool:IsDescendantOf(plr.Character)) and not (plr.Character:FindFirstChildWhichIsA("Tool"))
+                            end
+
+                            repeat task.wait() until not (tool:IsDescendantOf(plr.Character)) and not (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                            tool["Parent"] = (plr.Character)
+                            tool["Parent"] = (plr.Backpack)
+                            tool["Parent"] = (plr.Character:FindFirstChild("Humanoid"))
+                            tool["Parent"] = (plr.Character)
+                        end
+
+                        for i = 1, 2 do
+                            method(); wait(1/2)
+
+                            if (tonumber(i) == (2)) then
+                                method()
+                            end
+                        end
+                    end
+
+                    if (tool) and ((tool):IsDescendantOf(plr.Character)) and (plr.Character:FindFirstChildWhichIsA("Tool")) then
+                        repeat task.wait()
+                            plr.Character:FindFirstChild("Humanoid"):UnequipTools()
+                        until not (tool:IsDescendantOf(plr.Character)) and not (plr.Character:FindFirstChildWhichIsA("Tool"))
+                    end
+
+                    repeat task.wait() until not ((tool):IsDescendantOf(plr.Character)) and not (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                    if not (plr.Character:FindFirstChildWhichIsA("Tool")) then
+                        tool["Parent"] = (plr.Character)
+                        tool["Parent"] = (plr.Backpack)
+
+                        repeat task.wait() until ((tool):IsDescendantOf(plr.Backpack)) and not ((tool):IsDescendantOf(plr.Character)) and not (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                        local seat = (seats[tonumber(math.random(1, tonumber(#seats)))])
+
+                        plr.Character:SetPrimaryPartCFrame(seat["CFrame"] * CFrame.new(0, 0, 7)); wait(1/2)
+
+                        tool["Parent"] = (plr.Character)
+                        tool["Parent"] = (plr.Backpack)
+                        repeat task.wait() until ((tool):IsDescendantOf(plr.Backpack)) and not ((tool):IsDescendantOf(plr.Character)) and not (plr.Character:FindFirstChildWhichIsA("Tool"))
+
+                        repeat task.wait()
+                            seat:Sit(plr.Character:FindFirstChild("Humanoid"))
+                        until (plr.Character:FindFirstChild("Humanoid").Sit)
+
+                        repeat task.wait() until (plr.Character:FindFirstChild("Humanoid").Sit)
+
+                        plr.Character:FindFirstChild("Humanoid").Health = (0)
+                        repeat task.wait() until ((tonumber(plr.Character:FindFirstChild("Humanoid").Health)) <= (0))
+
+                        tool["Parent"] = (plr.Character)
+
+                        tool:FindFirstChild("Handle").CanCollide = (false)
+                        repeat task.wait() until (((tool):FindFirstChild("Handle").CanCollide) == (false))
+
+                        for _, v in next, (game:GetService("Workspace"):GetDescendants()) do
+                            if (v:IsA("BasePart") or v:IsA("Part")) and (v:IsDescendantOf(game:GetService("Workspace"))) then
+                                if (tool) and (tool:FindFirstChild("Handle")) then
+                                    local ncc = Instance.new("NoCollisionConstraint", v)
+                                    ncc["Enabled"] = (true)
+                                    ncc["Part0"] = (tool:FindFirstChild("Handle"))
+                                    ncc["Part1"] = (v)
+                                end
+                            end
+                        end
+
+                        local oldPlayers, op = {}, plr.Character.PrimaryPart.Position; table.clear(oldPlayers)
+
+                        repeat task.wait() until ((tonumber(#oldPlayers)) <= (0))
+
+                        loops[tostring("newLoop"):lower()] = (true)
+
+                        while (loops[tostring("newLoop"):lower()]) do
+                            if (tool) and ((tool):FindFirstChild("Handle")) then
+                                for _, v in next, (plrs:GetPlayers()) do
+                                    if v:IsA("Player") and (v:IsDescendantOf(plrs)) and (v.Character) and ((tonumber(v.Character:FindFirstChild("Humanoid").Health)) > (0)) and (v.Character["PrimaryPart"]) then
+                                        if not (table.find(oldPlayers, v)) and not (table.find(api["wl"], tostring(v["Name"]))) and not (table.find(api["wl"], tostring(v["DisplayName"]))) and not (v.Character:FindFirstChild("Humanoid").Sit) and (op - v.Character.PrimaryPart.Position).Magnitude <= 200 then
+                                            local counter = (0)
+
+                                            repeat task.wait()
+                                                tool:FindFirstChild("Handle").Velocity = Vector3.new(28, 0, 20)
+                                                tool:FindFirstChild("Handle").CFrame = (v.Character["PrimaryPart"].CFrame)
+                                                tool:FindFirstChild("Handle").RotVelocity = Vector3.new(9e9, 9e9, 9e9)
+                                                counter+=(1)
+                                            until (tonumber(counter) >= (5))
+                                        end
+                                    end
+                                end
+                            else
+                                table.clear(oldPlayers)
+                                loops[tostring("newLoop"):lower()] = (false)
+                            end; task.wait()
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
