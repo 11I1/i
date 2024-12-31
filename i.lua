@@ -148,27 +148,27 @@ insertCommand("kill", function(player)
 end)
 
 insertCommand("lkill", function(player)
-    local Success, Error
-
-    loops.lkill = true
+    loops.lkill = true -- Ensure loop status is initialized as true
+    
     while loops.lkill do
         warn(`Loop Status: {loops.lkill}`)
         
-        Success, Error = pcall(function()
+        local Success, Error = pcall(function()
+            -- Execute the kill command
             api.cmds[`{api.prefix.new}kill`](player)
         end)
 
-        warn(Success)
-        
         if not Success then
             warn(`Error occurred: {Error}`)
-            loops.lkill = false -- Mark the loop to stop, but wait will still execute
+            -- Handle error but don't terminate the loop unless critical
         end
 
-        wait(plrs.RespawnTime + 1) -- Ensure the wait happens at the end of every iteration
+        -- Wait for a set duration before the next iteration
+        wait(plrs.RespawnTime + 1)
+        warn("Waiting completed. Looping again.")
     end
 
-    warn("End!")
+    warn("Loop has ended.")
 end)
 
 insertCommand("as", function(getPlayer)
