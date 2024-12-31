@@ -152,7 +152,7 @@ insertCommand("lkill", function(player)
     
     while loops.lkill do
         warn(`Loop Status: {loops.lkill}`)
-        api.cmds[`{api.prefix.new}kill`]()
+        api.cmds[`{api.prefix.new}kill`](player)
         wait(plrs.RespawnTime + 1)
         warn("Waiting completed. Looping again.")
     end
