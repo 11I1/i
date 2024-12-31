@@ -151,7 +151,7 @@ insertCommand("lkill", function(player)
     local Success, Error
 
     loops.lkill = true
-    while loops.lkill do Success, Error = pcall(function() api.cmds[`{api.prefix.new}kill`](player) end) if not Success then loops.lkill = false end plr.CharacterAdded:Wait(1/2):WaitForChild("Humanoid") end
+    while loops.lkill do Success, Error = pcall(function() api.cmds[`{api.prefix.new}kill`](player) end) if not Success then loops.lkill = false warn(Error); break end plr.CharacterAdded:Wait(1/2):WaitForChild("Humanoid") end
 end)
 
 insertCommand("as", function(getPlayer)
