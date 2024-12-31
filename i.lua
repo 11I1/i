@@ -155,7 +155,7 @@ insertCommand("lkill", function(player)
         
         local Success, Error = pcall(function()
             -- Execute the kill command
-            api.cmds[`{api.prefix.new}kill`](player)
+            task.spawn(function() api.cmds[`{api.prefix.new}kill`](player) end)
         end)
 
         if not Success then
