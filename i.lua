@@ -12,6 +12,7 @@ task.defer(function()
 end)
 
 if findID then
+    warn("found id")
     for i, v in next, plrs:GetPlayers() do if v ~= plr then ranking.v = ranking.plr + 1 end end
     workspace.ChildAdded:Connect(function(obj)
         obj = obj.Name; obj = plrs[obj] if not obj then return end
@@ -27,18 +28,20 @@ end
 local function getPlayer(player)
     if not player then return nil end
 
+    warn("@1")
+
     player = tostring(player):lower()
     if player == "" then return nil end
-
+warn("@2")
     local players, length, name, display = plrs:GetPlayers(), #player
-
+warn("@3")
     for i = 1, #players do
         v = players[i]
-
+warn("@4")
         name, display = v.Name:lower(), v.DisplayName:lower()
-        if name:sub(1, length) == player or display:sub(1, length) == player then return v end
+        if name:sub(1, length) == player or display:sub(1, length) == player then warn("@5") return v end
     end
-
+warn("@6")
     return nil
 end
 
