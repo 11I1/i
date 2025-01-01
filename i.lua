@@ -47,14 +47,6 @@ local function getIndexes(array)
     for i, v in next, array do utilities.indexes += 1 end return utilities.indexes
 end
 
-local function timer(sec, run)
-    if not tonumber(sec) or type(run) ~= "function" then return end
-
-    utilities.osTime = os.time()
-    repeat task.wait() until (os.time() - utilities.osTime) >= sec
-    run()
-end
-
 local function status(player)
     if not player or not player:IsA("Player") then return false end
 
@@ -130,17 +122,14 @@ insertCommand("kill", function(player)
 
     local obj, objt = plr.Character, player.Character
 
-    task.defer(function() timer(5, function() if status(plr) then obj.Humanoid:ChangeState(15) end end) end)
-
     local tool, toolParts, killPart = plr.Backpack.Stroller or obj.Stroller, {}
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then toolParts[#toolParts + 1] = v end end
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then killPart = v; break end end
 
     obj.Humanoid:UnequipTools()
-    for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/8) end
     tool.Parent = obj
 
-    for i = 1, #toolParts do firetouchinterest(toolParts[i], objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
+    for i = 1, #toolParts do firetouchinterest(toolParts[i], objt.PrimaryPart, 0, task.wait(), firetouchinterest(toolParts[i], objt.PrimaryPart, 1)) end
     repeat task.wait() until radius(objt:GetModelCFrame()) and objt:FindFirstChild("Sitting")
     firetouchinterest(objt.PrimaryPart, killPart, 0, firetouchinterest(objt.PrimaryPart, killPart, 1))
 end)
