@@ -21,10 +21,8 @@ if findID then
             o = plrs[o.Name]
         end) if not s then return warn(`{e} : Invalid Player!`) end
 
-        ranking[o], v = 1, plrs:GetPlayers()
-        for i = 1, #v do v = v[i] if v ~= o then ranking[v] = ranking[v] + 1 end end
-        warn(v)
-        table.foreach(ranking, warn)
+        ranking[o], p = 1, plrs:GetPlayers()
+        for i = 1, #p do v = p[i] if v ~= o then ranking[v] = ranking[v] + 1 end end
     end)
 end
 
@@ -36,9 +34,9 @@ end
 local function getPlayer(p)
     p = tostring(p):lower()
 
-    local v, x, n, d = plrs:GetPlayers(), #p
-    for i = 1, #v do v = v[i] warn(v); n, d = v.Name:lower(), v.DisplayName:lower() if n:sub(1, x) == p or d:sub(1, x) == p then return v end end
-    warn(v)
+    local s, x, v, n, d = plrs:GetPlayers(), #p
+    for i = 1, #s do v = s[i]; n, d = v.Name:lower(), v.DisplayName:lower() if n:sub(1, x) == p or d:sub(1, x) == p then return v end end
+
     return nil
 end
 
@@ -67,8 +65,8 @@ end
 local function property()
     if not status(plr) then return end
 
-    local v = plr.Character:GetChildren()
-    for i = 1, #v do v = v[i] if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.zero, Vector3.zero end end
+    local c, v = plr.Character:GetChildren()
+    for i = 1, #c do v = c[i] if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.zero, Vector3.zero end end
 end
 
 local function radius(o)
@@ -81,7 +79,7 @@ end
 
 local function privateMsg(n, m)
     if not n or not m then return end
-    dcsce.SayMessageRequest:FireServer(string.format("/w %s %s", tostring(n), tostring(m)), "All")
+    dcsce.SayMessageRequest:FireServer(`/w {n} {m}`, "All")
 end
 
 insertCommand("stop", function()
@@ -128,28 +126,24 @@ end)
 insertCommand("kill", function(p)
     if not findID then return end
 
-    p = getPlayer(p)
-    if not p or not status(p) or not status(plr) then return elseif not getRank(p) then plr.Character.Humanoid.Health = 0 return end
+    p= getPlayer(p)
+    if not p or not status(p) or not status(plr) then return elseif not getRank(p) then return plr.Character.Humanoid:ChangeState(15) end
 
-    p = p.Character local c = plr.Character
+    local obj, objt = plr.Character, p.Character
 
-    task.defer(function() return timer(5, function() if status(plr) then c.Humanoid.Health = 0 end end) end)
+    task.defer(function() timer(5, function() if status(plr) then obj.Humanoid:ChangeState(15) end end) end)
 
-    local s, t, k = plr.Backpack.Stroller or c.Stroller, {}
+    local tool, toolParts, killPart = plr.Backpack.Stroller or obj.Stroller, {}
+    for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then toolParts[#toolParts + 1] = v end end
+    for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then killPart = v; break end end
 
-    local v = s:GetChildren()
-    for i = 1, #v do v = v[i] if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then t[#t + 1] = v end end
+    obj.Humanoid:UnequipTools()
+    for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/8) end
+    tool.Parent = obj
 
-    v = workspace["Police Station"]:GetChildren()
-    for i = 1, #v do v = v[i] if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then k = v; break end end
-
-    c.Humanoid:UnequipTools()
-    for i = 1, 3 do c.Humanoid.Jump = true task.wait(1/8) end
-    s.Parent = c
-
-    for i = 1, #t do firetouchinterest(t[i], p.PrimaryPart, 0, task.wait(), firetouchinterest(t[i], p.PrimaryPart, 1)) end
-    repeat task.wait() until radius(p:GetModelCFrame()) and p:FindFirstChild("Sitting")
-    firetouchinterest(p.PrimaryPart, k, 0, firetouchinterest(p.PrimaryPart, k, 1))
+    for i = 1, #toolParts do firetouchinterest(toolParts[i], objt.PrimaryPart, 0, task.wait(), firetouchinterest(toolParts[i], objt.PrimaryPart, 1)) end
+    repeat task.wait() until radius(objt:GetModelCFrame()) and objt:FindFirstChild("Sitting")
+    firetouchinterest(objt.PrimaryPart, killPart, 0, firetouchinterest(objt.PrimaryPart, killPart, 1))
 end)
 
 insertCommand("lkill", function(p)
