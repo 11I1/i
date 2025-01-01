@@ -149,7 +149,7 @@ insertCommand("lkill", function(p)
     api.cmds[`{api.prefix.new}stop`]()
 
     utilities.lkill = true
-    while utilities.lkill do api.cmds[`{api.prefix.new}kill`](p) plr.Character:WaitForChild("Humanoid") end
+    while utilities.lkill do pcall(api.cmds[`{api.prefix.new}kill`](p)) plr.Character:Wait():WaitForChild("Humanoid") end
 end)
 
 insertCommand("as", function(getPlayer)
