@@ -21,8 +21,8 @@ if findID then
             o = plrs[o.Name]
         end) if not s then return warn(`{e} : Invalid Player!`) end
 
-        ranking[o], p = 1, plrs:GetPlayers()
-        for i = 1, #p do v = p[i] if v ~= o then ranking[v] = ranking[v] + 1 end end
+        ranking[o], v = 1, plrs:GetPlayers()
+        for i = 1, #v do v = v[i] if v ~= o then ranking[v] = ranking[v] + 1 end end
     end)
 end
 
@@ -34,44 +34,52 @@ end
 local function getPlayer(p)
     p = tostring(p):lower()
 
-    local s, x, v, n, d = plrs:GetPlayers(), #p
-    for i = 1, #s do v = s[i]; n, d = v.Name:lower(), v.DisplayName:lower() if n:sub(1, x) == p or d:sub(1, x) == p then return v end end
+    local v, x, n, d = plrs:GetPlayers(), #p
+    for i = 1, #v do v = v[i] n, d = v.Name:lower(), v.DisplayName:lower() if n:sub(1, x) == p or d:sub(1, x) == p then return v end end
 
     return nil
 end
 
-local function getIndexes(array)
-    if not array or type(array) ~= "table" then return end
+local function getIndexes(a)
+    if not a or type(a) ~= "table" then return end
 
-    utilities.indexes = 0
-    for i, v in next, array do utilities.indexes += 1 end return utilities.indexes
+    for i = 1, #a do utilities.indexes += 1 end return utilities.indexes
 end
 
-local function status(player)
-    if not player or not player:IsA("Player") then return false end
+local function timer(s, f)
+    if not tonumber(s) or type(f) ~= "function" then return end
 
-    local chr = player.Character
-    if chr and chr:FindFirstChildOfClass("Humanoid") then return true end return false
+    utilities.osTime = os.time()
+    repeat task.wait() until (os.time() - utilities.osTime) >= s
+
+    f()
+end
+
+local function status(p)
+    if not p or not p.Parent ~= plrs then return end
+
+    local c = plr.Character or nil
+    return c and c.Humanoid or nil ~= nil
 end
 
 local function property()
     if not status(plr) then return end
 
-    local children, v = plr.Character:GetChildren()
-    for i = 1, #children do v = children[i] if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.zero, Vector3.zero end end
+    local v = plr.Character:GetChildren()
+    for i = 1, #v do v = v[i] if v:IsA("BasePart") then v.Velocity, v.RotVelocity = Vector3.zero, Vector3.zero end end
 end
 
-local function radius(obj)
-    if not obj or not status(plr) then return false end
+local function radius(o)
+    if not o or not status(plr) then return end
 
-    obj = typeof(obj) == "Vector3" and obj or typeof(obj) == "CFrame" and obj.Position or obj:IsA("BasePart") and (obj.CFrame).Position
+    o = typeof(o) == "Vector3" and o or typeof(o) == "CFrame" and o.Position or o:IsA("BasePart") and (o.CFrame).Position
 
-    return (obj - plr.Character:GetModelCFrame().Position).Magnitude <= 5
+    return (o - plr.Character:GetModelCFrame().Position).Magnitude <= 5
 end
 
-local function privateMsg(name, msg)
-    if not name or not msg then return end
-    dcsce.SayMessageRequest:FireServer(string.format("/w %s %s", tostring(name), tostring(msg)), "All")
+local function privateMsg(n, m)
+    if not n or not m then return end
+    dcsce.SayMessageRequest:FireServer(string.format("/w %s %s", tostring(n), tostring(m)), "All")
 end
 
 insertCommand("stop", function()
@@ -84,54 +92,62 @@ insertCommand("csl", function()
     startergui:SetCore("DevConsoleVisible", utilities.DevConsoleVisible)
 end)
 
-insertCommand("goto", function(player)
+insertCommand("goto", function(p)
     if not status(plr) then return end
 
-    player = getPlayer(player)
-    if not player or not status(player) then return end
+    p = getPlayer(p)
+    if not p or not status(p) then return end
 
     api.cmds[`{api.prefix.new}stop`]()
 
-    local obj = plr.Character
-    obj.Humanoid:ChangeState(1) property() obj:PivotTo(player.Character:GetModelCFrame())
+    local o = plr.Character
+    o.Humanoid:ChangeState(1) property() o:PivotTo(p.Character:GetModelCFrame())
 end)
 
 insertCommand("cmds", function()
     if not Commands or #Commands <= 0 then return end privateMsg(api.fplr.Name, `{"Commands"} [{getIndexes(api.cmds)}]: {Commands}`)
 end)
 
-insertCommand("wl", function(player)
-    player = getPlayer(player)
-    if not player or table.find(api.wl, player.Name) then return end
+insertCommand("wl", function(p)
+    p = getPlayer(p)
+    if not p or table.find(api.wl, p.Name) then return end
 
-    api.wl[#api.wl + 1] = player.Name
+    api.wl[#api.wl + 1] = p.Name
 end)
 
-insertCommand("bl", function(player)
-    player = getPlayer(player)
-    if not player or not table.find(api.wl, player.Name) then return end
+insertCommand("bl", function(p)
+    p = getPlayer(p)
+    if not p or not table.find(api.wl, p.Name) then return end
 
-    for i, v in next, api.wl do if player.Name == v then api.wl[i] = nil; break end end
+    local p, v = p.Name
+    for i = 1, #api.wl do v = api.wl[i] if p == v then api.wl[i] = nil; break end end
 end)
 
-insertCommand("kill", function(player)
+insertCommand("kill", function(p)
     if not findID then return end
 
-    player = getPlayer(player)
-    if not player or not status(player) or not status(plr) then return elseif not getRank(player) then return plr.Character.Humanoid:ChangeState(15) end
+    p = getPlayer(p)
+    if not p or not status(p) or not status(plr) then return elseif not getRank(p) then return plr.Character.Humanoid.Health = 0 end
 
-    local obj, objt = plr.Character, player.Character
+    p = p.Character local c = plr.Character
 
-    local tool, toolParts, killPart = plr.Backpack.Stroller or obj.Stroller, {}
-    for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then toolParts[#toolParts + 1] = v end end
-    for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then killPart = v; break end end
+    task.defer(function() timer(5, function() if status(plr) then c.Humanoid.Health = 0 end end) end)
 
-    obj.Humanoid:UnequipTools()
-    tool.Parent = obj
+    local s, t, k = plr.Backpack.Stroller or c.Stroller, {}
 
-    for i = 1, #toolParts do firetouchinterest(toolParts[i], objt.PrimaryPart, 0, task.wait(), firetouchinterest(toolParts[i], objt.PrimaryPart, 1)) end
-    repeat task.wait() until radius(objt:GetModelCFrame()) and objt:FindFirstChild("Sitting")
-    firetouchinterest(objt.PrimaryPart, killPart, 0, firetouchinterest(objt.PrimaryPart, killPart, 1))
+    local v = s:GetChildren()
+    for i = 1, #v do v = v[i] if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then t[#t + 1] = v end end
+
+    v = workspace["Police Station"]:GetChildren()
+    for i = 1, #v do v = v[i] if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then k = v; break end end
+
+    c.Humanoid:UnequipTools()
+    for i = 1, 3 do c.Humanoid.Jump = true task.wait(1/8) end
+    s.Parent = c
+
+    for i = 1, #t do firetouchinterest(t[i], p.PrimaryPart, 0, task.wait(), firetouchinterest(t[i], p.PrimaryPart, 1)) end
+    repeat task.wait() until radius(p:GetModelCFrame()) and p:FindFirstChild("Sitting")
+    firetouchinterest(p.PrimaryPart, k, 0, firetouchinterest(p.PrimaryPart, k, 1))
 end)
 
 insertCommand("lkill", function(p)
