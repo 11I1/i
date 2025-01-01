@@ -83,8 +83,8 @@ local function privateMsg(name, msg)
 end
 
 insertCommand("stop", function()
-    for i, v in next, signals do if v then v:Disconnect() end end
-    for i, v in next, loops do if v then v = false loops[i] = v end end
+    for i, v in next, signals do v:Disconnect() end
+    for i, v in next, loops do loops[i] = false end
 end)
 
 insertCommand("csl", function()
@@ -151,7 +151,9 @@ insertCommand("lkill", function(p)
     utilities.lkill = true
     for i = 1, math.huge do
         if not utilities.lkill then break end
+
         api.cmds[`{api.prefix.new}kill`](p)
+
         plr.CharacterAdded:Wait()
         local chr = plr.Character
         repeat task.wait() until chr:FindFirstChildOfClass("Humanoid")
