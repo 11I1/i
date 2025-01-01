@@ -23,6 +23,8 @@ if findID then
 
         ranking[o], v = 1, plrs:GetPlayers()
         for i = 1, #v do v = v[i] if v ~= o then ranking[v] = ranking[v] + 1 end end
+        warn(v)
+        table.foreach(ranking, warn)
     end)
 end
 
@@ -35,8 +37,8 @@ local function getPlayer(p)
     p = tostring(p):lower()
 
     local v, x, n, d = plrs:GetPlayers(), #p
-    for i = 1, #v do v = v[i] n, d = v.Name:lower(), v.DisplayName:lower() if n:sub(1, x) == p or d:sub(1, x) == p then return v end end
-
+    for i = 1, #v do v = v[i] warn(v); n, d = v.Name:lower(), v.DisplayName:lower() if n:sub(1, x) == p or d:sub(1, x) == p then return v end end
+    warn(v)
     return nil
 end
 
