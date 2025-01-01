@@ -124,7 +124,7 @@ insertCommand("kill", function(player)
 
     local obj, objt = plr.Character, player.Character
 
-    task.defer(function() task.delay(function() if status(plr) then obj.Humanoid:ChangeState(15) end) end)
+    task.defer(function() task.delay(5, function() if status(plr) then obj.Humanoid:ChangeState(15) end) end)
 
     local tool, toolParts, killPart = plr.Backpack.Stroller or obj.Stroller, {}
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then toolParts[#toolParts + 1] = v end end
