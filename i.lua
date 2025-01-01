@@ -124,8 +124,6 @@ insertCommand("kill", function(player)
 
     local obj, objt = plr.Character, player.Character
 
-    task.defer(function() task.delay(5, function() if status(plr) then obj.Humanoid:ChangeState(15) end) end)
-
     local tool, toolParts, killPart = plr.Backpack.Stroller or obj.Stroller, {}
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then toolParts[#toolParts + 1] = v end end
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then killPart = v; break end end
@@ -137,6 +135,8 @@ insertCommand("kill", function(player)
     for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
     repeat task.wait() until radius(objt:GetModelCFrame()) and objt:FindFirstChild("Sitting")
     firetouchinterest(objt.PrimaryPart, killPart, 0, firetouchinterest(objt.PrimaryPart, killPart, 1))
+
+    task.delay(5, function() if status(plr) then obj.Humanoid:ChangeState(15) end end)
 end)
 
 insertCommand("lkill", function(p)
