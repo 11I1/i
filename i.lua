@@ -136,7 +136,7 @@ insertCommand("kill", function(player)
     repeat task.wait() until radius(objt:GetModelCFrame()) and objt:FindFirstChild("Sitting")
     firetouchinterest(objt.PrimaryPart, killPart, 0, firetouchinterest(objt.PrimaryPart, killPart, 1))
 
-    task.delay(5, function() if status(plr) then obj.Humanoid:ChangeState(15) end end)
+    task.delay(3, function() if status(plr) then return obj.Humanoid:ChangeState(15) end end)
 end)
 
 insertCommand("lkill", function(p)
