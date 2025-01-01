@@ -129,14 +129,11 @@ insertCommand("kill", function(player)
     for i, v in next, workspace["Police Station"]:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then killPart = v; break end end
 
     obj.Humanoid:UnequipTools()
-    for i = 1, 3 do obj.Humanoid.Jump = true task.wait(1/8) end
     tool.Parent = obj
 
     for i, v in next, toolParts do firetouchinterest(v, objt.PrimaryPart, 0, task.wait(), firetouchinterest(v, objt.PrimaryPart, 1)) end
     repeat task.wait() until radius(objt:GetModelCFrame()) and objt:FindFirstChild("Sitting")
     firetouchinterest(objt.PrimaryPart, killPart, 0, firetouchinterest(objt.PrimaryPart, killPart, 1))
-
-    task.delay(3, function() if status(plr) then return obj.Humanoid:ChangeState(15) end end)
 end)
 
 insertCommand("lkill", function(p)
