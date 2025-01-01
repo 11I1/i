@@ -131,7 +131,7 @@ insertCommand("kill", function(player)
     obj.Humanoid:UnequipTools()
     tool.Parent = obj
 
-    for i = 1, #toolParts do firetouchinterest(toolParts[i], objt.PrimaryPart, 0, task.wait(1), firetouchinterest(objt.PrimaryPart, killPart, 0)) end
+    for i = 1, #toolParts do firetouchinterest(toolParts[i], objt.PrimaryPart, 0, firetouchinterest(toolParts[i], objt.PrimaryPart, 1, firetouchinterest(objt.PrimaryPart, killPart, 0, firetouchinterest(objt.PrimaryPart, killPart, 1)))) end
 end)
 
 insertCommand("lkill", function(p)
