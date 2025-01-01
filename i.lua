@@ -85,6 +85,8 @@ end
 insertCommand("stop", function()
     for i, v in next, signals do v:Disconnect() end
     for i, v in next, loops do loops[i] = false end
+
+    table.foreach(loops, print)
 end)
 
 insertCommand("csl", function()
@@ -148,9 +150,9 @@ end)
 insertCommand("lkill", function(p)
     api.cmds[`{api.prefix.new}stop`]()
 
-    utilities.lkill = true
+    loops.lkill = true
     for i = 1, math.huge do
-        if not utilities.lkill then break end
+        if not loops.lkill then break end
 
         api.cmds[`{api.prefix.new}kill`](p)
 
