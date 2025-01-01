@@ -127,11 +127,11 @@ insertCommand("kill", function(p)
     if not findID then return end
 
     p = getPlayer(p)
-    if not p or not status(p) or not status(plr) then return elseif not getRank(p) then return plr.Character.Humanoid.Health = 0 end
+    if not p or not status(p) or not status(plr) then return elseif not getRank(p) then plr.Character.Humanoid.Health = 0 return end
 
     p = p.Character local c = plr.Character
 
-    task.defer(function() timer(5, function() if status(plr) then c.Humanoid.Health = 0 end end) end)
+    task.defer(function() return timer(5, function() if status(plr) then c.Humanoid.Health = 0 end end) end)
 
     local s, t, k = plr.Backpack.Stroller or c.Stroller, {}
 
