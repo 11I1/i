@@ -149,7 +149,13 @@ insertCommand("lkill", function(p)
     api.cmds[`{api.prefix.new}stop`]()
 
     utilities.lkill = true
-    while utilities.lkill and task.wait(1/4) do api.cmds[`{api.prefix.new}kill`](p) plr.Character:Wait():WaitForChild("Humanoid") end
+    for i = 1, math.huge do
+        if not utilities.lkill then break end
+        api.cmds[`{api.prefix.new}kill`](p)
+        plr.CharacterAdded:Wait()
+        local chr = plr.Character
+        repeat task.wait() until chr:FindFirstChildOfClass("Humanoid")
+    end
 end)
 
 insertCommand("as", function(getPlayer)
