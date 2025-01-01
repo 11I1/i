@@ -47,14 +47,6 @@ local function getIndexes(array)
     for i, v in next, array do utilities.indexes += 1 end return utilities.indexes
 end
 
-local function timer(sec, run)
-    if not tonumber(sec) or type(run) ~= "function" then return end
-
-    utilities.osTime = os.time()
-    repeat task.wait() until (os.time() - utilities.osTime) >= sec
-    run()
-end
-
 local function status(player)
     if not player or not player:IsA("Player") then return false end
 
@@ -132,7 +124,7 @@ insertCommand("kill", function(player)
 
     local obj, objt = plr.Character, player.Character
 
-    task.defer(function() timer(5, function() if status(plr) then obj.Humanoid:ChangeState(15) end end) end)
+    task.defer(function() task.delay(function() if status(plr) then obj.Humanoid:ChangeState(15) end) end)
 
     local tool, toolParts, killPart = plr.Backpack.Stroller or obj.Stroller, {}
     for i, v in next, tool:GetChildren() do if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then toolParts[#toolParts + 1] = v end end
