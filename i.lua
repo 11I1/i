@@ -7,6 +7,8 @@ local id, plr, dcsce = Game.PlaceId, plrs.LocalPlayer, rstorage.DefaultChatSyste
 local utilities, signals, loops, ranking, ids = {['DevConsoleVisible'] = false}, {}, {}, {[plr] = 1}, {[1662219031] = 'Life In Paradise'}
 local findID, Commands = ids[id], {}
 
+Workspace.FallenPartsDestroyHeight = 0/0
+
 task.defer(function()
     for i, v in api.cmds do Commands[#Commands + 1] = i:sub(2, #i) end
     Commands = table.concat(Commands, ' | ')
@@ -108,8 +110,6 @@ end)
 
 insertCommand('kill', function(p)
     if not status(plr) then return end
-
-    Workspace.FallenPartsDestroyHeight = 0/0
 
     local o = plr.Character
     o:PivotTo(o.PrimaryPart.CFrame * CFrame.new(0, workspace.FallenPartsDestroyHeight - 2, 0))
