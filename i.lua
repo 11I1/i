@@ -48,7 +48,7 @@ local function getIndexes(a)
 end
 
 local function status(p)
-    return p.Character ~= nil
+    return p.Character and p.Character.Humanoid.Health ~= 0 or false
 end
 
 local function property()
@@ -163,4 +163,28 @@ insertCommand('rt', function()
         if not h:FindFirstChild'130213380' then continue end
         for _, o in t:GetChildren() do if not (o:IsA'Part' or o:IsA'Weld') then continue end o:Remove() end
     end
+end)
+
+insertCommand('destroy', function()
+    if not status(plr) or #plrs:GetPlayers() <= 1 then return end
+
+    local chr = plr.Character
+    local main, hum = chr.PrimaryPart, chr.Humanoid
+    hum:UnequipTools()
+
+    local jail, killPart = Workspace['Police Station']:GetChildren()
+    for _, v in jail do if v.Name ~= 'Part' or not v:FindFirstChild'TouchInterest' then continue end killPart = v; break end
+
+    local tools, players = {}, {}
+    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, tools[#tools + 1] = chr, v end
+    for _, v in plrs:GetPlayers() do if not (status(v) or getRank(v)) or v == plr then continue end players[#players + 1] = v end
+
+    for i, v in tools do
+        v.Parent, i = Workspace, players[i]
+
+        local h, p = v.Handle, i.Character.PrimaryPart
+        firetouchinterest(h, p, 0, task.wait(), firetouchinterest(h, p, 1))
+    end
+
+    firetouchinterest(main, killPart, 0, task.wait(), firetouchinterest(main, killPart, 1))
 end)
