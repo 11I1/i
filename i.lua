@@ -189,5 +189,6 @@ insertCommand('destroy', function()
 
     task.wait(.25)
     chr:PivotTo(main.CFrame * CFrame.new(0, Workspace.FallenPartsDestroyHeight - 2, 0))
+    task.wait(.25)
     hum.Health = 0
 end)
