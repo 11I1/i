@@ -170,21 +170,27 @@ insertCommand('destroy', function()
 
     local chr = plr.Character
     local main, hum = chr.PrimaryPart, chr.Humanoid
+
+    for _, v in pairs(plr.Backpack:GetChildren()) do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) end
+    wait()
     hum:UnequipTools()
+    wait()
 
     local jail, killPart = Workspace['Police Station']:GetChildren()
     for _, v in jail do if v.Name ~= 'Part' or not v:FindFirstChild'TouchInterest' then continue end killPart = v; break end
 
     local tools, players = {}, {}
     for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, tools[#tools + 1] = chr, v end
-    for _, v in plrs:GetPlayers() do if not (status(v) or getRank(v)) or v == plr then continue end players[#players + 1] = v end
+    for _, v in plrs:GetPlayers() do if v == plr or not status(v) or not getRank(v) then continue end players[#players + 1] = v end
 
-    for i, v in tools do
-        v.Parent, i = Workspace, players[i]
+    for i, v in players do
+        i = tools[i]
+        if not i then break end
 
+        i.Parent = Workspace
         task.wait(.1)
 
-        local h, p = v.Handle, i.Character.PrimaryPart
+        local h, p = i.Handle, v.Character.PrimaryPart
         firetouchinterest(h, p, 0, task.wait(), firetouchinterest(h, p, 1))
     end
 
