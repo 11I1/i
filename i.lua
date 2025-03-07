@@ -127,7 +127,7 @@ insertCommand('kill', function(p)
 
     s.Parent = o
 
-    firetouchinterest(a, q, 0, task.wait(.125), firetouchinterest(q, k, 0))
+    firetouchinterest(a, q, 0, task.wait(.15), firetouchinterest(q, k, 0))
 
     task.wait(.15) h.Health = 0
 end)
@@ -169,7 +169,7 @@ insertCommand('destroy', function()
     local chr = plr.Character
     local main, hum = chr.PrimaryPart, chr.Humanoid
 
-    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.15) end
+    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.13) end
     hum:UnequipTools()
 
     local jail, killPart = Workspace['Police Station']:GetChildren()
@@ -184,12 +184,12 @@ insertCommand('destroy', function()
         if not i then break end
 
         i.Parent = Workspace
-        task.wait(.125)
+        task.wait(.1)
 
         local h, p = i.Handle, v.Character.PrimaryPart
         firetouchinterest(h, p, 0)
     end
 
-    task.wait(.1)
+    task.wait(.05)
     chr:PivotTo(killPart.CFrame)
 end)
