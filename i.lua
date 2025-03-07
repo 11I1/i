@@ -199,18 +199,20 @@ insertCommand('dupe', function(int)
     if not status(plr) then return end
 
     int = tonumber(int)
-    local c, h, p
+    local c, h, p, t
 
     for i = 1, int do
         c = plr.Character
-        c:PivotTo(c:GetModelCFrame() * CFrame.new(0, 1e15, 0))
+        c:PivotTo(CFrame.new(0, 1e8, 0))
 
         h = c.Humanoid
         h:UnequipTools()
 
         task.wait(.25)
 
-        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent = c task.wait(.2) v.Parent = Workspace end
+        t = plr.Backpack:FindFirstChild'Stroller'
+        h:EquipTool(t)
+        t.Parent = Workspace
         task.wait(.15)
 
         h.Health = 0
