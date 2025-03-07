@@ -199,26 +199,26 @@ insertCommand('dupe', function(int)
     if not status(plr) then return end
 
     int = tonumber(int)
+    local c, h, p
+
     for i = 1, int do
-        local chr = plr.Character
-        local main, hum = chr.PrimaryPart, chr.Humanoid
-        hum:UnequipTools()
+        c = plr.Character
+        c:PivotTo(c:GetModelCFrame() * CFrame.new(0, 1e10, 0))
+        h = c.Humanoid
+        h:UnequipTools()
 
-        chr:PivotTo(chr:GetModelCFrame() * CFrame.new(0, 1e5, 0))
-        task.wait(.25)
+        task.wait(.2)
 
-        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) v.Handle.Anchored = true task.wait(.15) v.Parent = Workspace end
+        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end h:EquipTool(v) task.wait(.125) v.Parent = Workspace end
 
-        hum.Health = 0
+        h.Health = 0
         plr.CharacterAdded:Wait():WaitForChild'Humanoid'
 
         if i >= int then
-                warn(i, int)
-            for _, v in Workspace:GetChildren() do
-                if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end
-                firetouchinterest(plr.Character.PrimaryPart, v.Handle, 0)
-                    task.wait(.25)
-            end
+            c = plr.Character
+            p = c.PrimaryPart
+
+            for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) end
         end
     end
 end)
