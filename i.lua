@@ -204,10 +204,10 @@ insertCommand('dupe', function(int)
         local main, hum = chr.PrimaryPart, chr.Humanoid
         hum:UnequipTools()
 
-        chr:PivotTo(chr:GetModelCFrame() * CFrame.new(0, 1e8, 0))
+        chr:PivotTo(chr:GetModelCFrame() * CFrame.new(0, 1e5, 0))
         task.wait(.2)
 
-        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, v.Parent = chr, Workspace end
+        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.15) v.Parent = Workspace end
 
         hum.Health = 0
         plr.CharacterAdded:Wait():WaitForChild'Humanoid'
