@@ -186,5 +186,6 @@ insertCommand('destroy', function()
         firetouchinterest(h, p, 0, task.wait(), firetouchinterest(h, p, 1))
     end
 
+    task.wait(1/2)
     firetouchinterest(main, killPart, 0, task.wait(), firetouchinterest(main, killPart, 1))
 end)
