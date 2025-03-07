@@ -205,7 +205,7 @@ insertCommand('dupe', function(int)
         hum:UnequipTools()
 
         chr:PivotTo(chr:GetModelCFrame() * CFrame.new(0, 1e5, 0))
-        task.wait(.125)
+        task.wait(.25)
 
         for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) v.Handle.Anchored = true task.wait(.15) v.Parent = Workspace end
 
@@ -213,12 +213,14 @@ insertCommand('dupe', function(int)
         plr.CharacterAdded:Wait():WaitForChild'Humanoid'
 
         if i >= int then
+                warn(i, int)
             for _, v in Workspace:GetChildren() do
                 if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end
 
                 local handle = v.Handle
                 handle.Anchored = false
-                firetouchinterest(main, handle, 0)
+                firetouchinterest(handle, main, 0)
+                    print(v)
             end
         end
     end
