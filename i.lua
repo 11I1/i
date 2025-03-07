@@ -128,7 +128,7 @@ insertCommand('kill', function(p)
     s.Parent = o
 
     firetouchinterest(a, q, 0, task.wait(), firetouchinterest(a, q, 1))
-    firetouchinterest(q, k, 0, task.wait(.125), firetouchinterest(q, k, 1))
+    firetouchinterest(q, k, 0, task.wait(.25), firetouchinterest(q, k, 1))
 
     task.wait(.1) h.Health = 0
 end)
