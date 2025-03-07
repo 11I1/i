@@ -216,7 +216,8 @@ insertCommand('dupe', function(int)
                 warn(i, int)
             for _, v in Workspace:GetChildren() do
                 if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end
-                firetouchinterest(main, v.Handle, 0)
+                firetouchinterest(plr.Character.PrimaryPart, v.Handle, 0)
+                    task.wait(.25)
             end
         end
     end
