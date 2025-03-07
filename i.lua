@@ -204,12 +204,13 @@ insertCommand('dupe', function(int)
     for i = 1, int do
         c = plr.Character
         c:PivotTo(c:GetModelCFrame() * CFrame.new(0, 1e10, 0))
+
         h = c.Humanoid
         h:UnequipTools()
 
-        task.wait(.2)
+        task.wait(.25)
 
-        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end h:EquipTool(v) task.wait(.125) v.Parent = Workspace end
+        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, v.Parent = c, Workspace end
 
         h.Health = 0
         plr.CharacterAdded:Wait():WaitForChild'Humanoid'
@@ -218,7 +219,9 @@ insertCommand('dupe', function(int)
             c = plr.Character
             p = c.PrimaryPart
 
-            for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) end
+            local counter
+            for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) counter += 1 end
+            privateMsg(plr.Name, `Tools: [{counter}]`)
         end
     end
 end)
