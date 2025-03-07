@@ -129,7 +129,7 @@ insertCommand('kill', function(p)
 
     firetouchinterest(a, q, 0, task.wait(.1), firetouchinterest(q, k, 0))
 
-    task.wait(.1) h.Health = 0
+    task.wait(.125) h.Health = 0
 end)
 
 insertCommand('lkill', function(p)
@@ -169,10 +169,8 @@ insertCommand('destroy', function()
     local chr = plr.Character
     local main, hum = chr.PrimaryPart, chr.Humanoid
 
-    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.1) end
-
+    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.125) end
     hum:UnequipTools()
-    task.wait(.15)
 
     local jail, killPart = Workspace['Police Station']:GetChildren()
     for _, v in jail do if v.Name ~= 'Part' or not v:FindFirstChild'TouchInterest' then continue end killPart = v; break end
