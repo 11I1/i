@@ -30,7 +30,6 @@ if findID then
 end
 
 local function getRank(p)
-    if not findID then return end
     return ranking[plr] < ranking[p]
 end
 
@@ -112,8 +111,8 @@ insertCommand('kill', function(p)
     if not status(plr) then return end
 
     local o = plr.Character
-    o:PivotTo(o.PrimaryPart.CFrame * CFrame.new(0, workspace.FallenPartsDestroyHeight - 2, 0))
-    task.wait(0.1)
+    o:PivotTo(o.PrimaryPart.CFrame * CFrame.new(0, Workspace.FallenPartsDestroyHeight - 2, 0))
+    task.wait(.1)
  
     local h = o.Humanoid
     h:UnequipTools()
@@ -122,16 +121,15 @@ insertCommand('kill', function(p)
     if not p or not status(p) then return elseif not getRank(p) then h.Health = 0 return end
     p = p.Character
 
-    local q, s, j, v, a, k = p.PrimaryPart, plr.Backpack.Stroller, workspace['Police Station']:GetChildren() local g = s:GetChildren()
+    local q, s, j, v, a, k = p.PrimaryPart, plr.Backpack.Stroller, Workspace['Police Station']:GetChildren() local g = s:GetChildren()
     for i = 1, #g do v = g[i] if v:IsA'BasePart' and v:FindFirstChild'TouchInterest' then a = v; break end end
     for i = 1, #j do v = j[i] if v:IsA'BasePart' and v:FindFirstChild'TouchInterest' then k = v; break end end
 
     s.Parent = o
 
-    firetouchinterest(a, q, 0, task.wait(), firetouchinterest(a, q, 1))
-    firetouchinterest(q, k, 0, task.wait(0.25), firetouchinterest(q, k, 1))
+    firetouchinterest(a, q, 0, task.wait(.1), firetouchinterest(q, k, 0))
 
-    task.wait(0.1) h.Health = 0
+    task.wait(.1) h.Health = 0
 end)
 
 insertCommand('lkill', function(p)
@@ -171,10 +169,10 @@ insertCommand('destroy', function()
     local chr = plr.Character
     local main, hum = chr.PrimaryPart, chr.Humanoid
 
-    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.15) end
+    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.1) end
 
     hum:UnequipTools()
-    task.wait(.2)
+    task.wait(.15)
 
     local jail, killPart = Workspace['Police Station']:GetChildren()
     for _, v in jail do if v.Name ~= 'Part' or not v:FindFirstChild'TouchInterest' then continue end killPart = v; break end
@@ -191,9 +189,9 @@ insertCommand('destroy', function()
         task.wait(.1)
 
         local h, p = i.Handle, v.Character.PrimaryPart
-        firetouchinterest(h, p, 0, task.wait(), firetouchinterest(h, p, 1))
+        firetouchinterest(h, p, 0)
     end
 
-    task.wait(.15)
+    task.wait(.1)
     chr:PivotTo(killPart.CFrame)
 end)
