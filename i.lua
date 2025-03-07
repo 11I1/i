@@ -177,14 +177,15 @@ insertCommand('destroy', function()
 
     local tools, players = {}, {}
     for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, tools[#tools + 1] = chr, v end
-    for _, v in plrs:GetPlayers() do if not (status(v) or getRank(v)) or v == plr then continue end players[#players + 1] = v end
+    for _, v in plrs:GetPlayers() do if not getRank(v) or not status(v) or v == plr then continue end players[#players + 1] = v end
 
-    for i, v in tools do
-        v.Parent, i = Workspace, players[i]
+    for i, v in players do
+        i = tools[i]
+        if not i then break end
 
+        i.Parent = Workspace
         task.wait(.1)
-
-        firetouchinterest(v.Handle, i.Character.PrimaryPart, 0)
+        firetouchinterest(i.Handle, v.Character.PrimaryPart, 0)
     end
 
     task.wait(.25)
