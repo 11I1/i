@@ -182,13 +182,11 @@ insertCommand('destroy', function()
     for i, v in tools do
         v.Parent, i = Workspace, players[i]
 
-        local h, p = v.Handle, i.Character.PrimaryPart
         task.wait(.1)
-        firetouchinterest(h, p, 0)
+
+        firetouchinterest(v.Handle, i.Character.PrimaryPart, 0)
     end
 
     task.wait(.25)
-    chr:PivotTo(main.CFrame * CFrame.new(0, Workspace.FallenPartsDestroyHeight - 2, 0))
-    task.wait(.25)
-    hum.Health = 0
+    chr:PivotTo(killPart.CFrame)
 end)
