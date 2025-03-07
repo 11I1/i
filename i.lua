@@ -210,7 +210,7 @@ insertCommand('dupe', function(int)
 
         task.wait(.25)
 
-        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, v.Parent = c, Workspace end
+        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end h:EquipTool(v) v.Parent = Workspace end
 
         h.Health = 0
         plr.CharacterAdded:Wait():WaitForChild'Humanoid'
@@ -219,9 +219,7 @@ insertCommand('dupe', function(int)
             c = plr.Character
             p = c.PrimaryPart
 
-            local counter
-            for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) counter += 1 end
-            privateMsg(plr.Name, `Tools: [{counter}]`)
+            for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) end
         end
     end
 end)
