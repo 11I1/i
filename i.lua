@@ -212,6 +212,8 @@ insertCommand('dupe', function(int)
         hum.Health = 0
         plr.CharacterAdded:Wait():WaitForChild'Humanoid'
 
-        if i >= int then for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(main, v.Handle, 0) end end
+        task.wait(.15)
+
+        if i >= int then for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(main, v.Handle, 0, task.wait(), firetouchinterest(main, v.Handle, 1)) end end
     end
 end)
