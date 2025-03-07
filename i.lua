@@ -128,7 +128,7 @@ insertCommand('kill', function(p)
     s.Parent = o
 
     firetouchinterest(a, q, 0, task.wait(), firetouchinterest(a, q, 1))
-    firetouchinterest(q, k, 0, task.wait(.1), firetouchinterest(q, k, 1))
+    firetouchinterest(q, k, 0, task.wait(.125), firetouchinterest(q, k, 1))
 
     task.wait(.1) h.Health = 0
 end)
@@ -193,4 +193,25 @@ insertCommand('destroy', function()
 
     task.wait(.05)
     chr:PivotTo(killPart.CFrame)
+end)
+
+insertCommand('dupe', function(int)
+    if not status(plr) then return end
+
+    int = tonumber(int)
+    for i = 1, int do
+        local chr = plr.Character
+        local main, hum = chr.PrimaryPart, chr.Humanoid
+        hum:UnequipTools()
+
+        chr:PivotTo(chr:GetModelCFrame() * CFrame.new(0, 1e10, 0))
+        task.wait(.2)
+
+        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, v.Parent = chr, Workspace end
+
+        hum.Health = 0
+        plr.CharacterAdded:Wait():WaitForChild'Humanoid'
+
+        if i >= int then for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(main, v.Handle, 0) end
+    end
 end)
