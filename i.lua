@@ -112,7 +112,7 @@ insertCommand('kill', function(p)
 
     local o = plr.Character
     o:PivotTo(o.PrimaryPart.CFrame * CFrame.new(0, Workspace.FallenPartsDestroyHeight - 2, 0))
-    task.wait(.1)
+    task.wait(.5)
  
     local h = o.Humanoid
     h:UnequipTools()
@@ -128,7 +128,7 @@ insertCommand('kill', function(p)
     s.Parent = o
 
     firetouchinterest(a, q, 0, task.wait(), firetouchinterest(a, q, 1))
-    firetouchinterest(q, k, 0, task.wait(.125), firetouchinterest(q, k, 1))
+    firetouchinterest(q, k, 0, task.wait(.05), firetouchinterest(q, k, 1))
 
     task.wait(.1) h.Health = 0
 end)
@@ -170,7 +170,7 @@ insertCommand('destroy', function()
     local chr = plr.Character
     local main, hum = chr.PrimaryPart, chr.Humanoid
 
-    for _, v in next, plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent = chr end
+    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.125) end
     hum:UnequipTools()
 
     local jail, killPart = Workspace['Police Station']:GetChildren()
@@ -185,7 +185,7 @@ insertCommand('destroy', function()
         if not i then break end
 
         i.Parent = Workspace
-        task.wait(.1)
+        task.wait(.05)
 
         local h, p = i.Handle, v.Character.PrimaryPart
         firetouchinterest(h, p, 0)
@@ -211,58 +211,18 @@ insertCommand('dupe', function(int)
 
         local t = plr.Backpack:FindFirstChild'Stroller'
         t.Parent = c
-        task.wait(.125)
+        task.wait(.05)
         t.Parent = Workspace
 
         h.Health = 0
         plr.CharacterAdded:Wait():WaitForChild'Humanoid'
 
         if i >= int then
-            c = plr.Character
+            bp, c = plr.Backpack, plr.Character
             h = c.Humanoid
 
             local p = c.PrimaryPart
-            for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0, task.wait(), firetouchinterest(p, v.Handle, 1)) end
+            for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0, task.wait(), firetouchinterest(p, v.Handle, 1)) v.Parent = bp end
         end
-    end
-end)
-
-insertCommand('kill2', function(p)
-    if not status(plr) then return end
-
-    local o = plr.Character
-    o:PivotTo(o.PrimaryPart.CFrame * CFrame.new(0, Workspace.FallenPartsDestroyHeight - 2, 0))
-    task.wait(.5)
- 
-    local h = o.Humanoid
-    h:UnequipTools()
-
-    p = getPlayer(p)
-    if not p or not status(p) then return elseif not getRank(p) then h.Health = 0 return end
-    p = p.Character
-
-    local q, s, a = p.PrimaryPart, plr.Backpack.Stroller local g, x = s:GetChildren(), s.Handle
-    for i = 1, #g do v = g[i] if v:IsA'BasePart' and v:FindFirstChild'TouchInterest' then a = v; break end end
-
-    s.Parent = o
-    task.wait(.1)
-    s.Parent = Workspace
-
-    firetouchinterest(x, q, 0, task.wait(.1), firetouchinterest(x, q, 1))
-
-    task.wait(.1) h.Health = 0
-end)
-
-insertCommand('lkill2', function(p)
-    api.cmds[`{api.prefix.new}stop`]()
-
-    loops.lkill2 = true
-    for i = 1, math.huge do
-        if not loops.lkill2 then break end
-
-        api.cmds[`{api.prefix.new}kill2`](p)
-
-        plr.CharacterAdded:Wait()
-        repeat task.wait() until plr.Character:FindFirstChild'Humanoid'
     end
 end)
