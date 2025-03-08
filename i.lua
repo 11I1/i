@@ -248,7 +248,7 @@ insertCommand('kill2', function(p)
     task.wait(.1)
     s.Parent = Workspace
 
-    firetouchinterest(x, q, 0, task.wait(.125), firetouchinterest(x, q, 1))
+    firetouchinterest(x, q, 0, task.wait(.1), firetouchinterest(x, q, 1))
 
     task.wait(.1) h.Health = 0
 end)
