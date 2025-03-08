@@ -207,7 +207,7 @@ insertCommand('dupe', function(int)
         h:UnequipTools()
         task.wait(.25)
 
-        for _, v in next, plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end h:EquipTool(v) task.wait(.15) v.Parent = Workspace end
+        for _, v in next, plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, v.Parent = c, Workspace task.wait(.15) v.Handle.Anchored = true end
 
         h.Health = 0
         plr.CharacterAdded:Wait():WaitForChild'PrimaryPart'
@@ -216,7 +216,7 @@ insertCommand('dupe', function(int)
             c = plr.Character
             local p = c.PrimaryPart
 
-            for _, v in next, Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) end
+            for _, v in next, Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end v.Handle.Anchored = false task.wait(.15) firetouchinterest(p, v.Handle, 0) end
         end
     end
 end)
