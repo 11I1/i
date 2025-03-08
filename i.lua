@@ -207,7 +207,7 @@ insertCommand('dupe', function(int)
         h:UnequipTools()
         task.wait(.25)
 
-        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, v.Parent = c, Workspace end
+        for _, v in next, plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end h:EquipTool(v) task.wait(.15) v.Parent = Workspace end
 
         h.Health = 0
         plr.CharacterAdded:Wait():WaitForChild'PrimaryPart'
