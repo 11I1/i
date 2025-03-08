@@ -206,7 +206,7 @@ insertCommand('dupe', function(int)
         local h = c.Humanoid
 
         h:UnequipTools()
-        c:PivotTo(CFrame.new(0, 1e8, 0))
+        c:PivotTo(CFrame.new(0, 1e25, 0))
         task.wait(.2)
 
         local t = plr.Backpack:FindFirstChild'Stroller'
