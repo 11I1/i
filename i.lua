@@ -221,7 +221,7 @@ insertCommand('dupe', function(int)
             c = plr.Character
             local p = c.PrimaryPart
 
-            for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) end
+            for _, v in next, Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) end
         end
     end
 end)
