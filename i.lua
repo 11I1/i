@@ -208,7 +208,7 @@ insertCommand('dupe', function(int)
         for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent= c task.wait(.15) v.Handle.Anchored = true task.wait(.15) v.Parent = Workspace end
 
         h.Health = 0
-        plr.CharacterAdded:Wait():WaitForChild'PrimaryPart'
+        plr.CharacterAdded:Wait():WaitForChild'Humanoid'
 
         if i >= int then
             c = plr.Character
