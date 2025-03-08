@@ -203,11 +203,10 @@ insertCommand('dupe', function(int)
         local c = plr.Character
         local h = c.Humanoid
 
-        c:PivotTo(CFrame.new(0, 1e10, 0))
+        c:PivotTo(CFrame.new(0, 1e5, 0))
         h:UnequipTools()
-        task.wait(.25)
 
-        for _, v in next, plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, v.Parent = c, Workspace task.wait(.15) v.Handle.Anchored = true end
+        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent= c task.wait(.15) v.Handle.Anchored = false task.wait(.15) v.Parent = Workspace end
 
         h.Health = 0
         plr.CharacterAdded:Wait():WaitForChild'PrimaryPart'
