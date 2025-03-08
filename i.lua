@@ -203,7 +203,7 @@ insertCommand('dupe', function(int)
         local c = plr.Character
         local h = c.Humanoid
 
-        c:PivotTo(CFrame.new(0, 1e5, 0))
+        c:PivotTo(c:GetModelCFrame() * CFrame.new(0, 1e5, 0))
         h:UnequipTools()
 
         for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent= c task.wait(.15) v.Handle.Anchored = false task.wait(.15) v.Parent = Workspace end
