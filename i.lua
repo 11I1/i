@@ -198,15 +198,13 @@ end)
 insertCommand('dupe', function(int)
     int = tonumber(int)
     for i = 1, int do
-        if not status(plr) then break end
-
         local c = plr.Character
         local h = c.Humanoid
 
         c:PivotTo(c:GetModelCFrame() * CFrame.new(0, 1e5, 0))
         h:UnequipTools()
 
-        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent= c task.wait(.15) v.Handle.Anchored = false task.wait(.15) v.Parent = Workspace end
+        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent= c task.wait(.15) v.Handle.Anchored = true task.wait(.15) v.Parent = Workspace end
 
         h.Health = 0
         plr.CharacterAdded:Wait():WaitForChild'PrimaryPart'
