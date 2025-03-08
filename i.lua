@@ -220,8 +220,9 @@ insertCommand('dupe', function(int)
         if i >= int then
             c = plr.Character
             local p = c.PrimaryPart
-
-            for _, v in next, Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) end
+            warn(c, p)
+            for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) task.wait(.25) end
+                print("done!")
         end
     end
 end)
