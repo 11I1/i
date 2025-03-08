@@ -170,7 +170,7 @@ insertCommand('destroy', function()
     local chr = plr.Character
     local main, hum = chr.PrimaryPart, chr.Humanoid
 
-    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.1) end
+    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.13) end
     hum:UnequipTools()
 
     local jail, killPart = Workspace['Police Station']:GetChildren()
@@ -196,20 +196,22 @@ insertCommand('destroy', function()
 end)
 
 insertCommand('dupe', function(int)
-    int = tostring(int)
+    int = tonumber(int)
     if not int then return end
 
     for i = 1, int do
+        if not status(plr) then return end
+
         local c = plr.Character
         local h = c.Humanoid
 
         h:UnequipTools()
-        c:PivotTo(CFrame.new(0, 1e25, 0))
+        c:PivotTo(CFrame.new(0, 1e8, 0))
         task.wait(.2)
 
         local t = plr.Backpack:FindFirstChild'Stroller'
         t.Parent = c
-        task.wait(.15)
+        task.wait(.125)
         t.Parent = Workspace
 
         h.Health = 0
