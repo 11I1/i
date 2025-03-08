@@ -200,8 +200,6 @@ insertCommand('dupe', function(int)
     if not int then return end
 
     for i = 1, int do
-        if not status(plr) then return end
-
         local c = plr.Character
         local h = c.Humanoid
 
