@@ -170,7 +170,7 @@ insertCommand('destroy', function()
     local chr = plr.Character
     local main, hum = chr.PrimaryPart, chr.Humanoid
 
-    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.125) end
+    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.15) end
     hum:UnequipTools()
 
     local jail, killPart = Workspace['Police Station']:GetChildren()
