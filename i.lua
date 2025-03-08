@@ -170,7 +170,7 @@ insertCommand('destroy', function()
     local chr = plr.Character
     local main, hum = chr.PrimaryPart, chr.Humanoid
 
-    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent = chr end
+    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.1) end
     hum:UnequipTools()
 
     local jail, killPart = Workspace['Police Station']:GetChildren()
@@ -196,16 +196,22 @@ insertCommand('destroy', function()
 end)
 
 insertCommand('dupe', function(int)
-    int = tonumber(int)
+    int = tostring(int)
+    if not int then return end
+
     for i = 1, int do
+        if not status(plr) then return end
+
         local c = plr.Character
         local h = c.Humanoid
 
-        c:PivotTo(c:GetModelCFrame() * CFrame.new(0, 1e5, 0))
         h:UnequipTools()
-            task.wait(1)
+        c:PivotTo(CFrame.new(0, 1e8, 0))
+        task.wait(.2)
 
-        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent= c task.wait(.15) v.Handle.Anchored = true task.wait(.15) v.Parent = Workspace end
+        local t = plr.Backpack:FindFirstChild'Stroller'
+        h:EquipTool(t)
+        t.Parent = Workspace
 
         h.Health = 0
         plr.CharacterAdded:Wait():WaitForChild'Humanoid'
@@ -214,7 +220,7 @@ insertCommand('dupe', function(int)
             c = plr.Character
             local p = c.PrimaryPart
 
-            for _, v in workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end v.Handle.Anchored = false task.wait(.15) firetouchinterest(p, v.Handle, 0) end
+            for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) end
         end
     end
 end)
