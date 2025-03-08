@@ -196,34 +196,26 @@ insertCommand('destroy', function()
 end)
 
 insertCommand('dupe', function(int)
-    if not status(plr) then return end
-
     int = tonumber(int)
-    local c, h, p, t
-
     for i = 1, int do
-        c = plr.Character
-        c:PivotTo(CFrame.new(0, 1e8, 0))
+        if not status(plr) then break end
 
-        h = c.Humanoid
+        local c = plr.Character
+        local h = c.Humanoid
+
+        c:PivotTo(CFrame.new(0, 1e10, 0))
         h:UnequipTools()
 
-        task.wait(.25)
-
-        t = plr.Backpack:FindFirstChild'Stroller'
-        h:EquipTool(t)
-        task.wait(1)
-        t.Parent = Workspace
-        task.wait(1)
+        for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, v.Parent = c, Workspace end
 
         h.Health = 0
-        plr.CharacterAdded:Wait():WaitForChild'Humanoid'
+        plr.CharacterAdded:Wait():WaitForChild'PrimaryPart'
 
         if i >= int then
             c = plr.Character
-            p = c.PrimaryPart
+            local p = c.PrimaryPart
 
-            for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) end
+            for _, v in next, Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0) end
         end
     end
 end)
