@@ -178,7 +178,7 @@ insertCommand('destroy', function()
 
     local tools, players = {}, {}
     for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, tools[#tools + 1] = chr, v end
-    for _, v in plrs:GetPlayers() do if v == plr or not status(v) or not getRank(v) then continue end players[#players + 1] = v end
+    for _, v in plrs:GetPlayers() do if v == plr or not status(v) or not getRank(v) or v.Character.Humanoid.Sit then continue end players[#players + 1] = v end
 
     for i, v in players do
         i = tools[i]
