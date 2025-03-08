@@ -170,7 +170,7 @@ insertCommand('destroy', function()
     local chr = plr.Character
     local main, hum = chr.PrimaryPart, chr.Humanoid
 
-    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.15) end
+    for _, v in next, plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent = chr end
     hum:UnequipTools()
 
     local jail, killPart = Workspace['Police Station']:GetChildren()
@@ -178,7 +178,7 @@ insertCommand('destroy', function()
 
     local tools, players = {}, {}
     for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, tools[#tools + 1] = chr, v end
-    for _, v in plrs:GetPlayers() do if v == plr or not status(v) or not getRank(v) or v.Character.Humanoid.Sit then continue end players[#players + 1] = v end
+    for _, v in plrs:GetPlayers() do if v == plr or not status(v) or not getRank(v) then continue end players[#players + 1] = v end
 
     for i, v in players do
         i = tools[i]
@@ -223,7 +223,46 @@ insertCommand('dupe', function(int)
 
             local p = c.PrimaryPart
             for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0, task.wait(), firetouchinterest(p, v.Handle, 1)) end
-            h:UnequipTools()
         end
+    end
+end)
+
+insertCommand('kill2', function(p)
+    if not status(plr) then return end
+
+    local o = plr.Character
+    o:PivotTo(o.PrimaryPart.CFrame * CFrame.new(0, Workspace.FallenPartsDestroyHeight - 2, 0))
+    task.wait(.5)
+ 
+    local h = o.Humanoid
+    h:UnequipTools()
+
+    p = getPlayer(p)
+    if not p or not status(p) then return elseif not getRank(p) then h.Health = 0 return end
+    p = p.Character
+
+    local q, s, a = p.PrimaryPart, plr.Backpack.Stroller local g, x = s:GetChildren(), s.Handle
+    for i = 1, #g do v = g[i] if v:IsA'BasePart' and v:FindFirstChild'TouchInterest' then a = v; break end end
+
+    s.Parent = o
+    task.wait(.125)
+    s.Parent = Workspace
+
+    firetouchinterest(x, q, 0)
+
+    task.wait(.1) h.Health = 0
+end)
+
+insertCommand('lkill2', function(p)
+    api.cmds[`{api.prefix.new}stop`]()
+
+    loops.lkill2 = true
+    for i = 1, math.huge do
+        if not loops.lkill2 then break end
+
+        api.cmds[`{api.prefix.new}kill2`](p)
+
+        plr.CharacterAdded:Wait()
+        repeat task.wait() until plr.Character:FindFirstChild'Humanoid'
     end
 end)
