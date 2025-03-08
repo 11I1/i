@@ -203,6 +203,7 @@ insertCommand('dupe', function(int)
 
         c:PivotTo(c:GetModelCFrame() * CFrame.new(0, 1e5, 0))
         h:UnequipTools()
+            task.wait(1)
 
         for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent= c task.wait(.15) v.Handle.Anchored = true task.wait(.15) v.Parent = Workspace end
 
