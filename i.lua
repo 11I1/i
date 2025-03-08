@@ -210,7 +210,8 @@ insertCommand('dupe', function(int)
         task.wait(.2)
 
         local t = plr.Backpack:FindFirstChild'Stroller'
-        h:EquipTool(t)
+        t.Parent = c
+        task.wait(.15)
         t.Parent = Workspace
 
         h.Health = 0
