@@ -220,10 +220,10 @@ insertCommand('dupe', function(int)
         if i >= int then
             c = plr.Character
             h = c.Humanoid
-            task.defer(function() h:UnequipTools() end)
 
             local p = c.PrimaryPart
             for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0, task.wait(), firetouchinterest(p, v.Handle, 1)) end
+            h:UnequipTools()
         end
     end
 end)
