@@ -212,8 +212,9 @@ insertCommand('dupe', function(int)
 
         t = plr.Backpack:FindFirstChild'Stroller'
         h:EquipTool(t)
+        task.wait(1)
         t.Parent = Workspace
-        task.wait(.15)
+        task.wait(1)
 
         h.Health = 0
         plr.CharacterAdded:Wait():WaitForChild'Humanoid'
