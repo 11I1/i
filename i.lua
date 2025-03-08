@@ -245,6 +245,7 @@ insertCommand('kill2', function(p)
     for i = 1, #g do v = g[i] if v:IsA'BasePart' and v:FindFirstChild'TouchInterest' then a = v; break end end
 
     s.Parent = o
+    task.wait(.1)
     s.Parent = Workspace
 
     firetouchinterest(x, q, 0, task.wait(.125), firetouchinterest(x, q, 1))
