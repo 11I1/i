@@ -205,6 +205,7 @@ insertCommand('dupe', function(int)
 
         c:PivotTo(CFrame.new(0, 1e10, 0))
         h:UnequipTools()
+        task.wait(.25)
 
         for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, v.Parent = c, Workspace end
 
