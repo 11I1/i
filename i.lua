@@ -106,7 +106,7 @@ insertCommand('kill', function(p)
     task.wait(.25)
 
     local tool = plr.Backpack.Stroller
-    tool.Parent = me
+    tool.Parent = plr.Character
     task.wait(.1)
     tool.Parent = Workspace
 
