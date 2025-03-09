@@ -121,5 +121,6 @@ insertCommand('kill', function(p)
     tool.Parent = Workspace
 
     firetouchinterest(tool.Handle, you, 0)
+        task.wait(.125)
     p.Character.Humanoid.Health = 0
 end)
