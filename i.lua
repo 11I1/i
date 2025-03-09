@@ -115,5 +115,7 @@ insertCommand('kill', function(p)
     tool.Parent = me
     tool.Parent = Workspace
 
-    firetouchinterest(tool.Handle, you, 0, task.wait(.25), firetouchinterest(you, Workspace['Police Station']:GetChildren()[11], 0))
+    firetouchinterest(tool.Handle, you, 0)
+    task.wait(.125)
+    firetouchinterest(you, Workspace['Police Station']:GetChildren()[11], 0)
 end)
