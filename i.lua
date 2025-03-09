@@ -107,7 +107,7 @@ insertCommand('kill', function(p)
 
     local tool = plr.Backpack.Stroller
     tool.Parent = plr.Character
-    tool.Parent = Workspace
+    tool.Parent = workspace
 
-    firetouchinterest(tool.Handle, you, 0, task.wait(), firetouchinterest(you, Workspace['Police Station']:GetChildren()[11], 0))
+    firetouchinterest(tool.Handle, you, 0, task.wait(.1), firetouchinterest(you, Workspace['Police Station']:GetChildren()[11], 0))
 end)
