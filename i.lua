@@ -61,6 +61,13 @@ end
 
 local function privateMsg(n, m) dcsce.SayMessageRequest:FireServer(`/w {tostring(n)} {m}`, 'All') end
 
+local function UnequipTools()
+    local me = plr.Character
+    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent = me end
+    task.wait()
+    me.Humanoid:UnequipTools()
+end
+
 insertCommand('stop', function()
     for i, v in signals do v:Disconnect() end
     for i, v in loops do loops[i] = false end
@@ -102,12 +109,13 @@ insertCommand('kill', function(p)
 
     local you, me = p.Character.PrimaryPart, plr.Character
 
-    me.Humanoid:UnequipTools()
+    UnequipTools()
+    me:PivotTo(me.PrimaryPart.CFrame * CFrame.new(0, Workspace.FallenPartsDestroyHeight - 5, 0))
     task.wait(.25)
 
     local tool = plr.Backpack.Stroller
-    tool.Parent = plr.Character
-    tool.Parent = workspace
+    tool.Parent = me
+    tool.Parent = Workspace
 
-    firetouchinterest(tool.Handle, you, 0, task.wait(.1), firetouchinterest(you, Workspace['Police Station']:GetChildren()[11], 0))
+    firetouchinterest(tool.Handle, you, 0, task.wait(), firetouchinterest(you, Workspace['Police Station']:GetChildren()[11], 0))
 end)
