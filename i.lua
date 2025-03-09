@@ -118,7 +118,5 @@ insertCommand('kill', function(p)
     tool.Parent = me
     tool.Parent = Workspace
 
-    task.wait(.125)
-
-    firetouchinterest(tool.Handle, you, 0, task.wait(.125), firetouchinterest(you, killPart, 0))
+    firetouchinterest(tool.Handle, you, 0, task.wait(.25), firetouchinterest(you, killPart, 0))
 end)
