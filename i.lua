@@ -121,5 +121,5 @@ insertCommand('kill', function(p)
     tool.Parent = Workspace
 
     firetouchinterest(tool.Handle, you, 0)
-    me:PivotTo(killPart.CFrame)
+    p.Character.Humanoid.Health = 0
 end)
