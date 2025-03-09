@@ -20,18 +20,14 @@ if findID then
     Workspace.ChildAdded:Connect(function(o)
         if not o:IsA'Model' then return end
 
-        s, e = pcall(function()
-            o = plrs[o.Name]
-        end) if not s then return warn(`{e} : Invalid Player!`) end
+        s, e = pcall(function() o = plrs[o.Name] end) if not s then return warn(`{e} : Invalid Player!`) end
 
         ranking[o], p = 1, plrs:GetPlayers()
         for i = 1, #p do v = p[i] if v ~= o then ranking[v] = ranking[v] + 1 end end
     end)
 end
 
-local function getRank(p)
-    return ranking[plr] < ranking[p]
-end
+local function getRank(p) return ranking[plr] < ranking[p] end
 
 local function getPlayer(p)
     p = tostring(p):lower()
@@ -46,9 +42,7 @@ local function getIndexes(a)
     for i = 1, #a do utilities.indexes += 1 end return utilities.indexes
 end
 
-local function status(p)
-    return p.Character and p.Character.Humanoid.Health ~= 0 or false
-end
+local function status(p) return p.Character and p.Character.Humanoid.Health ~= 0 or false end
 
 local function property()
     if not status(plr) then return end
@@ -65,9 +59,7 @@ local function radius(o)
     return (o - (plr.Character.PrimaryPart.CFrame).Position).Magnitude <= 5
 end
 
-local function privateMsg(n, m)
-    dcsce.SayMessageRequest:FireServer(`/w {tostring(n)} {m}`, 'All')
-end
+local function privateMsg(n, m) dcsce.SayMessageRequest:FireServer(`/w {tostring(n)} {m}`, 'All') end
 
 insertCommand('stop', function()
     for i, v in signals do v:Disconnect() end
@@ -80,10 +72,8 @@ insertCommand('csl', function()
 end)
 
 insertCommand('goto', function(p)
-    if not status(plr) then return end
-
     p = getPlayer(p)
-    if not p or not status(p) then return end
+    if not (status(plr) or p or status(p)) then return end
 
     api.cmds[`{api.prefix.new}stop`]()
 
@@ -108,121 +98,17 @@ insertCommand('bl', function(p)
 end)
 
 insertCommand('kill', function(p)
-    if not status(plr) then return end
-
-    local o = plr.Character
-    o:PivotTo(o.PrimaryPart.CFrame * CFrame.new(0, Workspace.FallenPartsDestroyHeight - 2, 0))
-    task.wait(.5)
- 
-    local h = o.Humanoid
-    h:UnequipTools()
-
     p = getPlayer(p)
-    if not p or not status(p) then return elseif not getRank(p) then h.Health = 0 return end
-    p = p.Character
 
-    local q, s, j, v, a, k = p.PrimaryPart, plr.Backpack.Stroller, Workspace['Police Station']:GetChildren() local g = s:GetChildren()
-    for i = 1, #g do v = g[i] if v:IsA'BasePart' and v:FindFirstChild'TouchInterest' then a = v; break end end
-    for i = 1, #j do v = j[i] if v:IsA'BasePart' and v:FindFirstChild'TouchInterest' then k = v; break end end
+    local you, me = p.Character.PrimaryPart, plr.Character
 
-    s.Parent = o
+    me.Humanoid:UnequipTools()
+    me:PivotTo(me.PrimaryPart.CFrame * CFrame.new(0, Workspace.FallenPartsDestroyHeight - 5, 0))
+    task.wait(.25)
 
-    firetouchinterest(a, q, 0, task.wait(), firetouchinterest(a, q, 1))
-    firetouchinterest(q, k, 0, task.wait(.05), firetouchinterest(q, k, 1))
+    local tool = plr.Backpack.Stroller
+    tool.Parent = me
+    tool.Parent = Workspace
 
-    task.wait(.1) h.Health = 0
-end)
-
-insertCommand('lkill', function(p)
-    api.cmds[`{api.prefix.new}stop`]()
-
-    loops.lkill = true
-    for i = 1, math.huge do
-        if not loops.lkill then break end
-
-        api.cmds[`{api.prefix.new}kill`](p)
-
-        plr.CharacterAdded:Wait()
-        repeat task.wait() until plr.Character:FindFirstChild'Humanoid'
-    end
-end)
-
-insertCommand('re', function()
-    if not status(plr) then return end
-    plr.Character.Humanoid.Health = 0
-end)
-
-insertCommand('rt', function()
-    local c, h, t
-    for i, v in plrs:GetPlayers() do
-        c = v.Character or nil
-        if not c then continue end
-
-        h, t = c.Head, c.Torso
-        if not h:FindFirstChild'130213380' then continue end
-        for _, o in t:GetChildren() do if not (o:IsA'Part' or o:IsA'Weld') then continue end o:Remove() end
-    end
-end)
-
-insertCommand('destroy', function()
-    if not status(plr) or #plrs:GetPlayers() <= 1 then return end
-
-    local chr = plr.Character
-    local main, hum = chr.PrimaryPart, chr.Humanoid
-
-    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end hum:EquipTool(v) task.wait(.125) end
-    hum:UnequipTools()
-
-    local jail, killPart = Workspace['Police Station']:GetChildren()
-    for _, v in jail do if v.Name ~= 'Part' or not v:FindFirstChild'TouchInterest' then continue end killPart = v; break end
-
-    local tools, players = {}, {}
-    for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent, tools[#tools + 1] = chr, v end
-    for _, v in plrs:GetPlayers() do if v == plr or not status(v) or not getRank(v) then continue end players[#players + 1] = v end
-
-    for i, v in players do
-        i = tools[i]
-        if not i then break end
-
-        i.Parent = Workspace
-        task.wait(.05)
-
-        local h, p = i.Handle, v.Character.PrimaryPart
-        firetouchinterest(h, p, 0)
-    end
-
-    task.wait(.05)
-    chr:PivotTo(killPart.CFrame)
-end)
-
-insertCommand('dupe', function(int)
-    int = tonumber(int)
-    if not int then return end
-
-    for i = 1, int do
-        if not status(plr) then return end
-
-        local c = plr.Character
-        local h = c.Humanoid
-
-        h:UnequipTools()
-        c:PivotTo(CFrame.new(0, 1e8, 0))
-        task.wait(.5)
-
-        local t = plr.Backpack:FindFirstChild'Stroller'
-        t.Parent = c
-        task.wait(.05)
-        t.Parent = Workspace
-
-        h.Health = 0
-        plr.CharacterAdded:Wait():WaitForChild'Humanoid'
-
-        if i >= int then
-            bp, c = plr.Backpack, plr.Character
-            h = c.Humanoid
-
-            local p = c.PrimaryPart
-            for _, v in Workspace:GetChildren() do if not v:IsA'Tool' or v.Name ~= 'Stroller' then continue end firetouchinterest(p, v.Handle, 0, task.wait(), firetouchinterest(p, v.Handle, 1)) v.Parent = bp end
-        end
-    end
+    firetouchinterest(tool.Handle, you, 0, task.wait(.25), firetouchinterest(you, Workspace['Police Station']:GetChildren()[11], 0))
 end)
