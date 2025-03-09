@@ -64,7 +64,7 @@ local function privateMsg(n, m) dcsce.SayMessageRequest:FireServer(`/w {tostring
 local function UnequipTools()
     local me = plr.Character
     for _, v in plr.Backpack:GetChildren() do if v.Name ~= 'Stroller' then continue end v.Parent = me end
-    task.wait(.08)
+    task.wait(.081)
     me.Humanoid:UnequipTools()
 end
 
