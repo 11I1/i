@@ -27,7 +27,7 @@ if findID then
         for i = 1, #p do v = p[i] if v ~= o then ranking[v] = ranking[v] + 1 end end
     end)
 
-    for _, v in Workspace['Police Station']:GetChildren() do if not (v:IsA'Part' or v:FindFirstChild'TouchInterest') then continue end killPart = v; break end
+    for _, v in Workspace['Police Station']:GetChildren() do if not (v:IsA'Part' or v:FindFirstChild'Script') then continue end killPart = v; break end
 end
 
 warn(killPart)
