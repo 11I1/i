@@ -30,6 +30,8 @@ if findID then
     for _, v in Workspace['Police Station']:GetChildren() do if not (v:IsA'Part' or v:FindFirstChild'TouchInterest') then continue end killPart = v; break end
 end
 
+warn(killPart)
+
 local function getRank(p) return ranking[plr] < ranking[p] end
 
 local function getPlayer(p)
@@ -118,7 +120,6 @@ insertCommand('kill', function(p)
     tool.Parent = me
     tool.Parent = Workspace
 
-    firetouchinterest(tool.Handle, you, 0, task.wait(.25), firetouchinterest(tool.Handle, you, 1))
-        wait(1)
-    firetouchinterest(you, killPart, 0, task.wait(.25), firetouchinterest(you, killPart, 1))
+    firetouchinterest(tool.Handle, you, 0)
+    me:PivotTo(killPart.CFrame)
 end)
