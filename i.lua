@@ -110,12 +110,10 @@ insertCommand('kill', function(p)
     local you, me = p.Character.PrimaryPart, plr.Character
 
     UnequipTools()
-    me:PivotTo(me.PrimaryPart.CFrame * CFrame.new(0, Workspace.FallenPartsDestroyHeight - 5, 0))
-    task.wait(.25)
 
     local tool = plr.Backpack.Stroller
     tool.Parent = me
     tool.Parent = Workspace
 
-    firetouchinterest(tool.Handle, you, 0, task.wait(.1), firetouchinterest(you, Workspace['Police Station']:GetChildren()[11], 0))
+    firetouchinterest(tool.Handle, you, 0, task.wait(.125), firetouchinterest(you, Workspace['Police Station']:GetChildren()[11], 0))
 end)
