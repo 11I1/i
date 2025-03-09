@@ -14,6 +14,7 @@ task.defer(function()
     Commands = table.concat(Commands, ' | ')
 end)
 
+local killPart
 if findID then
     local p, v = plrs:GetPlayers()
     for i = 1, #p do v = p[i] if v ~= plr then ranking[v] = ranking[plr] + 1 end end
@@ -25,6 +26,8 @@ if findID then
         ranking[o], p = 1, plrs:GetPlayers()
         for i = 1, #p do v = p[i] if v ~= o then ranking[v] = ranking[v] + 1 end end
     end)
+
+    for _, v in Workspace['Police Station']:GetChildren() do if not (v:IsA'Part' or v:FindFirstChild'TouchInterest') then continue end killPart = v; break end
 end
 
 local function getRank(p) return ranking[plr] < ranking[p] end
@@ -117,6 +120,5 @@ insertCommand('kill', function(p)
 
     task.wait(.125)
 
-    local s = Workspace['Police Station']:GetChildren()[11]
-    firetouchinterest(tool.Handle, you, 0, task.wait(.125), firetouchinterest(you, s, 0))
+    firetouchinterest(tool.Handle, you, 0, task.wait(.125), firetouchinterest(you, killPart, 0))
 end)
