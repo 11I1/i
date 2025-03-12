@@ -22,7 +22,7 @@ for i, v in GetGenv do if typeof(v) ~= 'RBXScriptConnection' then continue end v
 local Players, ReplicatedStorage, GuiService, VirtualInputManager = Game.Players, Game.ReplicatedStorage, Game.GuiService, Game:GetService("VirtualInputManager")
 local LocalPlayer, Events = Players.LocalPlayer, ReplicatedStorage.events
 local Character, Backpack, PlayerGui, Sell, Catch = LocalPlayer.Character, LocalPlayer.Backpack, LocalPlayer.PlayerGui, Events.SellAll, Events['reelfinished ']
-local Tool = Backpack:FindFirstChild('Ethereal Prism Rod') or Character:FindFirstChild('Ethereal Prism Rod')
+local Tool = Backpack:FindFirstChild("Leviathan's Fang Rod") or Character:FindFirstChild("Leviathan's Fang Rod")
 local Folder = Tool.events
 local Cast, Reset = Folder.cast, Folder.reset
 
