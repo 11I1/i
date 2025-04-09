@@ -60,8 +60,6 @@ for _, v in Workspace:GetDescendants() do if v:IsA'MeshPart' and v ~= Value and 
 
 for _, v in Game.MaterialService:GetChildren() do if v.Name ~= 'Artificial Grass Material' then v:Remove() end end
 
-for _, v in Game.Lighting:GetChildren() do if v.Name ~= 'Blur' then v:Remove() end end
-
 local Scripts = {
     'Strange',
     'RbxCharacterSounds',
