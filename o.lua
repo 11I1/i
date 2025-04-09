@@ -52,6 +52,8 @@ local Table = {
     'LobbyCam'
 }
 
+Workspace.StreamingEnabled = true
+
 Workspace.Camera:ClearAllChildren()
 Workspace.Terrain:ClearAllChildren()
 
