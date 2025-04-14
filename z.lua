@@ -33,15 +33,4 @@ Players.PlayerRemoving:Connect(function(Player)
     GetGenv[Name], Name = nil, nil
 end)
 
-local Football, BallController = ReplicatedStorage.Football, require(ReplicatedStorage.Controllers.BallController)
-
-LocalPlayer:GetMouse().KeyDown:Connect(function(Key)
-    if Key == 'e' then
-        local Character, Ball = LocalPlayer.Character, Football.Value
-        Character:PivotTo(CFrame.lookAt(Character:GetModelCFrame().Position, Ball.Position + (Ball.AssemblyLinearVelocity * 1.5)))
-        BallController:Slide()
-        Character, Ball = nil, nil
-    end
-end)
-
 Game, ReplicatedStorage, Players = nil, nil, nil
