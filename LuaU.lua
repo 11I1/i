@@ -49,7 +49,6 @@ local Workspace, Objects = workspace, {
     ['EasterEvent'] = true,
     ['Debris'] = true,
     ['Cards'] = true,
-    ['Barriers'] = true,
     ['Awakening Hiori with VL'] = true
 }
 
@@ -62,7 +61,6 @@ Workspace, Objects = nil, nil
 local Classes = {
     Texture = true,
     Decal = true,
-    ParticleEmitter = true
 }
 
 for _, v in game:GetDescendants() do if Classes[v.ClassName] then v:Remove() end end
