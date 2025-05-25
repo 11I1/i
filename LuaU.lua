@@ -56,14 +56,14 @@ Workspace.Terrain:ClearAllChildren()
 
 for _, v in Workspace:GetChildren() do local Name = v.Name if Objects[Name] then Objects[Name] = nil v:Remove() end Name = nil end
 
-Workspace, Objects = nil, nil
+Objects = nil
 
-local Classes = {
+local Camera, Classes = Workspace.Camera, {
     Texture = true,
-    Decal = true,
+    Decal = true
 }
 
-for _, v in game:GetDescendants() do if Classes[v.ClassName] then v:Remove() end end
+for _, v in game:GetDescendants() do if Classes[v.ClassName] and not v:IsDescendantOf(Camera) then v:Remove() end end
 
 for i in Classes do Classes[i] = nil end
-Classes = nil
+Workspace, Camera, Classes = nil, nil, nil
