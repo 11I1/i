@@ -60,7 +60,8 @@ Objects = nil
 
 local Camera, Classes = Workspace.Camera, {
     Texture = true,
-    Decal = true
+    Decal = true,
+    ParticleEmitter = true
 }
 
 for _, v in game:GetDescendants() do if Classes[v.ClassName] and not v:IsDescendantOf(Camera) then v:Remove() end end
