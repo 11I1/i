@@ -1,6 +1,5 @@
 local Workspace, Objects = workspace, {
     ['nutmeg'] = true,
-    ['gamepass'] = true,
     ['WheelSpin'] = true,
     ['UpdateTimer'] = true,
     ['ToxicProx'] = true,
