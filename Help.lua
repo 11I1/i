@@ -86,7 +86,7 @@ local football, Module = rep.Football, require(rep.Controllers.BallController)
 Players.LocalPlayer:GetMouse().KeyDown:Connect(function(Key)
     if Key == 'r' then
         local chr = Players.LocalPlayer.Character
-        chr:SetPrimaryPartCFrame(CFrame.lookAt(chr.PrimaryPart.Position, football.Value.Position))
+        chr:SetPrimaryPartCFrame(CFrame.lookAt(chr.PrimaryPart.Position, football.Value.Char.Value:GetModelCFrame().Position))
         Module:Slide()
         chr = nil
     end
