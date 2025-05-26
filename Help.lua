@@ -84,9 +84,9 @@ end
 local rep = game:GetService("ReplicatedStorage")
 local football, Module = rep.Football, require(rep.Controllers.BallController)
 Players.LocalPlayer:GetMouse().KeyDown:Connect(function(Key)
-    if Key == 'r' then
+    if Key == '3' then
         local chr = Players.LocalPlayer.Character
-        chr:SetPrimaryPartCFrame(CFrame.new(0, 3, football.Value.Position + football.Value.AssemblyLinearVelocity * 2) * CFrame.lookAt(chr.PrimaryPart.Position, football.Value.Position))
+        chr:SetPrimaryPartCFrame(CFrame.new(0, 3, 0) * CFrame.lookAt(chr.PrimaryPart.Position, football.Value.Position))
         Module:Slide()
         chr = nil
     end
