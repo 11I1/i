@@ -1,3 +1,6 @@
+local Game = game
+if Game.PlaceId ~= 92517437168342 then warn'Incorrect game!' end
+
 local Workspace, Objects = workspace, {
     ['nutmeg'] = true,
     ['WheelSpin'] = true,
@@ -64,7 +67,14 @@ local Camera, Classes = Workspace.Camera, {
     ParticleEmitter = true
 }
 
-for _, v in game:GetDescendants() do if Classes[v.ClassName] and not v:IsDescendantOf(Camera) then v:Remove() end end
+for _, v in Game:GetDescendants() do if Classes[v.ClassName] and not v:IsDescendantOf(Camera) then v:Remove() end end
 
 for i in Classes do Classes[i] = nil end
 Workspace, Camera, Classes = nil, nil, nil
+
+for _, v in Game.Lighting:GetChildren() do if v.Name ~= 'Blur' then v:Remove() end end
+
+for _, v in Game.Players.LocalPlayer.PlayerScripts:GetChildren() do
+    if v.Name == 'ChatTag' then continue end
+    if v:IsA'LocalScript' then v.Disabled = true elseif not v:IsA'ModuleScript' then v:Remove() end
+end
