@@ -74,7 +74,14 @@ Workspace, Camera, Classes = nil, nil, nil
 
 for _, v in Game.Lighting:GetChildren() do if v.Name ~= 'Blur' then v:Remove() end end
 
-for _, v in Game.Players.LocalPlayer.PlayerScripts:GetChildren() do
+local Player, Football = Game.Players.LocalPlayer, Game.ReplicatedStorage.Football
+
+for _, v in Player.PlayerScripts:GetChildren() do
     if v.Name == 'ChatTag' then continue end
     if v:IsA'LocalScript' then v.Disabled = true elseif not v:IsA'ModuleScript' then v:Remove() end
 end
+
+Player:GetPropertyChangedSignal'Team':Connect(function()
+    for _, v in Player.Character:GetDescendants() do if v.Name ~= 'Hitbox' then continue end v.Size = Vector3.zero end
+    Football.Value.Hitbox.Size = Vector3.zero
+end)
