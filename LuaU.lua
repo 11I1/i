@@ -1,5 +1,6 @@
-local Game = game
-if Game.PlaceId ~= 92517437168342 then warn'Incorrect game!' end
+local Game, GetGenv = game, getgenv()
+for i, v in GetGenv do if typeof(v) ~= 'RBXScriptConnection' then continue end v:Disconnect() GetGenv[i] = nil end
+if Game.PlaceId ~= 92517437168342 then Game, GetGenv = nil, nil warn'Incorrect game!' end
 
 local Workspace, Objects = workspace, {
     ['nutmeg'] = true,
@@ -81,7 +82,9 @@ for _, v in Player.PlayerScripts:GetChildren() do
     if v:IsA'LocalScript' then v.Disabled = true elseif not v:IsA'ModuleScript' then v:Remove() end
 end
 
-Player:GetPropertyChangedSignal'Team':Connect(function()
+GetGenv['Team'] = Player:GetPropertyChangedSignal'Team':Connect(function()
     for _, v in Player.Character:GetDescendants() do if v.Name ~= 'Hitbox' then continue end v.Size = Vector3.zero end
     Football.Value.Hitbox.Size = Vector3.zero
 end)
+
+Game = nil
