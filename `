@@ -1,6 +1,6 @@
 workspace.Terrain:ClearAllChildren()
 
-local Children = {
+local Children, Scripts = {
     "Atmosphere",
     "AI",
     "Cards",
@@ -50,7 +50,17 @@ local Children = {
     "ToxicProx",
     "UpdateTimer",
     "gamepass"
+}, {
+    "CrowdAnim",
+    "ChatTag",
+    "Scaling",
+    "CmdrClient",
+    "ProximityPrompt",
+    "SmartBoneRuntime",
 }
 
 for _, v in workspace:GetChildren() do if not table.find(Children, v.Name) then continue end v:Destroy() end
 for i = 1, #Children do Children[i] = nil end; Children = nil
+
+for _, v in getrunningscripts() do if v:IsA("LocalScript") and v.Enabled and table.find(Scripts, v.Name) then v.Enabled = false end end
+for i = 1, #Scripts do Scripts[i] = nil end; Scripts = nil
