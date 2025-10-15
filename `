@@ -55,8 +55,7 @@ local Children, Scripts = {
     "ChatTag",
     "Scaling",
     "CmdrClient",
-    "ProximityPrompt",
-    "SmartBoneRuntime",
+    "ProximityPrompt"
 }
 
 for _, v in workspace:GetChildren() do if not table.find(Children, v.Name) then continue end v:Destroy() end
