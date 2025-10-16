@@ -52,8 +52,6 @@ local Children, Scripts = {
     "gamepass"
 }, {
     "CrowdAnim",
-    "ChatTag",
-    "Scaling",
     "CmdrClient",
     "ProximityPrompt"
 }
