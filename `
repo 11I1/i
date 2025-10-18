@@ -1,6 +1,6 @@
 workspace.Terrain:ClearAllChildren()
 
-local Children, Scripts = {
+local Lighting, Children, Scripts = game:GetService("Lighting"), {
     "Atmosphere",
     "AI",
     "Cards",
@@ -49,7 +49,8 @@ local Children, Scripts = {
     "Shop",
     "ToxicProx",
     "UpdateTimer",
-    "gamepass"
+    "gamepass",
+    "CrowdMap2"
 }, {
     "CrowdAnim",
     "CmdrClient",
@@ -61,3 +62,5 @@ for i = 1, #Children do Children[i] = nil end; Children = nil
 
 for _, v in getrunningscripts() do if v:IsA("LocalScript") and v.Enabled and table.find(Scripts, v.Name) then v.Enabled = false end end
 for i = 1, #Scripts do Scripts[i] = nil end; Scripts = nil
+
+Lighting.StylizedSky:Destroy(); Lighting = nil
