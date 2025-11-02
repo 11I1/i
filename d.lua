@@ -1,4 +1,4 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/11I1/i/refs/heads/main/c.lua"))()
+local AddSignal = loadstring(game:HttpGet("https://raw.githubusercontent.com/11I1/i/refs/heads/main/c.lua"))()
 
 local G = game
 local S = G.GetService
@@ -56,7 +56,7 @@ if OnP and OnP:IsA("BoolValue") then
 	end)
 end
 
-Rn.PreRender:Connect(function()
+AddSignal["A"] = Rn.PreRender:Connect(function()
 	if not ball:IsA("BasePart") then return end
 	bx, bz = ball.Position.X, ball.Position.Z
 	local lvx, lvz = ball.Velocity.X, ball.Velocity.Z
@@ -103,4 +103,4 @@ local function dive()
 	if dot > THRESH then R() elseif dot < -THRESH then L() end
 end
 
-plr:GetMouse().Button2Down:Connect(dive)
+AddSignal["B"] = plr:GetMouse().Button2Down:Connect(dive)
