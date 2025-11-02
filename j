@@ -143,7 +143,7 @@ local function dive()
 	local invR = 1 / math.sqrt(r2)
 	local rvxU, rvzU = rvx * invR, rvz * invR
 	local dot = hxU * rvxU + hzU * rvzU
-	if dot > THRESH then R() elseif dot < -THRESH then L() else ms:Dive() end
+	if dot > THRESH then R() elseif dot < -THRESH then L() end
 end
 
 AddSignal["b2d"] = player:GetMouse().Button2Down:Connect(dive)
