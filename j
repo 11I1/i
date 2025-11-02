@@ -1,10 +1,3 @@
-getgenv().Signals = getgenv().Signals or {}
-for i, v in getgenv().Signals do
-    if typeof(v) ~= "RBXScriptConnection" then continue end
-    v:Disconnect(); getgenv().Signals[i] = nil
-    print(`Disconnected "{i}": <{typeof(v)}> | Memory Cleared!`)
-end
-
 local AddSignal = setmetatable(getgenv().Signals, {
     __newindex = function(t, k, v)
         if typeof(v) ~= "RBXScriptConnection" then
