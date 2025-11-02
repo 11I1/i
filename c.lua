@@ -10,3 +10,5 @@ local AddSignal = setmetatable(S, {
         end
     end
 })
+
+return AddSignal
