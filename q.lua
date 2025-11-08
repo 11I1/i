@@ -51,7 +51,6 @@ AddSignal["Touch"] = RunService.PreRender:Connect(function() firetouchinterest(H
 
 local Camera, Skip = workspace.Camera
 for _, v in game:GetDescendants() do if not table.find(Effects, v.ClassName) or v:IsDescendantOf(Camera) then continue end v:Destroy() end; Camera = nil
-for _, v in workspace.HalloweenLobby:GetChildren() do if v.Name ~= "Floor" then v:Destroy() end end
 for _, v in workspace:GetDescendants() do
     if not v:IsA("BasePart") or v.Anchored or v == Football or v:IsDescendantOf(Football) then continue end; Skip = false
     for x, p in Players:GetPlayers() do
