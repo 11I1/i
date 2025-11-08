@@ -64,3 +64,7 @@ for _, v in getrunningscripts() do if v:IsA("LocalScript") and v.Enabled and tab
 for i = 1, #Scripts do Scripts[i] = nil end; Scripts = nil
 
 Lighting.StylizedSky:Destroy(); Lighting = nil
+
+local NewLobby = workspace.NewLobby
+NewLobby.NewFixed.Structural.Floor.Parent = NewLobby
+for _, v in NewLobby:GetChildren() do if v.Name ~= "Floor" then v:Remove() end end; NewLobby = nil
