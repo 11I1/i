@@ -2,7 +2,7 @@ getgenv().Signals = getgenv().Signals or {}
 for i, v in getgenv().Signals do
     if typeof(v) ~= "RBXScriptConnection" then continue end
     v:Disconnect(); getgenv().Signals[i] = nil
-    print(`￢ﾜﾅ Disconnected "{i}": <{typeof(v)}> | ￢ﾘﾑ￯ﾸﾏ Memory Cleared!`)
+    print(`Disconnected "{i}": <{typeof(v)}> | Memory Cleared!`)
 end
 
 local AddSignal = loadstring(game:HttpGet("https://raw.githubusercontent.com/11I1/i/refs/heads/main/c.lua"))()
@@ -16,7 +16,7 @@ local Humanoid, PrimaryPart, Hitbox = Character.Humanoid, Character.PrimaryPart,
 local FBParent = ReplicatedStorage.Football
 local Football = FBParent.Value
 local FBHitbox, Zero, Range, Diving, Dive, Effects, DC, SC, AC, MB2, KR, BC, HasBall = Football.Hitbox, Vector3.zero, Vector3.new(10, 10, 10), Character.Values.Diving, ReplicatedStorage.Packages.Knit.Services.BallService.RE.Dive, {"Beam", "Highlight", "ParticleEmitter", "BloomEffect", "BlurEffect", "ColorCorrectionEffect", "DepthOfFieldEffect", "RunRaysEffect"}, require(ReplicatedStorage.Controllers.GoalieController), require(ReplicatedStorage.Controllers.AbilityController.AbilitiesClient.Gagamaru.Scorpion), require(ReplicatedStorage.Controllers.AbilityController), Enum.UserInputType.MouseButton2, Enum.KeyCode.R, require(ReplicatedStorage.Controllers.BallController), Character.Values.HasBall
-local DF, Predict = DC.Dive, BC.Predict
+local Predict = BC.Predict
 
 AddSignal["NewCharacter"] = Player.CharacterAdded:Connect(function(Object)
     Character = Object; Humanoid, PrimaryPart, Hitbox, Diving, HasBall = Character:WaitForChild("Humanoid"), Character.PrimaryPart, Character:WaitForChild("Hitbox"), Character:WaitForChild("Values").Diving, Character:WaitForChild("Values").HasBall
@@ -38,7 +38,7 @@ AddSignal["Hitbox"] = FBHitbox:GetPropertyChangedSignal("Size"):Connect(function
 AddSignal["DiveHitbox"] = Character.ChildAdded:Connect(function(Object) if Object.Name ~= "DiveHitbox" then return end Object.Size = Range end)
 AddSignal["Effects"] = game.DescendantAdded:Connect(function(Object) if not table.find(Effects, Object.ClassName) then return end Object:Destroy() end)
 AddSignal["Diving"] = Diving:GetPropertyChangedSignal("Value"):Connect(function() Dive:FireServer() end)
-AddSignal["FasterInput"] = UserInputService.InputBegan:Connect(function(i, p) if p then return end; if i.UserInputType == MB2 then DF() elseif i.KeyCode == KR then SC(AC, nil, Character) end end)
+AddSignal["FasterInput"] = UserInputService.InputBegan:Connect(function(i, p) if p then return end; if i.UserInputType == MB2 then DC:Dive() elseif i.KeyCode == KR then SC(AC, nil, Character) end end)
 AddSignal["MHitbox"] = Hitbox:GetPropertyChangedSignal("Size"):Connect(function() Hitbox.Size = Range end); Hitbox.Size = Range
 AddSignal["JH"] = Humanoid:GetPropertyChangedSignal("JumpHeight"):Connect(function() Dive:FireServer() end)
 AddSignal["Helper"] = UserInputService.InputBegan:Connect(function(input, gameProcessed)
