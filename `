@@ -4,7 +4,6 @@ local Lighting, Children, Scripts = game:GetService("Lighting"), {
     "Atmosphere",
     "Cards",
     "Catalog Import Tool",
-    "Debris",
     "EgoEvent",
     "FlowJunk",
     "GameObjects",
