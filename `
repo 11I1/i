@@ -2,7 +2,6 @@ workspace.Terrain:ClearAllChildren()
 
 local Lighting, Children, Scripts = game:GetService("Lighting"), {
     "Atmosphere",
-    "AI",
     "Cards",
     "Catalog Import Tool",
     "Debris",
