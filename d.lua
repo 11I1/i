@@ -9,7 +9,7 @@ local AddSignal = loadstring(game:HttpGet("https://raw.githubusercontent.com/11I
 local P, R, V, RS, UI = game.Players, game.ReplicatedStorage, game.VirtualInputManager, game.RunService, game.UserInputService
 local L, F, G = P.LocalPlayer, R.Football.Value, require(R.Controllers.GoalieController)
 local C = L.Character
-local PP, HUM, OP, B, Q, cross = C.PrimaryPart, C.Humanoid, F.OnPlayer, F.Before, Enum.KeyCode.Q, 0
+local H, HUM, OP, Q, cross = C.Head, C.Humanoid, F.OnPlayer, Enum.KeyCode.Q, 0
 
 local function Press(K)
     V:SendKeyEvent(true, K, false, game)
@@ -20,7 +20,7 @@ end
 local DL, DR = function() Press("A") G:Dive() end, function() Press("D") G:Dive() end
 
 AddSignal["b"] = UI.InputBegan:Connect(function(i, g)
-	if g or i.KeyCode ~= Q then return end; HUM:ChangeState(3)
-    task.wait(.02)
-	if PP.CFrame.LookVector:Cross(((F.Position + (F.AssemblyLinearVelocity * 3)) - PP.Position).Unit).Y > 0 then DL() else DR() end
+	if g or i.KeyCode ~= Q or OP.Value then return end; HUM:ChangeState(3)
+    task.wait(.015)
+	if PP.CFrame.LookVector:Cross(((F.Position + (F.AssemblyLinearVelocity * 3)) - H.Position).Unit).Y > 0 then DL() else DR() end
 end)
