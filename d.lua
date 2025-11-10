@@ -22,5 +22,5 @@ local DL, DR = function() Press("A") G:Dive() end, function() Press("D") G:Dive(
 AddSignal["b"] = UI.InputBegan:Connect(function(i, g)
 	if g or i.KeyCode ~= Q or OP.Value then return end; HUM:ChangeState(3)
     task.wait(.015)
-	if PP.CFrame.LookVector:Cross(((F.Position + (F.AssemblyLinearVelocity * 3)) - H.Position).Unit).Y > 0 then DL() else DR() end
+	if H.CFrame.LookVector:Cross(((F.Position + (F.AssemblyLinearVelocity * 3)) - H.Position).Unit).Y > 0 then DL() else DR() end
 end)
