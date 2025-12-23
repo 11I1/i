@@ -1,0 +1,10 @@
+local x = {
+    "MinClientSimulationRadius" = "2147000000",
+    "MinimalSimRadiusBuffer" = "2147000000",
+    "MaxClientSimulationRadius" = "2147000000",
+    "DebugPhysicsSenderDoesNotShrinkSimRadius" = "True",
+    "DebugUseCustomSimRadius" = "True"
+}
+
+for i, v in x do setfflag(i, v) end
+table.clear(x); x = nil
